@@ -1,0 +1,10 @@
+# Normalize line endings to LF in the repo so the auto-status commit
+# (produced on Linux CI) never conflicts with Windows checkouts.
+* text=auto eol=lf
+
+# Binary artifacts task authors may add later
+*.png binary
+*.jpg binary
+*.pdf binary
+*.xlsx binary
+*.docx binary

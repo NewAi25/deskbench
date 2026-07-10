@@ -1,0 +1,33 @@
+# Secrets — never commit real keys
+.env
+.env.*
+!.env.example
+
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+.eggs/
+build/
+dist/
+.venv/
+venv/
+.pytest_cache/
+.ruff_cache/
+.mypy_cache/
+
+# Benchmark artifacts: raw model outputs are reproducible, not source of truth.
+# summary.json and tables/ ARE committed (they are the published results).
+results/raw/
+results/scores/
+results/human/
+
+# On-disk model response cache (Step 2)
+.cache/
+cache/
+
+# OS / editor
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/

@@ -1,0 +1,99 @@
+# DeskBench
+
+**A rigorously graded benchmark for messy real-world office work.**
+
+> Most benchmarks test math-olympiad problems. DeskBench tests whether a model
+> can reconcile two messy spreadsheets, triage a contradictory inbox, or draft a
+> report from conflicting notes — and grades it with validated rubrics.
+
+Public AI benchmarks over-index on exams and code. Almost none measure the
+ambiguous, judgment-heavy tasks that make up real office work, and those that
+try rarely publish a validated grading method. DeskBench is a small (12 tasks,
+5 categories), open, reproducible benchmark that measures how well language
+models handle realistic desk work — with published rubrics, an LLM judge
+validated against human grades, and a pipeline that runs for **$0**.
+
+- **Model-agnostic** — every model is a config line (LiteLLM); adding one is a
+  one-line change.
+- **Reproducible** — boxes communicate only through typed files on disk; delete
+  a stage's output and re-run it in isolation.
+- **Auditable** — every number on the dashboard traces back to a raw model
+  output you can open.
+- **Honest** — judge scores are never reported without the human-agreement
+  number beside them, and the writeup includes a "what these results do **not**
+  show" section.
+
+## Architecture
+
+A strict pipeline. Each box has one job, a typed input, and a typed output, and
+reaches into no other box's internals.
+
+```mermaid
+flowchart LR
+    A[Task Suite\ntasks/*/task.yaml\n+ artifacts] --> B[Runner\nrunner/]
+    M[Model Registry\nconfig/models.yaml\n+ .env keys] --> B
+    B --> C[Raw Outputs Store\nresults/raw/]
+    C --> D[Grader\ngrader/\nLLM judge + rubric]
+    R[Rubrics\ntasks/*/rubric.yaml] --> D
+    D --> E[Scores Store\nresults/scores/]
+    H[Human Grades\nresults/human/] --> F
+    E --> F[Analyzer\nanalysis/]
+    F --> G[Visualizer\nsite/index.html\nstatic dashboard]
+    F --> W[Writeup\nreport/REPORT.md]
+```
+
+| # | Box | One job |
+|---|-----|---------|
+| 1 | **Task Suite** | Define what "real office work" means, concretely |
+| 2 | **Model Registry** | Make every model a config entry, never code |
+| 3 | **Runner** | Execute prompts, capture output / tokens / latency / errors |
+| 4 | **Grader** | Apply the rubric via an LLM judge; record per-criterion scores + rationale |
+| 5 | **Human Grades** | Ground truth to validate the judge (agreement rate) |
+| 6 | **Analyzer** | Aggregate: leaderboard, variance, judge agreement, failure taxonomy |
+| 7 | **Visualizer** | Static Plotly dashboard — no server, hosts on GitHub Pages |
+| 8 | **Writeup** | The honest analysis, including what the results do not show |
+
+**Key invariant:** every box is re-runnable in isolation. Delete
+`results/scores/` and re-grade without re-querying any model.
+
+## Quickstart
+
+> ⚠️ **Under construction.** The pipeline is being built step by step; see
+> [BUILDSEQUENCE.md](BUILDSEQUENCE.md) for the live status table (auto-updated by
+> CI). The commands below are the intended interface once the runner lands.
+
+```bash
+git clone https://github.com/NewAi25/deskbench.git
+cd deskbench
+python -m venv .venv && source .venv/bin/activate   # Windows: .venv\Scripts\activate
+pip install -e ".[dev]"
+cp .env.example .env          # then add the provider keys you have
+pytest                        # schemas + tooling are tested from day one
+```
+
+## Project status
+
+Built in numbered steps, each with a machine-checked Definition of Done. The
+status table in [BUILDSEQUENCE.md](BUILDSEQUENCE.md) is rewritten automatically
+by a GitHub Action on every push — a step flips to ✅ only when its artifacts
+actually exist and its tests actually pass.
+
+## Documentation
+
+- [PRD.md](PRD.md) — goals, non-goals, success criteria
+- [BUILD_PLAN.md](BUILD_PLAN.md) — architecture, tech stack, data contracts
+- [ARCHITECTURE_REVIEW.md](ARCHITECTURE_REVIEW.md) — design review + required fixes
+- [DASHBOARD_SPEC.md](DASHBOARD_SPEC.md) — dashboard UX spec
+- [BUILD_LOG.md](BUILD_LOG.md) — dated log of every build step and decision
+- [docs/adr/](docs/adr/) — Architecture Decision Records
+
+## Roadmap
+
+- **v1** — 12 tasks, 4 free models, validated judge, dashboard + report.
+- **v1.1** — India-flavored task slice; judge-assigned failure-mode taxonomy
+  (with its own agreement check); optional port of tasks to
+  [Inspect](https://inspect.aisi.org.uk/) format as an interop gesture.
+
+## License
+
+[MIT](LICENSE).

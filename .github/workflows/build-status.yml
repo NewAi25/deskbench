@@ -1,0 +1,45 @@
+name: build-status
+
+# Rewrites the status table in BUILDSEQUENCE.md from machine-checked DoD and, if
+# it changed, commits the result back with [skip ci]. GitHub natively skips
+# workflow runs for commits whose message contains [skip ci], and pushes made
+# with GITHUB_TOKEN do not retrigger workflows — so this cannot loop.
+
+on:
+  push:
+    branches: [main]
+
+permissions:
+  contents: write
+
+concurrency:
+  group: build-status
+  cancel-in-progress: false
+
+jobs:
+  update-status:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - name: Install package + dev dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -e ".[dev]"
+      - name: Recompute build status
+        run: python scripts/build_status.py
+      - name: Commit table if it changed
+        run: |
+          if [ -n "$(git status --porcelain BUILDSEQUENCE.md)" ]; then
+            git config user.name "github-actions[bot]"
+            git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+            git add BUILDSEQUENCE.md
+            git commit -m "chore: update build status [skip ci]"
+            git push
+          else
+            echo "No status change; nothing to commit."
+          fi
