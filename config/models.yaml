@@ -1,0 +1,66 @@
+# DeskBench model registry — THE env-var insight, materialized.
+#
+# Every model is a config entry, never code. Adding a model is a one-line change
+# here plus an env var in .env (see docs/adding-a-model.md). Keys are read from
+# the environment by name only; no secret ever lives in this file.
+#
+# `sampling.source: vendor-default` means DeskBench sends NO temperature/top_p/
+# max_tokens and lets the provider apply its own defaults. This is the v1
+# policy (ARCHITECTURE_REVIEW fix #3): "variance under vendor-default settings"
+# is the deployment-realistic claim an office user actually experiences. To pin
+# a value instead, set source: explicit and fill the field(s).
+#
+# Model strings below are best-effort free-tier slugs. Run `deskbench ping`
+# against your own .env to confirm each provider answers; any that has been
+# renamed by its provider is a one-line fix here.
+
+# ---------------------------------------------------------------------------
+# Leaderboard models — four labs, $0. The judge (below) is held out of this
+# list for judge independence (ARCHITECTURE_REVIEW fix #1).
+# ---------------------------------------------------------------------------
+models:
+  - id: gemini-flash
+    provider: google-ai-studio
+    litellm_model: gemini/gemini-2.0-flash
+    api_key_env: GEMINI_API_KEY
+    sampling:
+      source: vendor-default
+
+  - id: glm-4.7-flash
+    provider: zai
+    litellm_model: openai/glm-4.7-flash
+    api_key_env: ZAI_API_KEY
+    # Z.ai is OpenAI-compatible; litellm needs its base URL explicitly.
+    base_url: https://api.z.ai/api/paas/v4
+    sampling:
+      source: vendor-default
+
+  - id: llama-3.3-70b
+    provider: groq
+    litellm_model: groq/llama-3.3-70b-versatile
+    api_key_env: GROQ_API_KEY
+    sampling:
+      source: vendor-default
+
+  - id: deepseek-v3-free
+    provider: openrouter
+    litellm_model: openrouter/deepseek/deepseek-chat-v3-0324:free
+    api_key_env: OPENROUTER_API_KEY
+    sampling:
+      source: vendor-default
+
+# ---------------------------------------------------------------------------
+# Judge — held out of the leaderboard (never grades its own family).
+# Qwen2.5-72B-Instruct (Alibaba) is independent of all four leaderboard
+# families (Google / Zhipu / Meta / DeepSeek), so it cannot self-prefer any of
+# them. It is the strongest free, family-independent option available; see
+# BUILD_LOG for the rationale and the self-preference fallback if free tiers
+# ever force overlap.
+# ---------------------------------------------------------------------------
+judge:
+  id: qwen-2.5-72b-judge
+  provider: openrouter
+  litellm_model: openrouter/qwen/qwen-2.5-72b-instruct:free
+  api_key_env: OPENROUTER_API_KEY
+  sampling:
+    source: vendor-default

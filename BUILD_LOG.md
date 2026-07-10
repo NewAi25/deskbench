@@ -129,3 +129,66 @@ exist; `pytest` green locally (build-status tests). ✅
 
 **DoD.** `pytest` green (28 tests total); a malformed `task.yaml` fails
 validation with a readable error naming the file and fields. ✅
+
+---
+
+## 2026-07-11 — Step 2: Model registry
+
+**Built.**
+
+- `config/models.yaml` — four leaderboard models, one per lab, all free-tier:
+  `gemini-flash` (`gemini/gemini-2.0-flash`), `glm-4.7-flash`
+  (`openai/glm-4.7-flash` via Z.ai base URL), `llama-3.3-70b`
+  (`groq/llama-3.3-70b-versatile`), `deepseek-v3-free`
+  (`openrouter/deepseek/deepseek-chat-v3-0324:free`). Each entry carries the
+  litellm model string, provider label, `api_key_env` (env-var *name* only), and
+  `sampling: {source: vendor-default}` (fix #3). Plus a held-out `judge:` entry.
+- `deskbench/registry.py` — `load_registry()` validates the YAML into
+  `ModelConfig` objects (`extra="forbid"`, readable `ConfigError`). Retry/backoff
+  (tenacity: `stop_after_attempt` + `wait_exponential`, retrying only transient
+  provider errors matched by class name) and the on-disk `ResponseCache` are
+  built **now**, not later. Cache key = `(model_id, task_hash, sampling_params,
+  run_index)` (**fix #4**). LiteLLM is imported lazily inside `_raw_completion`
+  so the module (and tests) import with no provider SDKs and no network.
+- `deskbench/cli.py` (Typer) — `deskbench models` (list registry, no network) and
+  `deskbench ping` (one live call per provider; bypasses cache; exits non-zero on
+  any failure, so it doubles as a smoke test). Wired `deskbench` as a console
+  entry point in `pyproject.toml` now that `cli.py` exists.
+- `tests/test_registry.py` (20 tests, all network mocked): loading + judge
+  independence (rejects a judge that shares an id *or* model string with a
+  leaderboard entry, and configs with <4 models or no judge); cache-key
+  properties; retry-on-transient vs no-retry-on-hard-error; missing-key failure
+  that never touches the network. Headline: `test_two_runs_of_same_task_can_differ`
+  proves run 0 and run 1 get distinct cache keys and therefore CAN differ (fix #4
+  regression), while a repeated identical run is served from cache.
+- `docs/adding-a-model.md` — the one-line-to-add-a-model guide, sampling policy,
+  and the judge-independence rule.
+
+**What broke.**
+
+- Judge-independence check was initially unreachable for the id-collision case:
+  registering the judge hit the generic "duplicate model id" guard first. Moved
+  the independence validation to run *before* registering the judge so the
+  specific policy message ("must not be a leaderboard model") is what surfaces.
+- Lint: Typer's declarative API calls `Option()` in argument defaults, which ruff
+  flags as B008. Added a per-file ignore for `deskbench/cli.py` (this is the
+  intended Typer pattern), plus removed an unused import and wrapped a long line.
+
+**Decided — judge model choice (fix #1 / judge independence).**
+
+- Judge = **Qwen2.5-72B-Instruct** (Alibaba) via OpenRouter free tier
+  (`openrouter/qwen/qwen-2.5-72b-instruct:free`), held out of the leaderboard.
+  Rationale: the four leaderboard models span the Google, Zhipu, Meta and
+  DeepSeek families; Qwen is independent of all four, so it cannot self-prefer
+  any leaderboard entry. It is the strongest free, family-independent option
+  available. If free tiers ever force the judge to overlap a leaderboard family,
+  the plan's fallback is an explicit self-preference check reported alongside the
+  results (per BUILD_PLAN §3). The registry mechanically enforces independence,
+  so this can't regress silently.
+- Model strings are best-effort free-tier slugs. The maintainer will run
+  `deskbench ping` with real keys to confirm each answers; any provider rename is
+  a one-line fix in `models.yaml`.
+
+**DoD.** `pytest` green (48 tests total); `config/models.yaml` has ≥4 models;
+`deskbench models` lists the registry; `deskbench ping` ready for manual
+key-backed verification. ✅
