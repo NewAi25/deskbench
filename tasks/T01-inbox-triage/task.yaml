@@ -1,0 +1,36 @@
+id: T01-inbox-triage
+title: "Triage a Monday inbox with conflicting priorities"
+category: communication
+difficulty: medium
+prompt: |
+  You are the executive assistant to the CEO of a ~40-person company. It is
+  Tuesday 08:15. Over the last day the messages in inbox.md arrived, and your
+  own schedule for today is in calendar.md.
+
+  Produce three things:
+
+  1. A prioritized action list for today: what you will do, in what order, and
+     by when. Base the priorities on the actual deadlines and constraints in the
+     materials.
+  2. An explicit "conflicts and flags" section. Call out every contradiction,
+     superseded instruction, or scheduling clash you find — do NOT silently
+     pick a side or quietly drop a request. If something can't be done as asked,
+     say so and why.
+  3. Two short draft replies: one to the client (Ravi Menon) and one to your
+     colleague (Sam). Keep each to a few lines.
+
+  Use only the information in inbox.md and calendar.md. Do not invent people,
+  meetings, or deadlines that aren't there. If something is ambiguous, state
+  your assumption rather than guessing silently.
+artifacts:
+  - inbox.md
+  - calendar.md
+tools_allowed: []
+author_notes: >
+  Buried structure: (a) the CEO's Monday 08:12 "board deck by Wed, top priority"
+  is SUPERSEDED by the CEO's Monday 16:30 "push the board meeting to Thursday",
+  so the Wednesday deck crunch is void; (b) the true hard external deadline is
+  the client's signed SOW by Tuesday 12:00; (c) Sam's request to cover a 2pm
+  client call CLASHES with an existing 2–3pm board-prep hold on the calendar.
+  A weak answer keeps racing for the Wednesday deck, misses that 2pm is
+  double-booked, or silently reorders priorities without flagging the conflicts.

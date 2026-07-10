@@ -192,3 +192,68 @@ validation with a readable error naming the file and fields. ✅
 **DoD.** `pytest` green (48 tests total); `config/models.yaml` has ≥4 models;
 `deskbench models` lists the registry; `deskbench ping` ready for manual
 key-backed verification. ✅
+
+---
+
+## 2026-07-11 — Step 3: Pilot tasks (T01, T02)
+
+**Built.**
+
+- **T01 — `tasks/T01-inbox-triage/`** (communication, medium). Artifacts:
+  `inbox.md` (five real-sounding emails with timestamps) + `calendar.md`.
+  Buried structure: the CEO's Mon 16:30 note ("move the board meeting to
+  Thursday") *supersedes* her Mon 08:12 "board deck by Wednesday, top priority",
+  so the true hard deadline becomes the client's Tue-noon SOW; and covering a
+  colleague's 2pm call *clashes* with an existing 2–3pm CFO board-prep hold.
+- **T02 — `tasks/T02-spreadsheet-reconciliation/`** (data-wrangling, hard).
+  Artifacts: `crm_export.csv` + `finance_ledger.csv`. CRM total 43,650 (correct);
+  finance total 38,550 because of two offsetting problems — a duplicated
+  Bluecrest row (+8,400) and a dropped-zero on Everest (1,500 vs 15,000, −13,500)
+  — net −5,100, verified to match. Everything else (name variants, `$`/decimal/
+  thousands formatting, MM/DD vs DD/MM dates) is cosmetic noise. The task is to
+  separate the one real error from the noise and flag the ambiguous value rather
+  than confidently "fix" it. Arithmetic was checked programmatically.
+- Both tasks follow the fixture pattern exactly (task.yaml + artifacts/ +
+  reference.md + rubric.yaml) and schema-validate. Each rubric has weighted
+  criteria summing to 1.0 with concrete 1/3/5 anchors and `auto_fail` conditions
+  (fabrication; unacknowledged impossible actions).
+- `tests/test_tasks.py` — CI now schema-validates **every** task dir on push
+  (BUILD_PLAN §3): id matches dir, rubric task_id matches, reference.md present,
+  declared artifacts exist, content hash computes, weights sum to 1.0.
+- `scripts/saturation_check.py` + `tests/test_saturation.py` — a lightweight
+  saturation probe (kept separate from the Step-5 grader): runs two models on
+  both pilots, has the held-out judge score them against the rubric anchors, and
+  prints the spread / flags saturation (all ≥4/5). Its pure helpers are
+  unit-tested with no network; the live path needs keys.
+- `docs/adding-a-task.md` — the task-authoring guide (reference-before-model
+  discipline, how to make artifacts messy with a buried contradiction, writing
+  anchored rubrics), written from authoring T01/T02.
+
+**Discipline (stated as required).**
+
+- **Both `reference.md` files were written before any model was run** — indeed
+  before any model *could* be run in this environment (no provider keys here).
+  This is the contamination-resistance + "decide what good means first"
+  commitment from BUILD_PLAN §3, and it is trivially satisfied because no run has
+  happened yet.
+
+**Saturation check — status: PENDING maintainer run (needs keys).**
+
+- The saturation check requires live provider keys, which are **not present in
+  this build environment** (same reason `deskbench ping` is a manual step). I did
+  **not** fabricate scores. The probe is built, tested, and ready:
+  `python scripts/saturation_check.py` (defaults: `gemini-flash` +
+  `llama-3.3-70b` across T01 and T02).
+- Gate (unchanged, per BUILD_PLAN §3): if every (task, model) scores ≥4/5, the
+  tasks don't discriminate → harden before scaling (Step 6). The build correctly
+  stops at Step 3, so the gate is respected regardless: Step 4 does not begin
+  here. Once the maintainer runs the probe, record the spread in the next
+  BUILD_LOG entry; if saturated, harder variants are proposed before proceeding.
+- Design intent to resist saturation: both tasks hinge on catching a buried
+  contradiction and on *flagging* ambiguity rather than resolving it silently —
+  behaviours weaker models routinely miss — so the expectation is a spread, not a
+  ceiling. This is a hypothesis to confirm with the probe, not a claim.
+
+**DoD.** Two task dirs schema-validate (CI-enforced); saturation check built,
+tested, and logged (live run pending keys). ✅ *(machine-checked criteria met;
+saturation numeric result deferred to the maintainer's key-backed run.)*

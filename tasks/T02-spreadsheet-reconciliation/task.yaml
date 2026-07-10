@@ -1,0 +1,39 @@
+id: T02-spreadsheet-reconciliation
+title: "Reconcile a CRM export against the finance ledger"
+category: data-wrangling
+difficulty: hard
+prompt: |
+  Two systems exported what should be the same set of Q1 deals: the sales team's
+  CRM (crm_export.csv) and the finance ledger (finance_ledger.csv). The two
+  totals don't match, and someone needs to figure out why before quarter close.
+
+  Produce:
+
+  1. The correct reconciled total for these deals, with your reasoning.
+  2. A line-by-line reconciliation: for every difference between the two files,
+     say what it is and classify it as either a COSMETIC/formatting artifact
+     (same underlying deal, just written differently) or a GENUINE data error
+     (the numbers actually disagree).
+  3. A clear call on which single difference is the real data error that needs
+     correcting, versus which differences are only cosmetic.
+
+  State any assumptions explicitly (for example, if a date or which system to
+  trust is ambiguous). Do not fabricate any figure, row, or customer that is not
+  in the two files. If you cannot determine a value for certain, say so rather
+  than inventing one.
+artifacts:
+  - crm_export.csv
+  - finance_ledger.csv
+tools_allowed: []
+author_notes: >
+  Underlying truth: five deals (Acme 12,000; Bluecrest 8,400; Cirrus 5,250;
+  Delta 3,000; Everest 15,000) → true total 43,650. CRM total = 43,650 (correct).
+  Finance total = 38,550 because of TWO independent problems that partly cancel:
+  (a) Bluecrest INV-1002 is DUPLICATED (double-counts +8,400), and (b) Everest
+  INV-1005 is recorded as 1,500 instead of 15,000 (a dropped zero, −13,500). Net
+  Finance is 5,100 low. Everything else is cosmetic: name variants (Acme Corp vs
+  ACME Corporation, Ltd vs Limited, "cirrus" case, a trailing space), currency
+  formatting ($ signs, decimals, thousands separators), and date format (CRM
+  MM/DD/YYYY vs finance DD/MM/YYYY — the dates are equivalent here). A weak
+  answer sums one file, misses the duplicate or the dropped zero, or "fixes"
+  Everest to a confident wrong number instead of flagging it for confirmation.

@@ -1,0 +1,57 @@
+task_id: T01-inbox-triage
+criteria:
+  - name: correct-prioritization
+    weight: 0.30
+    description: >
+      Treats the client SOW (Tuesday 12:00, external, irreversible) as the true
+      top priority once the board deck deadline moves — rather than continuing to
+      treat the board deck as #1 just because the CEO said so first.
+    anchors:
+      1: >
+        Keeps the board deck as the top priority, or races to finish it by
+        Wednesday; the SOW is buried, late, or missing from the plan.
+      3: >
+        Puts the SOW high and does it on time, but the ordering/justification is
+        muddled or still leans on the void Wednesday deck deadline.
+      5: >
+        SOW is clearly #1 and tied to its being the only hard external deadline;
+        the deck is correctly relaxed to the Thursday timeline.
+  - name: catches-superseded-instruction
+    weight: 0.25
+    description: >
+      Recognizes the CEO's Mon 16:30 note (board moved to Thursday) supersedes her
+      Mon 08:12 note (board deck by Wednesday), so the Wednesday deadline is void.
+    anchors:
+      1: "Treats the Wednesday deck deadline as still binding; misses the supersession."
+      3: "Uses the Thursday timeline but never explicitly notes that it overrode the Wednesday one."
+      5: "Explicitly flags that the later note supersedes the earlier, and that Wednesday is no longer in force."
+  - name: catches-scheduling-conflict
+    weight: 0.20
+    description: >
+      Notices that covering Sam's 2:00pm call clashes with the existing
+      14:00–15:00 board-prep hold with the CFO (who is only free then), and does
+      not silently double-book.
+    anchors:
+      1: "Agrees to take the 2pm with no mention of the clash (silent double-booking), or ignores Sam entirely."
+      3: "Notices a problem with the 2pm but is vague about what it clashes with or proposes no alternative."
+      5: "Names the exact clash (2pm cover vs 2–3pm CFO board prep) and proposes a concrete alternative."
+  - name: surfaces-not-silently-resolves
+    weight: 0.15
+    description: >
+      Flags contradictions, superseded instructions, and clashes explicitly in a
+      dedicated way, rather than quietly resolving them; states assumptions on
+      ambiguous items (e.g. the expense reminder).
+    anchors:
+      1: "Silently makes choices; no contradictions or assumptions are surfaced."
+      3: "Surfaces some conflicts but resolves others silently, or states no assumptions."
+      5: "Every contradiction/clash is called out explicitly and ambiguous items carry a stated assumption."
+  - name: reply-quality
+    weight: 0.10
+    description: "The client and colleague replies are clear, honest, and actionable within a few lines."
+    anchors:
+      1: "A reply is missing, dishonest (e.g. promises to cover the 2pm), or unusable."
+      3: "Replies are present and fine but generic, or one lacks a clear next step."
+      5: "Both replies are concise, truthful, and give a clear next step/option."
+auto_fail:
+  - "Fabricates a person, meeting, or deadline not present in inbox.md or calendar.md."
+  - "Commits to both the 2pm cover and the 2–3pm CFO board prep (an impossible double-booking) with no acknowledgement."
