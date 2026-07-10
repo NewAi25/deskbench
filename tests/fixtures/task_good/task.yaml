@@ -1,0 +1,14 @@
+id: T00-fixture-triage
+title: "Fixture: reconcile a small contradictory inbox"
+category: communication
+difficulty: medium
+prompt: |
+  You are the ops coordinator. Read the three emails in emails.md. They contain
+  conflicting instructions about the Friday release. Decide what to actually do,
+  flag every contradiction you found rather than silently picking a side, and
+  draft a two-line reply to the team.
+artifacts:
+  - emails.md
+tools_allowed: []
+author_notes: >
+  Minimal fixture used only by the schema tests. Not part of the real suite.

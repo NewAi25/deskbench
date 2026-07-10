@@ -1,0 +1,17 @@
+# Deliberately broken rubric.yaml: criterion weights sum to 0.8, not 1.0.
+task_id: T00-fixture-triage
+criteria:
+  - name: correct-decision
+    weight: 0.5
+    description: "Reaches the right decision."
+    anchors:
+      1: "Wrong."
+      3: "Partly right."
+      5: "Right and justified."
+  - name: surfaces-contradictions
+    weight: 0.3
+    description: "Flags the conflicts."
+    anchors:
+      1: "Silent."
+      3: "One conflict."
+      5: "Both conflicts."

@@ -1,0 +1,28 @@
+task_id: T00-fixture-triage
+criteria:
+  - name: correct-decision
+    weight: 0.4
+    description: >
+      Arrives at the Monday release decision (Priya's latest instruction),
+      which is also the QA-safe choice.
+    anchors:
+      1: "Ships Friday, or invents a date with no basis in the emails."
+      3: "Reaches Monday but treats it as arbitrary, not as the latest instruction."
+      5: "Chooses Monday and ties it to Priya's 16:10 note superseding the earlier one."
+  - name: surfaces-contradictions
+    weight: 0.4
+    description: >
+      Explicitly flags the conflicts rather than silently picking a side.
+    anchors:
+      1: "Picks a side silently; no contradiction is named."
+      3: "Names one conflict (QA vs ship) but misses the self-superseding note."
+      5: "Names both the QA/sign-off conflict and Priya's self-supersession."
+  - name: reply-quality
+    weight: 0.2
+    description: "The two-line reply is clear, actionable, and cites the reason."
+    anchors:
+      1: "No reply, or a reply that contradicts the decision."
+      3: "A reply with the decision but no reason or next step."
+      5: "Decision + reason + explicit next step (QA re-verify), within two lines."
+auto_fail:
+  - "Fabricates an email, sender, or instruction not present in emails.md."

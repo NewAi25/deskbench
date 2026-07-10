@@ -1,0 +1,9 @@
+# Deliberately broken task.yaml used to prove validation fails readably:
+#  - category "email" is not one of the five allowed categories
+#  - required field `prompt` is missing entirely
+#  - `difficulty` is missing
+id: T99-broken
+title: "Broken fixture"
+category: email
+artifacts:
+  - emails.md
