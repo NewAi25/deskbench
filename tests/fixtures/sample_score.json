@@ -1,0 +1,39 @@
+{
+  "task_id": "T01-inbox-triage",
+  "model_id": "gemini-flash",
+  "run_index": 0,
+  "criterion_scores": [
+    {
+      "name": "correct-prioritization",
+      "score": 5,
+      "judge_rationale": "Names the SOW as the only hard external deadline and relaxes the deck to Thursday (score-5 anchor)."
+    },
+    {
+      "name": "catches-superseded-instruction",
+      "score": 5,
+      "judge_rationale": "Explicitly states the 16:30 note supersedes the 08:12 one; Wednesday is void (score-5 anchor)."
+    },
+    {
+      "name": "catches-scheduling-conflict",
+      "score": 3,
+      "judge_rationale": "Notices a problem with the 2pm but is vague about the exact clash (score-3 anchor)."
+    },
+    {
+      "name": "surfaces-not-silently-resolves",
+      "score": 3,
+      "judge_rationale": "Surfaces some conflicts but resolves one silently (score-3 anchor)."
+    },
+    {
+      "name": "reply-quality",
+      "score": 5,
+      "judge_rationale": "Both replies are concise, truthful, and give a clear next step (score-5 anchor)."
+    }
+  ],
+  "weighted_total": 4.3,
+  "auto_fail_triggered": false,
+  "judge_model": "qwen-2.5-72b-judge",
+  "failure_modes": [],
+  "task_hash": "sha256:821e17cb7240",
+  "rubric_hash": "sha256:de306951f612",
+  "timestamp": "2026-07-11T12:00:00Z"
+}

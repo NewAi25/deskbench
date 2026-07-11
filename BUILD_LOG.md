@@ -307,3 +307,77 @@ API calls; the gate still governs Step 6.*
 
 **DoD.** `pytest` green (69 tests total); `tests/test_runner.py` passes; a raw
 result JSON is committed as a fixture; runner is resumable. ✅
+
+---
+
+## 2026-07-11 — Step 5: Grader (mocked)
+
+**Built.**
+
+- `deskbench/grader.py` (Box 4) — grades a model output against its rubric via
+  the **held-out judge**:
+  - `build_judge_prompt` assembles rubric anchors + auto-fail conditions +
+    reference (explicitly demoted to "context only, NOT the grading target") +
+    the candidate answer, and instructs the judge to score against the anchors
+    and cite the anchor in each rationale.
+  - `parse_judge_response` enforces a strict JSON contract: every criterion
+    scored 1-5 with a non-empty rationale; unknown / missing / duplicate criteria
+    and out-of-range scores are rejected (`JudgeParseError`).
+  - `grade()` does **reject-and-retry** (default 3 attempts); persistent failure
+    raises `GraderError` rather than emitting a fabricated score. The judge cache
+    seed encodes the exact candidate + rubric hash so grades of different outputs
+    never collide, and `run_index=attempt` gives a fresh call on each retry.
+  - **Auto-fail forces the weighted total to 0.0.** Failure-mode taxonomy is
+    left to Step 7 (human-assigned, fix #5), so `Score.failure_modes` stays empty.
+- `deskbench grade` CLI: walks `results/raw/`, grades matching results, writes
+  `results/scores/{record}.json`; skips errored raws; reports auto-fails and
+  parse failures; exits non-zero if any grade failed to parse.
+- `tests/test_grader.py` (16 tests, judge fully mocked): valid grading +
+  weighting; auto-fail → 0; reject-and-retry recovers on a later attempt;
+  persistent bad JSON raises; the full JSON contract (missing/unknown/duplicate/
+  out-of-range/empty-rationale/non-JSON/prose-wrapped); grading uses **only** the
+  held-out judge (asserted via the captured model id) which is not a leaderboard
+  model; end-to-end via a RawResult; and the committed score fixture validates.
+- `tests/fixtures/sample_score.json` — a real `Score` (generated via the schema,
+  guaranteed valid), committed as the Step 5 fixture.
+- `docs/adr/ADR-002-judge-prompt-and-independence.md` — judge prompt design
+  (anchors-not-reference, cite-the-anchor, enforced JSON, reject-and-retry,
+  auto-fail) and the judge-independence policy incl. the self-preference fallback.
+
+**What broke.**
+
+- Lint: two over-long lines and a `timezone.utc` (UP017). While fixing, I
+  lower-cased the whole judge prompt in one assertion, which then broke the
+  `"AUTO-FAIL"`/`"score 5:"` substring checks — corrected to keep a
+  case-preserving copy for those and a lower-cased copy only for the
+  case-insensitive check.
+
+**Decided.**
+
+- **Judge output must be structured and enforced, never parsed from prose.** A
+  strict per-criterion JSON schema is what makes rationales auditable and feeds
+  the Step 7 human-agreement check; the price is occasional reject-and-retry.
+- **The grader never invents a score.** If the judge won't produce valid JSON in
+  the attempt budget, that result is left ungraded and surfaced — an
+  unparseable judge reply is an honest failure, not a silent zero.
+
+**DoD.** `pytest` green (85 tests total); `tests/test_grader.py` passes; a score
+JSON fixture validates; spot-checkable rationales cite the rubric anchors (the
+judge prompt mandates it, and the parser rejects empty rationales). ✅
+
+---
+
+### ⛔ HARD GATE before Step 6 (maintainer, key-dependent)
+
+Per the maintainer's instruction, Steps 4 and 5 were built fully mocked (no live
+API calls). **Step 6 does not start until the gate has real numbers:**
+
+1. `deskbench ping` — confirm all four model slugs + the judge resolve with real
+   keys; any provider rename is a one-line fix in `config/models.yaml`.
+2. `python scripts/saturation_check.py` — run the pilots against two models and
+   paste the score spread. If everything scores ≥4/5, harder task variants are
+   proposed before scaling.
+3. The maintainer's editorial pass on T01/T02 (applied verbatim when received,
+   recorded here as maintainer editorial changes).
+
+The build stops at Step 5 and waits.

@@ -1,7 +1,8 @@
 """DeskBench command-line interface (Typer).
 
 Grows one command per box. Step 2 ships ``ping``/``models``; Step 4 adds
-``run`` (execute tasks → raw results). Grade/analyze/render land in later steps.
+``run`` (tasks → raw results); Step 5 adds ``grade`` (raw results → scores).
+Analyze/render land in later steps.
 """
 
 from __future__ import annotations
@@ -10,8 +11,10 @@ from pathlib import Path
 
 import typer
 
+from .grader import DEFAULT_SCORES_DIR, GraderError, grade_raw_result
 from .registry import DEFAULT_CONFIG, ConfigError, load_registry
 from .runner import DEFAULT_RAW_DIR, RunnerError, resolve_task_dirs, run_task
+from .schemas import RawResult
 
 app = typer.Typer(
     help="DeskBench — a benchmark for messy real-world office work.",
@@ -115,6 +118,60 @@ def run(
             )
     typer.echo(f"\nWrote raw results to {out}/ ({total_err} errored run(s)).")
     if total_err:
+        raise typer.Exit(1)
+
+
+@app.command()
+def grade(
+    task: str = typer.Option("all", help="Task id or 'all'."),
+    model: str = typer.Option("all", help="Model id or 'all'."),
+    config: Path = typer.Option(DEFAULT_CONFIG, help="Path to models.yaml"),
+    tasks_dir: Path = typer.Option(Path("tasks"), help="Directory of task folders."),
+    raw_dir: Path = typer.Option(DEFAULT_RAW_DIR, help="Where raw result JSONs live."),
+    out: Path = typer.Option(DEFAULT_SCORES_DIR, help="Where to write score JSONs."),
+):
+    """Grade raw results with the held-out judge, writing one score JSON per result.
+
+    Needs a judge key. Errored raw results (no answer) are skipped. A judge reply
+    that won't parse after retries is reported and that result is left ungraded.
+    """
+    try:
+        reg = load_registry(config)
+    except ConfigError as exc:
+        typer.secho(str(exc), fg=typer.colors.RED, err=True)
+        raise typer.Exit(1) from exc
+
+    out.mkdir(parents=True, exist_ok=True)
+    graded = skipped = failed = 0
+    for path in sorted(raw_dir.glob("*.json")):
+        raw = RawResult.model_validate_json(path.read_text(encoding="utf-8"))
+        if task != "all" and raw.task_id != task:
+            continue
+        if model != "all" and raw.model_id != model:
+            continue
+        if raw.error:
+            skipped += 1
+            typer.secho(
+                f"[skip] {raw.record_id}: errored run ({raw.error})", fg=typer.colors.YELLOW
+            )
+            continue
+        try:
+            score = grade_raw_result(reg, raw, tasks_dir / raw.task_id)
+        except GraderError as exc:
+            failed += 1
+            typer.secho(f"[FAIL] {raw.record_id}: {exc}", fg=typer.colors.RED)
+            continue
+        (out / f"{score.record_id}.json").write_text(
+            score.model_dump_json(indent=2), encoding="utf-8"
+        )
+        graded += 1
+        flag = "  AUTO-FAIL" if score.auto_fail_triggered else ""
+        typer.secho(
+            f"[ok]   {score.record_id}: {score.weighted_total:.2f}/5{flag}",
+            fg=typer.colors.GREEN,
+        )
+    typer.echo(f"\nGraded {graded}, skipped {skipped} (errored), failed {failed} → {out}/")
+    if failed:
         raise typer.Exit(1)
 
 
