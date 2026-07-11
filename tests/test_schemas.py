@@ -49,6 +49,57 @@ def test_load_good_task():
     assert task.content_hash is None  # authored files never carry a hash
 
 
+def test_task_variant_defaults_to_messy_and_accepts_clean():
+    task = load_task(GOOD_TASK_DIR / "task.yaml")
+    assert task.variant == "messy"  # default when not declared
+    clean = Task.model_validate(
+        {
+            "id": "T00c",
+            "title": "clean twin",
+            "category": "communication",
+            "difficulty": "medium",
+            "variant": "clean",
+            "prompt": "do the work",
+        }
+    )
+    assert clean.variant == "clean"
+    with pytest.raises(ValidationError):
+        Task.model_validate(
+            {
+                "id": "x",
+                "title": "t",
+                "category": "communication",
+                "difficulty": "easy",
+                "variant": "pristine",  # not a valid variant
+                "prompt": "p",
+            }
+        )
+
+
+def test_raw_result_carries_variant():
+    r = RawResult(
+        task_id="T00",
+        model_id="m",
+        run_index=0,
+        variant="clean",
+        output="x",
+        timestamp=_now(),
+        task_hash="sha256:abc123abc123",
+    )
+    assert r.variant == "clean"
+    again = RawResult.model_validate_json(r.model_dump_json())
+    assert again.variant == "clean"
+    default = RawResult(
+        task_id="T00",
+        model_id="m",
+        run_index=0,
+        output="x",
+        timestamp=_now(),
+        task_hash="sha256:abc123abc123",
+    )
+    assert default.variant == "messy"
+
+
 def test_load_good_rubric():
     rubric = load_rubric(GOOD_TASK_DIR / "rubric.yaml")
     assert isinstance(rubric, Rubric)

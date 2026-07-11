@@ -381,3 +381,55 @@ API calls). **Step 6 does not start until the gate has real numbers:**
    recorded here as maintainer editorial changes).
 
 The build stops at Step 5 and waits.
+
+---
+
+## 2026-07-11 — MVP pivot: `variant` field (messy | clean)
+
+*Change of plan (maintainer): descope to a 2-day MVP — "DeskBench Pilot": 2 tasks
+(T01, T02) × 2 variants (messy + clean twin) × 4 models × 3 runs, judge-graded
+with 100% human validation, reporting leaderboard + MESS PENALTY + SILENT-FAILURE
+RATE + judge–human agreement. The 12-generator vision moves to the roadmap
+(ADR-002 stays as the v2 design; the framework is NOT built now). Steps 4 and 5
+(runner, grader) were already built and committed earlier this session; the only
+net-new code for item 1 is the variant field.*
+
+**Built.**
+
+- `schemas.py`: new `Variant = Literal["messy", "clean"]`. Added `variant` to
+  **Task** (source of truth; defaults to `messy` so existing task.yaml stay valid;
+  clean twins declare `variant: clean`) and to **RawResult** (recorded per run so
+  the analyzer can pair twins without relying on a naming convention).
+- `runner.py`: `run_once` now stamps `RawResult.variant = task.variant` on both
+  the success and error paths.
+- Tests: `test_schemas.py` — variant defaults to messy, accepts clean, rejects an
+  invalid value, and round-trips on RawResult; `test_runner.py` — the runner
+  records `messy` for T01 and `clean` for a clean-twin task dir. 88 tests green,
+  lint clean.
+
+**Decided.**
+
+- `variant` lives on both Task (declared) and RawResult (recorded). This is the
+  same concept materialized where it belongs; it keeps the runner trivial (copy
+  `task.variant`) and avoids inferring the twin from an `id` suffix.
+
+**Not yet done / blocked (see BLOCKERS below).** Clean twins (T01c, T02c) and the
+CORE/MESS rubric split are NOT authored in this commit — they depend on a
+maintainer input (the core/noise "addendum") and a rubric-weighting decision that
+conflicts with the current schema. Raised for resolution before authoring.
+
+### ⛔ BLOCKERS raised before authoring the clean twins (item 2)
+
+1. **The "addendum" is not in hand.** The plan says author the twins "per the
+   core/noise definition in the addendum" — that document wasn't provided. The
+   inline definition (T01c: drop the superseded-instruction trap + calendar
+   clash; T02c: keep dup row + dropped zero, strip format/name/date noise) is
+   enough to draft from, but the exact CORE-vs-MESS *criterion* split is the
+   maintainer's curation call.
+2. **CORE/MESS weights conflict with the schema.** "CORE criteria shared with
+   identical weights across twins; MESS criteria messy-only" cannot hold while the
+   Rubric schema requires weights to sum to 1.0: if core weights are identical in
+   both twins, the clean rubric (core only) sums to < 1.0. Resolving this needs a
+   schema + grader change, so it must be confirmed before authoring, not guessed.
+
+Nothing runs and no twins are authored until these are resolved.

@@ -64,6 +64,13 @@ CATEGORIES: tuple[str, ...] = (
 
 Difficulty = Literal["easy", "medium", "hard"]
 
+# A task is one of a twin pair: the "messy" original (with realistic noise) or its
+# "clean" twin (core work only, noise stripped). The MESS PENALTY compares the two
+# (see the MVP pilot design). Recorded on every RawResult so the analyzer can pair
+# runs without relying on naming conventions.
+Variant = Literal["messy", "clean"]
+VARIANTS: tuple[str, ...] = ("messy", "clean")
+
 # Fixed failure-mode taxonomy (ARCHITECTURE_REVIEW fix #5; human-assigned in v1).
 FailureMode = Literal[
     "hallucinated-data",
@@ -118,6 +125,9 @@ class Task(BaseModel):
     title: str = Field(..., min_length=1)
     category: Category
     difficulty: Difficulty
+    #: "messy" original or its "clean" twin. Defaults to messy so existing
+    #: single tasks stay valid; clean twins declare `variant: clean`.
+    variant: Variant = "messy"
     prompt: str = Field(..., min_length=1)
     artifacts: list[str] = Field(
         default_factory=list,
@@ -221,6 +231,9 @@ class RawResult(BaseModel):
     task_id: str = Field(..., min_length=1)
     model_id: str = Field(..., min_length=1)
     run_index: int = Field(..., ge=0)
+    #: Which twin produced this run — set by the runner from the task (MVP mess
+    #: penalty). Defaults to messy so older fixtures stay valid.
+    variant: Variant = "messy"
     output: str
     tool_trace: list[ToolCall] = Field(default_factory=list)
     tokens_in: int = Field(0, ge=0)

@@ -73,6 +73,25 @@ def test_run_records_vendor_default_sampling(tmp_path, monkeypatch):
     assert results[0].sampling.source == "vendor-default"
 
 
+def test_runner_records_variant_from_task(tmp_path, monkeypatch):
+    _mock_ok(monkeypatch)
+    reg = _registry(tmp_path)
+    # T01 declares variant messy (default).
+    messy = run_task(reg, T01, "gemini-flash", 1, out_dir=tmp_path / "raw_m")
+    assert messy[0].variant == "messy"
+
+    # A clean-twin task dir must be recorded as clean.
+    clean_dir = tmp_path / "T01c"
+    (clean_dir / "artifacts").mkdir(parents=True)
+    data = yaml.safe_load((T01 / "task.yaml").read_text(encoding="utf-8"))
+    data["id"] = "T01c"
+    data["variant"] = "clean"
+    data["artifacts"] = []
+    (clean_dir / "task.yaml").write_text(yaml.safe_dump(data), encoding="utf-8")
+    clean = run_task(reg, clean_dir, "gemini-flash", 1, out_dir=tmp_path / "raw_c")
+    assert clean[0].variant == "clean"
+
+
 # --------------------------------------------------------------------------- #
 # Errors are results, not crashes
 # --------------------------------------------------------------------------- #
