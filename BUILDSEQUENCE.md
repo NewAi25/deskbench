@@ -8,7 +8,7 @@
 | 1 | Schemas | `schemas.py` | `tests/test_schemas.py` passes; all 4 contracts defined | ✅ done |
 | 2 | Model registry | `registry.py` | `tests/test_registry.py` passes; `config/models.yaml` has ≥4 models | ✅ done |
 | 3 | Pilot tasks + rubrics | tasks T01–T02 | 2 task dirs schema-validate (task.yaml, rubric.yaml, reference.md, artifacts/); saturation check logged in BUILD_LOG | ✅ done |
-| 4 | Runner | `runner.py` | `tests/test_runner.py` passes; ≥1 raw result JSON committed as fixture | ⬜ pending |
+| 4 | Runner | `runner.py` | `tests/test_runner.py` passes; ≥1 raw result JSON committed as fixture | ✅ done |
 | 5 | Grader | `grader.py` | `tests/test_grader.py` passes; ≥1 score JSON fixture validates | ⬜ pending |
 | 6 | Full task suite | tasks T03–T12 | 12 task dirs schema-validate; all 5 categories covered | ⬜ pending |
 | 7 | Judge validation | `analyzer.py` (agreement) | `results/human/` has ≥30% sample; agreement metrics in `results/summary.json` | ⬜ pending |
