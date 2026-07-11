@@ -47,13 +47,26 @@ costs it.
 - **This asymmetry is deliberate:** what counts as core vs. noise is a per-task
   curation judgement, not a mechanical rule, and it is recorded in each task's
   `author_notes` and reviewed as such.
+- **Structural system differences are core, not noise.** `T02c` deliberately
+  keeps the two files' different column headers (`Txn`→`Deal ID`,
+  `Value`→`Amount`): even with clean data, a competent human reconciling two
+  systems still has to map fields across them. That mapping is baseline
+  reconciliation competence — exactly what the clean twin measures — so the
+  clean twin strips only *value-level* noise (name variants, number and date
+  formatting), never the two-systems premise itself.
 
 ### CORE / MESS rubric split
 
 Each rubric criterion carries a `kind`: **core** (grades the underlying work;
 present in both twins) or **mess** (grades handling of the injected noise;
-messy rubric only). The **relative** core weights are identical across a twin
-pair, so the two variants grade the same underlying work the same way.
+messy rubric only). Core weights are **identical verbatim** across a twin pair:
+the clean rubric carries the messy rubric's core weights unchanged (so they sum
+to less than 1.0), and the grader normalizes `weighted_total` by the weight sum
+— putting both variants on the same 1–5 scale while CI enforces exact
+weight-for-weight equality across the pair. (The alternative — renormalizing
+the clean rubric's weights to sum to 1.0 — was considered and rejected: it is
+numerically identical, and switching would be churn for equivalence while
+replacing the stronger absolute-weight CI invariant with a ratio check.)
 
 ### Mess-penalty formula (confirmed)
 
