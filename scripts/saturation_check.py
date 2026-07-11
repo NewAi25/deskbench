@@ -26,25 +26,19 @@ from pathlib import Path
 
 from deskbench import schemas
 from deskbench.registry import load_registry
-from deskbench.schemas import Rubric, Task
+from deskbench.runner import build_prompt  # canonical artifact-inlining prompt builder
+from deskbench.schemas import Rubric
 
 REPO_ROOT = Path(__file__).resolve().parents[1]
 DEFAULT_MODELS = ["gemini-flash", "llama-3.3-70b"]
 SATURATION_THRESHOLD = 4.0
 
+__all__ = ["build_prompt"]  # re-exported so tests/callers can use sc.build_prompt
+
 
 # --------------------------------------------------------------------------- #
 # Pure helpers (unit-tested, no network)
 # --------------------------------------------------------------------------- #
-def build_prompt(task: Task, task_dir: Path) -> str:
-    """Inline the task's artifacts into a single self-contained prompt."""
-    parts = [task.prompt.strip(), "\n\n--- MATERIALS ---"]
-    for name in task.artifacts:
-        content = (task_dir / "artifacts" / name).read_text(encoding="utf-8")
-        parts.append(f"\n\n### {name}\n{content.rstrip()}")
-    return "".join(parts)
-
-
 def build_judge_prompt(rubric: Rubric, reference: str, output: str) -> str:
     """Ask the judge for per-criterion 1/3/5-anchored scores as JSON."""
     lines = [

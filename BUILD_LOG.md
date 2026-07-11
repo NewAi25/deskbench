@@ -257,3 +257,53 @@ key-backed verification. ✅
 **DoD.** Two task dirs schema-validate (CI-enforced); saturation check built,
 tested, and logged (live run pending keys). ✅ *(machine-checked criteria met;
 saturation numeric result deferred to the maintainer's key-backed run.)*
+
+---
+
+## 2026-07-11 — Step 4: Runner (mocked)
+
+*Sequencing note: the maintainer moved the key-dependent work (ping, saturation,
+T01/T02 editorial pass) to a hard gate BEFORE Step 6, and asked for Steps 4 and 5
+to be built now, fully mocked. So this runner is built and tested with no live
+API calls; the gate still governs Step 6.*
+
+**Built.**
+
+- `deskbench/runner.py` (Box 3) — `run_task(registry, task_dir, model_id,
+  n_runs)` inlines the task's artifacts into one self-contained prompt
+  (`build_prompt`), calls the cached/retried registry, and writes a validated
+  `RawResult` JSON per run to `results/raw/{task}__{model}__run{n}.json`.
+  - **Errors are results, not crashes:** a provider exception is captured into
+    `RawResult.error` with empty `output`; a sweep never aborts on one bad call.
+  - **Resumable:** an existing *successful* run is loaded and skipped (no
+    re-bill); an *errored* run is retried on resume. With the registry's per-run
+    cache, reruns cost zero calls.
+  - **Tool containment:** a task declaring `tools_allowed` is rejected with a
+    clear message (the two tool tasks arrive later; the pilots are
+    self-contained). This is an explicit boundary, not a stub.
+- `deskbench run --task … --model … -n …` CLI (Typer): fans out over tasks ×
+  models, prints per-cell run/error counts, exits non-zero if any run errored.
+- Refactor: `build_prompt` now lives in `runner.py` and `scripts/saturation_check.py`
+  imports it (removed the duplicate).
+- `tests/test_runner.py` (13 tests, all mocked): N valid JSONs written;
+  provider error captured as a result; resume skips completed / retries errored;
+  `--no-resume` re-runs; tool task rejected; selector resolution; prompt inlining;
+  and the committed fixture validates.
+- `tests/fixtures/sample_raw_result.json` — a real `RawResult` (generated via the
+  schema so it is guaranteed valid), committed as the Step 4 fixture.
+
+**What broke.**
+
+- Lint: `datetime.now(timezone.utc)` → `datetime.now(UTC)` (ruff UP017); an unused
+  loop index in a test (B007). Both auto-fixed.
+
+**Decided.**
+
+- On resume, only *successful* runs are skipped; *errored* runs are retried. An
+  interrupted or rate-limited sweep thus heals itself on the next invocation
+  rather than freezing a transient failure into the record.
+- The judge/grading path is deliberately **not** in the runner — the runner only
+  produces raw model outputs. Grading is Box 4 (Step 5).
+
+**DoD.** `pytest` green (69 tests total); `tests/test_runner.py` passes; a raw
+result JSON is committed as a fixture; runner is resumable. ✅

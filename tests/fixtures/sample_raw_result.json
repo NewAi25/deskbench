@@ -1,0 +1,21 @@
+{
+  "task_id": "T01-inbox-triage",
+  "model_id": "gemini-flash",
+  "run_index": 0,
+  "output": "Prioritized actions:\n1. Get the Northwind SOW countersigned before 12:00 (only hard external deadline).\n2. Reschedule the board meeting to Thursday.\n\nConflicts: the CEO's later note supersedes the Wednesday deck deadline; the 2pm cover clashes with the 2-3pm CFO board prep.",
+  "tool_trace": [],
+  "tokens_in": 512,
+  "tokens_out": 140,
+  "latency_s": 1.84,
+  "cost_usd": 0.0,
+  "timestamp": "2026-07-11T12:00:00Z",
+  "error": null,
+  "sampling": {
+    "temperature": null,
+    "top_p": null,
+    "max_tokens": null,
+    "seed": null,
+    "source": "vendor-default"
+  },
+  "task_hash": "sha256:821e17cb7240"
+}
