@@ -35,13 +35,8 @@ PENDING = "⬜ pending"
 IN_PROGRESS = "🟨 in progress"
 DONE = "✅ done"
 
-VALID_CATEGORIES = {
-    "communication",
-    "data-wrangling",
-    "synthesis",
-    "planning",
-    "compliance",
-}
+# MVP pilot matrix: 2 tasks × 2 variants × 4 models × 3 runs.
+PILOT_EXPECTED_RUNS = 48
 
 
 @dataclass
@@ -85,9 +80,9 @@ STEPS: list[Step] = [
         tests=["tests/test_grader.py"],
         extra=["score_fixture_exists"],
     ),
-    Step(6, extra=["full_suite_validates"]),
-    Step(7, extra=["human_sample_and_agreement"]),
-    Step(8, extra=["summary_complete"]),
+    Step(6, tests=["tests/test_tasks.py"], extra=["twin_suite_validates"]),
+    Step(7, extra=["pilot_run_complete"]),
+    Step(8, extra=["human_grades_ingested", "summary_mvp_complete"]),
     Step(9, files=["site/index.html"], extra=["dashboard_embeds_data"]),
     Step(10, files=["report/REPORT.md"], extra=["report_has_caveats"]),
 ]
@@ -172,20 +167,23 @@ def pilot_tasks_validate(root: Path) -> bool:
     return len(valid) >= 2
 
 
-def full_suite_validates(root: Path) -> bool:
+def twin_suite_validates(root: Path) -> bool:
+    """MVP step 6: ≥4 valid task dirs forming ≥2 clean/messy twin pairs."""
     dirs = _task_dirs(root)
     valid = [d for d in dirs if _task_dir_valid(d)]
-    if len(valid) < 12:
+    if len(valid) < 4:
         return False
-    cats: set[str] = set()
     try:
         from deskbench import schemas
 
-        for d in valid:
-            cats.add(schemas.load_task(d / "task.yaml").category)
+        tasks = [schemas.load_task(d / "task.yaml") for d in valid]
     except Exception:
         return False
-    return VALID_CATEGORIES.issubset(cats)
+    by_id = {t.id: t for t in tasks}
+    clean = [t for t in tasks if t.variant == "clean"]
+    if len(clean) < 2:
+        return False
+    return all(t.twin_of in by_id and by_id[t.twin_of].variant == "messy" for t in clean)
 
 
 def raw_fixture_exists(root: Path) -> bool:
@@ -200,20 +198,27 @@ def score_fixture_exists(root: Path) -> bool:
     )
 
 
-def human_sample_and_agreement(root: Path) -> bool:
-    human = list((root / "results" / "human").glob("*.json"))
-    summary = root / "results" / "summary.json"
-    if not human or not summary.exists():
-        return False
-    return "agreement" in summary.read_text(encoding="utf-8")
+def pilot_run_complete(root: Path) -> bool:
+    """MVP step 7: the full 48-run matrix exists, raw and judge-scored."""
+    raw = list((root / "results" / "raw").glob("*.json"))
+    scores = list((root / "results" / "scores").glob("*.json"))
+    return len(raw) >= PILOT_EXPECTED_RUNS and len(scores) >= PILOT_EXPECTED_RUNS
 
 
-def summary_complete(root: Path) -> bool:
+def human_grades_ingested(root: Path) -> bool:
+    """MVP step 8a: the 100% human grading sheet has been filled and ingested."""
+    human = root / "results" / "human"
+    return human.is_dir() and any(p.is_file() and p.name != ".gitkeep" for p in human.iterdir())
+
+
+def summary_mvp_complete(root: Path) -> bool:
+    """MVP step 8b: summary.json reports the four pilot findings + variance."""
     summary = root / "results" / "summary.json"
     if not summary.exists():
         return False
     text = summary.read_text(encoding="utf-8")
-    return all(k in text for k in ("leaderboard", "variance", "failure"))
+    keys = ("leaderboard", "mess_penalty", "silent_failure", "agreement", "variance")
+    return all(k in text for k in keys)
 
 
 def dashboard_embeds_data(root: Path) -> bool:
@@ -234,9 +239,10 @@ _PREDICATES = {
     "pilot_tasks_validate": pilot_tasks_validate,
     "raw_fixture_exists": raw_fixture_exists,
     "score_fixture_exists": score_fixture_exists,
-    "full_suite_validates": full_suite_validates,
-    "human_sample_and_agreement": human_sample_and_agreement,
-    "summary_complete": summary_complete,
+    "twin_suite_validates": twin_suite_validates,
+    "pilot_run_complete": pilot_run_complete,
+    "human_grades_ingested": human_grades_ingested,
+    "summary_mvp_complete": summary_mvp_complete,
     "dashboard_embeds_data": dashboard_embeds_data,
     "report_has_caveats": report_has_caveats,
 }

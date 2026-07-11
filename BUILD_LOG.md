@@ -522,3 +522,29 @@ rule is implemented exactly as stated — identical core weights across twins.*
 - T02c keeps distinct header names (Deal ID/Txn etc.) — two-systems framing is
   core premise, not noise. The clean pair's cells are value-identical.
 - Both reference.md files written before any model run, as always.
+
+---
+
+## 2026-07-11 — MVP item 2c: BUILDSEQUENCE descoped to the pilot
+
+**Built.**
+
+- BUILDSEQUENCE steps 6–10 rewritten to the MVP definitions (original text in
+  git history): 6 = clean twins + twin invariants; 7 = the 48-run pilot matrix,
+  raw + judge-scored; 8 = 100% human grading ingested + summary.json with the
+  four pilot findings (leaderboard, mess_penalty, silent_failure, agreement)
+  plus variance; 9 = single static dashboard (four charts + run inspector);
+  10 = pilot REPORT.md with "What these results do NOT show" (n=2 first) and
+  the pilot-framed README.
+- `scripts/build_status.py` predicates updated to match: `twin_suite_validates`
+  (≥2 valid clean/messy pairs, linked via twin_of), `pilot_run_complete`
+  (≥48 raw + ≥48 scores under results/), `human_grades_ingested`,
+  `summary_mvp_complete`. The certifier's own tests extended (twin predicate
+  true on the real repo; pilot-run predicate false before any run). 102 tests.
+
+**Decided.**
+
+- Step 7's DoD counts result files under `results/`, which are currently
+  gitignored — so that step can only flip ✅ once the pilot results are
+  committed (or the ignore policy is revisited). Raised as an explicit
+  maintainer question at the editorial STOP, not decided unilaterally.

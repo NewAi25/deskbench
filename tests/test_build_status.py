@@ -74,6 +74,20 @@ def test_ordering_blocks_out_of_sequence_completion():
             assert statuses[step.number - 1] == bs.DONE
 
 
+def test_twin_suite_predicate_on_real_repo():
+    # MVP step 6 DoD: the authored twin pairs must satisfy the predicate on the
+    # real repo (2 clean tasks, each twin_of a valid messy dir).
+    assert bs.twin_suite_validates(REPO_ROOT) is True
+
+
+def test_pilot_run_predicate_false_before_any_run():
+    # No results exist yet; the step-7 predicate must not report done.
+    tmp_empty = REPO_ROOT  # results/raw and results/scores are empty pre-run
+    raw = list((tmp_empty / "results" / "raw").glob("*.json"))
+    if not raw:  # guard: only meaningful before the pilot run has happened
+        assert bs.pilot_run_complete(tmp_empty) is False
+
+
 def test_actual_sequence_file_has_markers():
     text = (REPO_ROOT / "BUILDSEQUENCE.md").read_text(encoding="utf-8")
     assert bs.BEGIN_MARKER in text
