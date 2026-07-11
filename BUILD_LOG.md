@@ -548,3 +548,58 @@ rule is implemented exactly as stated — identical core weights across twins.*
   gitignored — so that step can only flip ✅ once the pilot results are
   committed (or the ignore policy is revisited). Raised as an explicit
   maintainer question at the editorial STOP, not decided unilaterally.
+
+---
+
+## 2026-07-11 — MVP item 3: methodology.md, results-commit policy, mechanic flag
+
+*Maintainer sent the addendum (core/noise + silent-failure defs + mess-penalty
+formula) and confirmed three judgment calls: (1) anchor wording may adapt per
+variant, with a comparability caveat; (2) difficulty relabels T01c=easy,
+T02c=medium; (3) un-ignore results/{raw,scores,human} for the pilot. This entry
+records the non-task-dir work done in response; the task dirs themselves are left
+untouched for the maintainer's editorial pass.*
+
+**Built.**
+
+- `docs/methodology.md` — the scientific heart of the pilot: grading philosophy
+  (anchors-not-reference, judge independence → ADR-002); reference-before-model
+  discipline; the twin design with the **per-task core/noise asymmetry** (T01's
+  traps ARE the mess → T01c measures baseline triage; T02's errors ARE core →
+  T02c keeps both discrepancies); the **mess-penalty formula** (core-weight-
+  weighted mean of per-criterion deltas over shared *relative* core weights, sign
+  = clean − messy, never a difference of weighted_totals); the **cross-variant
+  comparability caveat** (equal anchor strictness is a curation judgement); the
+  **silent-failure definition** (flagged only if the output signals uncertainty
+  on the *specific* wrong point — generic hedging doesn't count; human-assigned,
+  never the judge in v1); 100% human judge validation; and an n=2 limitations
+  pointer.
+- **Results-commit policy (confirmation 3).** Un-ignored `results/{raw,scores,
+  human}` in `.gitignore` and added `.gitkeep` to each so the full chain of
+  evidence (48 outputs + judge scores + human grades) is committed for the pilot.
+  The response **cache stays gitignored** — it's a mechanism, not evidence. This
+  resolves the Step-7 DoD blocker noted in the item-2c entry. Done **before** the
+  pilot run so history is clean.
+- Confirmed already-correct from item 2b: difficulty relabels (T01c=easy,
+  T02c=medium) and `twin_of` links are in place — no change needed.
+
+**⚠️ Flagged for the editorial STOP — weight mechanic diverges from the addendum.**
+
+- The committed twins implement **Option A**: clean rubrics keep the messy twin's
+  core weights **byte-identical** (sum < 1.0), and `grader.weighted_total`
+  normalizes by the weight sum. A CI invariant (`test_twin_pair_invariants`)
+  enforces the absolute-weight identity.
+- The addendum specifies **Option B**: "sum-to-1.0 kept, clean rubric
+  **renormalizes** core weights." Option B keeps the schema invariant and needs
+  no grader normalize, but stores ugly decimal weights and makes the twin
+  invariant a relative-ratio check.
+- **The two are numerically identical** for both the leaderboard and the mess
+  penalty (which uses *relative* core weights either way). Reconciling A→B is a
+  large, delicate rewrite of committed, actively-reviewed twin artifacts (schema
+  + grader + both clean rubrics + the twin-invariant test + a grader test) for an
+  identical result, so it was **not** done unilaterally. Raised for the
+  maintainer to choose at the editorial STOP; `methodology.md` is written
+  mechanic-neutral (relative core weights), so it holds under either choice.
+
+**DoD.** 102 tests green; lint clean. Non-task-dir MVP items complete; task dirs
+untouched pending editorial review.

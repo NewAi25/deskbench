@@ -16,13 +16,14 @@ venv/
 .ruff_cache/
 .mypy_cache/
 
-# Benchmark artifacts: raw model outputs are reproducible, not source of truth.
-# summary.json and tables/ ARE committed (they are the published results).
-results/raw/
-results/scores/
-results/human/
+# Benchmark artifacts: for the PILOT, results/{raw,scores,human} ARE committed.
+# At 48 outputs the full chain of evidence (every model output, judge score, and
+# human grade) belongs in the repo — it's the strongest auditability signal we
+# have. (Pre-pilot these were gitignored; un-ignored per the results-commit
+# policy — see BUILD_LOG 2026-07-11.) If the suite ever scales past a few hundred
+# records, revisit committing raw/.
 
-# On-disk model response cache (Step 2)
+# On-disk model response cache is a MECHANISM, not evidence — stays ignored.
 .cache/
 cache/
 

@@ -1,0 +1,2 @@
+# Pilot results are committed (results-commit policy). This keeps the dir
+# tracked before the run populates it. See docs/methodology.md and BUILD_LOG.
