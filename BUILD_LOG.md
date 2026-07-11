@@ -475,3 +475,50 @@ rule is implemented exactly as stated — identical core weights across twins.*
 - Schema field additions (`kind`, `variant`, `twin_of`) shift task/rubric
   content hashes. No runs exist yet, so nothing is invalidated; hashes freeze
   at the pilot run.
+
+---
+
+## 2026-07-11 — MVP item 2b: clean twins T01c and T02c (hand-authored)
+
+**Built.**
+
+- **Rubric splits on the messy originals** (curation, per the inline core/noise
+  definition — maintainer reviews at the editorial STOP):
+  - T01: CORE = correct-prioritization (0.30), surfaces-not-silently-resolves
+    (0.15), reply-quality (0.10). MESS = catches-superseded-instruction (0.25),
+    catches-scheduling-conflict (0.20).
+  - T02: CORE = correct-reconciled-total (0.30), finds-duplicate (0.15),
+    flags-ambiguity-not-guesses (0.15), discrepancy-list-quality (0.10).
+    MESS = identifies-real-vs-cosmetic (0.30).
+- **`tasks/T01c-inbox-triage/`** — clean twin of T01. Removed: the Mon 16:30
+  supersession email (the Wednesday deck deadline simply stands) and the
+  14:00–15:00 CFO board-prep hold (Sam's 2pm cover now fits). Core preserved:
+  the SOW (Tue 12:00, external, irreversible) is still today's #1 ahead of the
+  deck; the expense-reminder ambiguity still needs a stated assumption; both
+  replies still owed. Difficulty: easy (was medium).
+- **`tasks/T02c-spreadsheet-reconciliation/`** — clean twin of T02. KEPT both
+  genuine problems: duplicated Bluecrest row 1002 (+8,400) and Everest 1,500
+  vs 15,000 (−13,500) → CRM 43,650 vs finance 38,550, net −5,100, verified
+  programmatically to match the messy twin exactly. Removed: every cosmetic
+  difference (names identical, ISO dates in both files, one number format).
+  Difficulty: medium (was hard).
+- **Prompts are byte-identical across each twin pair** (CI-enforced): the only
+  thing that changes between variants is the artifacts. The prompt still asks
+  for conflict/cosmetic classification, so the clean twins also measure
+  noise-*invention* — a model that fabricates conflicts or cosmetic findings in
+  clean materials fails the same discipline the messy twin tests. Both clean
+  references say "none exist" explicitly.
+- **`tests/test_tasks.py` twin invariants (CI-enforced):** every clean task
+  declares `twin_of` resolving to a real messy dir; categories match; prompts
+  byte-identical; the clean rubric's criteria == the messy rubric's core set
+  with **identical weights**; every messy rubric has ≥1 mess criterion; rubric
+  variant matches task variant. 100 tests green.
+
+**Decided (flagged for the editorial pass).**
+
+- Clean-twin difficulties were re-labeled honestly (easy/medium) since the traps
+  are gone; pairing uses `twin_of`, so differing difficulty labels don't affect
+  the mess-penalty computation.
+- T02c keeps distinct header names (Deal ID/Txn etc.) — two-systems framing is
+  core premise, not noise. The clean pair's cells are value-identical.
+- Both reference.md files written before any model run, as always.

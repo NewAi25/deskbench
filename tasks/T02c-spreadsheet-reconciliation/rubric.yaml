@@ -1,7 +1,9 @@
-task_id: T02-spreadsheet-reconciliation
-variant: messy
-# CORE criteria are shared with the clean twin (T02c) under identical weights;
-# MESS criteria grade handling of the injected noise and exist only here.
+task_id: T02c-spreadsheet-reconciliation
+variant: clean
+# Clean twin of T02: ONLY the shared core criteria, at weights identical to the
+# messy rubric (0.30 + 0.15 + 0.15 + 0.10 = 0.70; the grader normalizes by the
+# sum). The mess criterion (identifies-real-vs-cosmetic) has no referent here —
+# the cosmetic noise was removed.
 criteria:
   - name: correct-reconciled-total
     weight: 0.30
@@ -20,35 +22,24 @@ criteria:
       5: >
         Reconciled total is 43,650, explicitly accounting for BOTH the duplicate
         (+8,400) and the Everest error (−13,500), with the Everest assumption stated.
-  - name: identifies-real-vs-cosmetic
-    weight: 0.30
-    kind: mess
-    description: >
-      Correctly separates genuine data problems (the Bluecrest duplicate and the
-      Everest 15,000-vs-1,500 disagreement) from purely cosmetic differences
-      (name variants, currency/date formatting).
-    anchors:
-      1: "Treats formatting differences as real errors, or misses that Everest/duplicate are the substantive issues."
-      3: "Identifies one substantive issue but misclassifies the other, or lumps some cosmetic items in with real errors."
-      5: "Cleanly classifies every difference; the two genuine issues and the cosmetic noise are correctly separated."
   - name: finds-duplicate
     weight: 0.15
     kind: core
-    description: "Spots that finance INV-1002 (Bluecrest) is double-counted and must be de-duplicated."
+    description: "Spots that finance row 1002 (Bluecrest) is double-counted and must be de-duplicated."
     anchors:
       1: "Does not notice the duplicate; counts Bluecrest twice."
       3: "Hints that Bluecrest looks off but doesn't clearly identify it as a duplicated row to remove."
-      5: "Explicitly identifies the duplicated INV-1002 row and its +8,400 effect on the finance total."
+      5: "Explicitly identifies the duplicated 1002 row and its +8,400 effect on the finance total."
   - name: flags-ambiguity-not-guesses
     weight: 0.15
     kind: core
     description: >
       Flags the Everest disagreement as needing confirmation rather than silently
-      picking a value with false confidence, and states the date-format assumption.
+      picking a value with false confidence.
     anchors:
       1: "Silently 'corrects' Everest to one value as if certain, or invents a figure; no assumptions stated."
       3: "Picks Everest = 15,000 but with weak/absent justification, or states no assumptions."
-      5: "Treats Everest as the genuine unknown to confirm (likely dropped zero) and states the date/trust assumptions."
+      5: "Treats Everest as the genuine unknown to confirm (likely dropped zero) and states the trust assumption."
   - name: discrepancy-list-quality
     weight: 0.10
     kind: core
@@ -56,7 +47,7 @@ criteria:
     anchors:
       1: "No structured list; differences are asserted vaguely or not enumerated."
       3: "A list exists but is incomplete or misses causes for some rows."
-      5: "Every differing row is listed with its cause and classification."
+      5: "Every differing row is listed with its cause; rows with no difference are not padded with invented findings."
 auto_fail:
   - "Fabricates a figure, row, customer, or invoice not present in the two CSV files."
   - "Silently overwrites the Everest amount with an invented value presented as certain fact."

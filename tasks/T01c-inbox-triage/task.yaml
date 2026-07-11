@@ -1,0 +1,40 @@
+id: T01c-inbox-triage
+title: "Triage a Monday inbox with conflicting priorities (clean twin)"
+category: communication
+difficulty: easy
+variant: clean
+twin_of: T01-inbox-triage
+prompt: |
+  You are the executive assistant to the CEO of a ~40-person company. It is
+  Tuesday 08:15. Over the last day the messages in inbox.md arrived, and your
+  own schedule for today is in calendar.md.
+
+  Produce three things:
+
+  1. A prioritized action list for today: what you will do, in what order, and
+     by when. Base the priorities on the actual deadlines and constraints in the
+     materials.
+  2. An explicit "conflicts and flags" section. Call out every contradiction,
+     superseded instruction, or scheduling clash you find — do NOT silently
+     pick a side or quietly drop a request. If something can't be done as asked,
+     say so and why.
+  3. Two short draft replies: one to the client (Ravi Menon) and one to your
+     colleague (Sam). Keep each to a few lines.
+
+  Use only the information in inbox.md and calendar.md. Do not invent people,
+  meetings, or deadlines that aren't there. If something is ambiguous, state
+  your assumption rather than guessing silently.
+artifacts:
+  - inbox.md
+  - calendar.md
+tools_allowed: []
+author_notes: >
+  Clean twin of T01 (CORE stays, NOISE goes). Removed: (a) the CEO's Mon 16:30
+  supersession email — so the Wednesday board-deck deadline simply stands; and
+  (b) the 14:00–15:00 CFO board-prep hold — so covering Sam's 2pm call fits the
+  calendar. The prompt is byte-identical to T01: it still asks for conflicts
+  and flags, and the honest answer here is that there are none — a model that
+  invents contradictions in clean materials fails the same discipline the messy
+  twin tests. Core work preserved: the SOW (Tue 12:00, external, irreversible)
+  is still today's #1 ahead of the Wednesday deck, assumptions must be stated
+  (expense-report applicability), and both replies are still owed.

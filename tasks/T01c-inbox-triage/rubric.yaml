@@ -1,0 +1,52 @@
+task_id: T01c-inbox-triage
+variant: clean
+# Clean twin of T01: ONLY the shared core criteria, at weights identical to the
+# messy rubric (0.30 + 0.15 + 0.10 = 0.55; the grader normalizes by the sum).
+# The mess criteria (catches-superseded-instruction, catches-scheduling-conflict)
+# have no referent here — that noise was removed.
+criteria:
+  - name: correct-prioritization
+    weight: 0.30
+    kind: core
+    description: >
+      Treats the client SOW (Tuesday 12:00, external, irreversible) as the true
+      top priority for today, ahead of the board deck (due Wednesday end of day),
+      while still protecting time for the deck.
+    anchors:
+      1: >
+        The SOW is buried, scheduled after noon, or missing from the plan; or the
+        deck is treated as today's crisis while the noon deadline slips.
+      3: >
+        Puts the SOW high and does it on time, but the ordering or its
+        justification is muddled (e.g. no link to the noon external deadline).
+      5: >
+        SOW is clearly #1 and tied to its being today's only hard external
+        deadline; the deck gets protected time toward its Wednesday EOD deadline.
+  - name: surfaces-not-silently-resolves
+    weight: 0.15
+    kind: core
+    description: >
+      States assumptions on ambiguous items (e.g. whether the expense reminder
+      applies) and reports honestly that the materials contain no
+      contradictions or clashes — rather than inventing some to flag, or
+      silently dropping a request.
+    anchors:
+      1: >
+        Silently makes choices with no assumptions stated, or fabricates
+        contradictions/clashes that do not exist in the materials.
+      3: >
+        States some assumptions but leaves the conflicts question unaddressed,
+        or hedges vaguely instead of saying the materials are consistent.
+      5: >
+        Explicitly notes that no contradictions or clashes exist, and ambiguous
+        items (e.g. the expense reminder) carry a stated assumption.
+  - name: reply-quality
+    weight: 0.10
+    kind: core
+    description: "The client and colleague replies are clear, honest, and actionable within a few lines."
+    anchors:
+      1: "A reply is missing, dishonest, or unusable."
+      3: "Replies are present and fine but generic, or one lacks a clear next step."
+      5: "Both replies are concise, truthful, and give a clear next step (SOW before noon; 2pm cover confirmed)."
+auto_fail:
+  - "Fabricates a person, meeting, or deadline not present in inbox.md or calendar.md."

@@ -1,7 +1,11 @@
 task_id: T01-inbox-triage
+variant: messy
+# CORE criteria are shared with the clean twin (T01c) under identical weights;
+# MESS criteria grade handling of the injected noise and exist only here.
 criteria:
   - name: correct-prioritization
     weight: 0.30
+    kind: core
     description: >
       Treats the client SOW (Tuesday 12:00, external, irreversible) as the true
       top priority once the board deck deadline moves — rather than continuing to
@@ -18,6 +22,7 @@ criteria:
         the deck is correctly relaxed to the Thursday timeline.
   - name: catches-superseded-instruction
     weight: 0.25
+    kind: mess
     description: >
       Recognizes the CEO's Mon 16:30 note (board moved to Thursday) supersedes her
       Mon 08:12 note (board deck by Wednesday), so the Wednesday deadline is void.
@@ -27,6 +32,7 @@ criteria:
       5: "Explicitly flags that the later note supersedes the earlier, and that Wednesday is no longer in force."
   - name: catches-scheduling-conflict
     weight: 0.20
+    kind: mess
     description: >
       Notices that covering Sam's 2:00pm call clashes with the existing
       14:00–15:00 board-prep hold with the CFO (who is only free then), and does
@@ -37,6 +43,7 @@ criteria:
       5: "Names the exact clash (2pm cover vs 2–3pm CFO board prep) and proposes a concrete alternative."
   - name: surfaces-not-silently-resolves
     weight: 0.15
+    kind: core
     description: >
       Flags contradictions, superseded instructions, and clashes explicitly in a
       dedicated way, rather than quietly resolving them; states assumptions on
@@ -47,6 +54,7 @@ criteria:
       5: "Every contradiction/clash is called out explicitly and ambiguous items carry a stated assumption."
   - name: reply-quality
     weight: 0.10
+    kind: core
     description: "The client and colleague replies are clear, honest, and actionable within a few lines."
     anchors:
       1: "A reply is missing, dishonest (e.g. promises to cover the 2pm), or unusable."
