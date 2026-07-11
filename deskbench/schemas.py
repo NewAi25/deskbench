@@ -71,6 +71,13 @@ Difficulty = Literal["easy", "medium", "hard"]
 Variant = Literal["messy", "clean"]
 VARIANTS: tuple[str, ...] = ("messy", "clean")
 
+# Rubric criteria are split for the twin design: CORE criteria grade the
+# underlying work and appear in BOTH twins under the same name with IDENTICAL
+# weights; MESS criteria grade handling of the injected noise and exist only in
+# the messy rubric. The MESS PENALTY is the mean core-criteria score difference
+# between a model's messy and clean runs.
+CriterionKind = Literal["core", "mess"]
+
 # Fixed failure-mode taxonomy (ARCHITECTURE_REVIEW fix #5; human-assigned in v1).
 FailureMode = Literal[
     "hallucinated-data",
@@ -134,6 +141,9 @@ class Task(BaseModel):
         description="Filenames under the task's artifacts/ directory.",
     )
     tools_allowed: list[str] = Field(default_factory=list)
+    #: For a clean twin: the id of the messy original it was derived from. This
+    #: is how the analyzer pairs twins — explicitly, never via naming convention.
+    twin_of: str | None = None
     author_notes: str | None = None
     #: Set by the runner from :func:`hash_task_dir`; never authored by hand.
     content_hash: str | None = None
@@ -144,6 +154,15 @@ class Task(BaseModel):
         if any(not str(item).strip() for item in v):
             raise ValueError("list entries must be non-empty strings")
         return v
+
+    @model_validator(mode="after")
+    def _twin_link_consistent(self) -> Task:
+        if self.twin_of is not None:
+            if self.variant != "clean":
+                raise ValueError("twin_of may only be set on a clean-variant task")
+            if self.twin_of == self.id:
+                raise ValueError("twin_of must reference a different task, not itself")
+        return self
 
 
 # --------------------------------------------------------------------------- #
@@ -156,6 +175,9 @@ class Criterion(BaseModel):
 
     name: str = Field(..., min_length=1)
     weight: float = Field(..., gt=0.0, le=1.0)
+    #: CORE = grades the underlying work (shared across twins, identical weight);
+    #: MESS = grades handling of the injected noise (messy rubric only).
+    kind: CriterionKind = "core"
     description: str = Field(..., min_length=1)
     #: Anchors for scores 1, 3, and 5 — what each level concretely looks like.
     anchors: dict[int, str]
@@ -176,6 +198,11 @@ class Rubric(BaseModel):
     model_config = ConfigDict(extra="forbid")
 
     task_id: str = Field(..., min_length=1)
+    #: Which twin this rubric grades. A messy rubric mixes core + mess criteria
+    #: and its weights sum to 1.0. A clean rubric carries ONLY the shared core
+    #: criteria at their ORIGINAL (identical) weights, so its weights sum to
+    #: less than 1.0 and the grader normalizes by the weight sum.
+    variant: Variant = "messy"
     criteria: list[Criterion] = Field(..., min_length=1)
     #: Conditions that force a score of 0 regardless of criteria (e.g. fabricated data).
     auto_fail: list[str] = Field(default_factory=list)
@@ -183,13 +210,25 @@ class Rubric(BaseModel):
     content_hash: str | None = None
 
     @model_validator(mode="after")
-    def _weights_sum_to_one(self) -> Rubric:
-        total = sum(c.weight for c in self.criteria)
-        if abs(total - 1.0) > 1e-6:
-            raise ValueError(f"criterion weights must sum to 1.0 (got {total:.4f})")
+    def _weights_and_kinds_consistent(self) -> Rubric:
         names = [c.name for c in self.criteria]
         if len(names) != len(set(names)):
             raise ValueError("criterion names must be unique")
+        total = sum(c.weight for c in self.criteria)
+        if self.variant == "messy":
+            if abs(total - 1.0) > 1e-6:
+                raise ValueError(f"criterion weights must sum to 1.0 (got {total:.4f})")
+        else:
+            mess = [c.name for c in self.criteria if c.kind != "core"]
+            if mess:
+                raise ValueError(
+                    f"a clean rubric may contain only core criteria; found mess: {mess}"
+                )
+            if total > 1.0 + 1e-6:
+                raise ValueError(
+                    f"clean rubric weights must not exceed 1.0 (got {total:.4f}); they are "
+                    "the messy twin's core weights, kept identical, not renormalized"
+                )
         return self
 
 

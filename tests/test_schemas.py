@@ -108,6 +108,88 @@ def test_load_good_rubric():
     assert abs(sum(c.weight for c in rubric.criteria) - 1.0) < 1e-9
 
 
+def _criterion(name: str, weight: float, kind: str = "core") -> dict:
+    return {
+        "name": name,
+        "weight": weight,
+        "kind": kind,
+        "description": "d",
+        "anchors": {1: "a", 3: "b", 5: "c"},
+    }
+
+
+def test_criterion_kind_defaults_to_core_and_rejects_unknown():
+    rubric = load_rubric(GOOD_TASK_DIR / "rubric.yaml")
+    assert all(c.kind == "core" for c in rubric.criteria)  # default when not declared
+    with pytest.raises(ValidationError):
+        Rubric.model_validate({"task_id": "T", "criteria": [_criterion("c", 1.0, kind="noise")]})
+
+
+def test_clean_rubric_core_only_weights_below_one():
+    # A clean rubric keeps the messy twin's core weights verbatim, so < 1.0 is valid.
+    clean = Rubric.model_validate(
+        {
+            "task_id": "Tc",
+            "variant": "clean",
+            "criteria": [_criterion("a", 0.30), _criterion("b", 0.15), _criterion("c", 0.10)],
+        }
+    )
+    assert clean.variant == "clean"
+    assert abs(sum(c.weight for c in clean.criteria) - 0.55) < 1e-9
+
+
+def test_clean_rubric_rejects_mess_criteria():
+    with pytest.raises(ValidationError) as exc:
+        Rubric.model_validate(
+            {
+                "task_id": "Tc",
+                "variant": "clean",
+                "criteria": [_criterion("a", 0.30), _criterion("b", 0.25, kind="mess")],
+            }
+        )
+    assert "only core criteria" in str(exc.value)
+
+
+def test_clean_rubric_rejects_weights_over_one():
+    with pytest.raises(ValidationError) as exc:
+        Rubric.model_validate(
+            {
+                "task_id": "Tc",
+                "variant": "clean",
+                "criteria": [_criterion("a", 0.7), _criterion("b", 0.7)],
+            }
+        )
+    assert "must not exceed 1.0" in str(exc.value)
+
+
+def test_messy_rubric_still_requires_weights_sum_to_one():
+    # The MVP twin change must not loosen the original messy-rubric invariant.
+    with pytest.raises(ValidationError) as exc:
+        Rubric.model_validate(
+            {"task_id": "T", "criteria": [_criterion("a", 0.30), _criterion("b", 0.25, "mess")]}
+        )
+    assert "sum to 1.0" in str(exc.value)
+
+
+def test_twin_of_requires_clean_variant():
+    base = {
+        "id": "T01c-x",
+        "title": "t",
+        "category": "communication",
+        "difficulty": "easy",
+        "prompt": "p",
+        "twin_of": "T01-x",
+    }
+    clean = Task.model_validate({**base, "variant": "clean"})
+    assert clean.twin_of == "T01-x"
+    with pytest.raises(ValidationError) as exc:
+        Task.model_validate(base)  # variant defaults to messy
+    assert "clean-variant" in str(exc.value)
+    with pytest.raises(ValidationError) as exc:
+        Task.model_validate({**base, "variant": "clean", "twin_of": base["id"]})
+    assert "not itself" in str(exc.value)
+
+
 # --------------------------------------------------------------------------- #
 # Readable failures on malformed YAML (Step 1 DoD)
 # --------------------------------------------------------------------------- #

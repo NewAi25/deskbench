@@ -164,9 +164,15 @@ def parse_judge_response(
 
 
 def weighted_total(criterion_scores: list[CriterionScore], rubric: Rubric) -> float:
-    """Weighted mean of the per-criterion scores (1-5)."""
+    """Weight-normalized mean of the per-criterion scores (1-5).
+
+    Dividing by the weight sum keeps messy rubrics unchanged (their weights sum
+    to 1.0) and puts clean rubrics — whose core-only weights sum to less than
+    1.0 by design — on the same 1-5 scale, so twin totals stay comparable.
+    """
     weights = {c.name: c.weight for c in rubric.criteria}
-    return round(sum(cs.score * weights[cs.name] for cs in criterion_scores), 3)
+    weight_sum = sum(weights.values())
+    return round(sum(cs.score * weights[cs.name] for cs in criterion_scores) / weight_sum, 3)
 
 
 def grade(

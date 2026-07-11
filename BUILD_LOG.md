@@ -433,3 +433,45 @@ conflicts with the current schema. Raised for resolution before authoring.
    schema + grader change, so it must be confirmed before authoring, not guessed.
 
 Nothing runs and no twins are authored until these are resolved.
+
+---
+
+## 2026-07-11 — MVP item 2a: CORE/MESS rubric mechanics (blockers resolved)
+
+*Maintainer resolved both blockers: the "addendum" is the inline core/noise
+definition in the MVP plan (T01c drops the superseded-instruction trap and the
+calendar clash; T02c keeps both real discrepancies and strips format/name/date
+noise), with the editorial pass as the curation check; and the CORE/MESS weight
+rule is implemented exactly as stated — identical core weights across twins.*
+
+**Built.**
+
+- `schemas.py`:
+  - `Criterion.kind: "core" | "mess"` (default `core`). CORE grades the
+    underlying work and appears in both twins under the same name with
+    **identical weights**; MESS grades handling of the injected noise and exists
+    only in the messy rubric.
+  - `Rubric.variant: "messy" | "clean"` (default `messy`). Messy rubrics keep
+    the weights-sum-to-1.0 invariant unchanged. Clean rubrics may contain ONLY
+    core criteria and their weights — the messy twin's core weights verbatim,
+    NOT renormalized — must sum to ≤ 1.0.
+  - `Task.twin_of` — a clean twin names its messy original explicitly, so the
+    analyzer pairs twins without naming-convention inference. Validators: only
+    clean tasks may set it, and never to themselves.
+- `grader.py`: `weighted_total` now divides by the rubric's weight sum. For
+  messy rubrics (sum = 1.0) this changes nothing; for clean rubrics it puts the
+  core-only total on the same 1–5 scale, so twin totals are directly comparable
+  and the mess penalty (mean core-criteria score difference) is well-defined.
+- Tests: 7 new schema tests (kind default/rejection; clean-rubric rules; the
+  messy invariant unchanged; twin_of constraints) + a grader test proving the
+  clean-rubric normalization ((5·0.30 + 1·0.10)/0.40 = 4.0, not 1.6). 95 green.
+
+**Decided.**
+
+- Weight semantics follow the maintainer's words literally: core weights are
+  identical across twins and the *grader* normalizes, rather than renormalizing
+  the clean rubric's YAML. The YAML stays the shared source of truth and the
+  cross-twin identity is machine-checkable.
+- Schema field additions (`kind`, `variant`, `twin_of`) shift task/rubric
+  content hashes. No runs exist yet, so nothing is invalidated; hashes freeze
+  at the pilot run.

@@ -99,6 +99,41 @@ def test_weighted_total_extremes():
     assert weighted_total(worst, RUBRIC) == pytest.approx(1.0)
 
 
+def test_weighted_total_normalizes_clean_rubric():
+    # A clean rubric's core-only weights sum to < 1.0; the total must still be
+    # on the 1-5 scale so twin totals are comparable (MVP mess-penalty design).
+    from deskbench.schemas import CriterionScore, Rubric
+
+    clean = Rubric.model_validate(
+        {
+            "task_id": "Tc",
+            "variant": "clean",
+            "criteria": [
+                {
+                    "name": "a",
+                    "weight": 0.30,
+                    "description": "d",
+                    "anchors": {1: "x", 3: "y", 5: "z"},
+                },
+                {
+                    "name": "b",
+                    "weight": 0.10,
+                    "description": "d",
+                    "anchors": {1: "x", 3: "y", 5: "z"},
+                },
+            ],
+        }
+    )
+    scores = [
+        CriterionScore(name="a", score=5, judge_rationale="anchor 5"),
+        CriterionScore(name="b", score=1, judge_rationale="anchor 1"),
+    ]
+    # (5*0.30 + 1*0.10) / 0.40 = 4.0 — NOT 1.6, which the unnormalized sum gives.
+    assert weighted_total(scores, clean) == pytest.approx(4.0)
+    perfect = [CriterionScore(name=n, score=5, judge_rationale="r") for n in ("a", "b")]
+    assert weighted_total(perfect, clean) == pytest.approx(5.0)
+
+
 def test_grade_uses_held_out_judge(tmp_path, monkeypatch):
     seen = _mock_judge(monkeypatch, lambda: _judge_reply(score=4))
     reg = _registry(tmp_path)
