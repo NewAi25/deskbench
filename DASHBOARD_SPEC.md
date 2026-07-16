@@ -1,6 +1,15 @@
-# DeskBench — Dashboard UX Spec
+# DeskBench Pilot — Dashboard UX Spec
 
-One self-contained `site/index.html`. No server, no build step, opens from disk or GitHub Pages. Research-report aesthetic: white background, one accent color per model (colorblind-safe palette, consistent across ALL charts), system font stack, generous whitespace. No animations, no gradients, no component libraries — credibility comes from clarity.
+One self-contained `site/index.html`. No server, no build step, opens from disk
+or GitHub Pages. Research-report aesthetic: white background, one accent color
+per model (colorblind-safe palette, consistent across ALL charts), system font
+stack, generous whitespace. No animations, no gradients, no component libraries
+— credibility comes from clarity.
+
+> **Descoped with the MVP pivot (2026-07-11):** the pilot dashboard is the four
+> pilot findings + the run inspector. The original 8-section spec (heatmap,
+> category bars, failure-mode breakdown) lives in git history and returns with
+> the v2 suite.
 
 ## Page layout (top to bottom)
 
@@ -8,24 +17,21 @@ One self-contained `site/index.html`. No server, no build step, opens from disk 
 ┌────────────────────────────────────────────────┐
 │ 1. Header: title, one-line description,        │
 │    links → repo · report · methodology         │
-│    run metadata: date, n runs, judge model,    │
-│    judge–human agreement badge                 │
+│    run metadata: date, matrix (2×2×4×3),       │
+│    judge model, judge–human agreement badge    │
 ├────────────────────────────────────────────────┤
-│ 2. Leaderboard (bar chart)                     │
+│ 2. Leaderboard (bar chart + variance)          │
 ├────────────────────────────────────────────────┤
-│ 3. Model × Task heatmap                        │
+│ 3. Mess penalty per model                      │
 ├────────────────────────────────────────────────┤
-│ 4. Category breakdown (grouped bars)           │
+│ 4. Silent-failure rate per model               │
 ├────────────────────────────────────────────────┤
-│ 5. Run-to-run variance (box plots)             │
+│ 5. Judge validation (scatter + agreement)      │
 ├────────────────────────────────────────────────┤
-│ 6. Judge validation (scatter + agreement)      │
+│ 6. Run inspector (the "logs" view)             │
 ├────────────────────────────────────────────────┤
-│ 7. Failure-mode breakdown (stacked bars)       │
-├────────────────────────────────────────────────┤
-│ 8. Run inspector (the "logs" view)             │
-├────────────────────────────────────────────────┤
-│ 9. Footer: limitations note + license + author │
+│ 7. Footer: n=2 limitation note · license ·     │
+│    author · link to ADR-003 roadmap            │
 └────────────────────────────────────────────────┘
 ```
 
@@ -33,23 +39,23 @@ One self-contained `site/index.html`. No server, no build step, opens from disk 
 
 | # | Chart | Encodes | Non-negotiable details |
 |---|---|---|---|
-| 2 | Leaderboard | weighted mean score per model | error whiskers (min–max across runs); y-axis fixed 1–5; n runs stated |
-| 3 | Heatmap | mean score per (model, task) | task rows grouped by category; hover = score ± spread; click → run inspector |
-| 4 | Category bars | mean per (model, category) | same color mapping; category task counts shown |
-| 5 | Variance box plots | score distribution per model across runs | the "reliability" story — often more interesting than the means |
-| 6 | Judge scatter | judge score vs. human score (sampled outputs) | y=x reference line; correlation + MAE printed on chart; disagreements clickable |
-| 7 | Failure modes | count by type per model | fixed taxonomy: hallucinated data / dropped constraint / false confidence / format failure / refusal / error |
-| 8 | Run inspector | one (task, model, run) in full | side-by-side: task prompt · model output · reference answer · per-criterion judge scores with rationale. Dropdown selectors + deep-linkable via URL hash |
+| 2 | Leaderboard | weight-normalized mean score per model, split messy vs clean | error whiskers (min–max across runs); y-axis fixed 1–5; n runs stated; run-to-run variance is part of this chart (paired bars or whiskers), not a separate section |
+| 3 | Mess penalty | per model: core-weighted mean per-criterion delta (clean − messy), per methodology.md §3 | sign convention stated ON the chart ("positive = mess hurt the model"); per-twin-pair breakdown on hover; computed from per-criterion scores, never from weighted totals |
+| 4 | Silent-failure rate | per model: silent vs flagged share of wrong/incomplete answers | human-assigned tags only (never judge-assigned); denominator (n wrong) printed per bar — a model with few failures has a noisy rate and the chart must say so |
+| 5 | Judge scatter | judge score vs. human score, ALL 48 outputs (100% graded) | y=x reference line; correlation + MAE printed on chart; disagreements clickable |
+| 6 | Run inspector | one (task, model, run) in full | side-by-side: task prompt · model output · reference answer · per-criterion judge scores with rationale · human grade + silent/flagged tag. Dropdown selectors (task, variant, model, run) + deep-linkable via URL hash |
 
 ## Interactions
 - Global model filter (checkbox per model) — filters every chart.
-- Heatmap cell click and judge-scatter point click both open the run inspector at that record.
+- Judge-scatter point click opens the run inspector at that record.
 - Everything else is Plotly defaults (hover, zoom). Nothing custom beyond this.
 
 ## Data contract
-Dashboard is generated by `visualize.py` from `results/summary.json` + raw/score files only. It contains NO hand-entered numbers — if it's on the dashboard, it's reproducible from disk.
+Dashboard is generated by `visualize.py` from `results/summary.json` +
+raw/score/human files only. It contains NO hand-entered numbers — if it's on
+the dashboard, it's reproducible from disk.
 
 ## Accessibility & performance
-- Colorblind-safe palette (Okabe–Ito), score also encoded as text in heatmap cells.
+- Colorblind-safe palette (Okabe–Ito); values also encoded as text labels.
 - All charts titled and axis-labeled; readable at 375px width.
 - Single HTML ≤ ~5 MB (inline JSON data; Plotly from CDN with pinned version).

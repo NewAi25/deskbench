@@ -67,7 +67,7 @@ STEPS: list[Step] = [
         tests=["tests/test_registry.py"],
         extra=["models_yaml_has_four"],
     ),
-    Step(3, extra=["pilot_tasks_validate"]),
+    Step(3, extra=["pilot_tasks_validate", "saturation_recorded"]),
     Step(
         4,
         files=["deskbench/runner.py"],
@@ -167,6 +167,21 @@ def pilot_tasks_validate(root: Path) -> bool:
     return len(valid) >= 2
 
 
+def saturation_recorded(root: Path) -> bool:
+    """Step 3 DoD: BUILD_LOG records an actual saturation result, not a promise.
+
+    The convention (documented in BUILDSEQUENCE.md): after running
+    scripts/saturation_check.py, the maintainer records a BUILD_LOG line
+    starting ``SATURATION RESULT:``. Added 2026-07-16 per the audit's F3 — the
+    predicate was weaker than the DoD text, which let Step 3 flip done without
+    the check ever running.
+    """
+    log = root / "BUILD_LOG.md"
+    if not log.exists():
+        return False
+    return bool(re.search(r"^SATURATION RESULT:", log.read_text(encoding="utf-8"), re.M))
+
+
 def twin_suite_validates(root: Path) -> bool:
     """MVP step 6: ≥4 valid task dirs forming ≥2 clean/messy twin pairs."""
     dirs = _task_dirs(root)
@@ -237,6 +252,7 @@ _PREDICATES = {
     "schemas_define_contracts": schemas_define_contracts,
     "models_yaml_has_four": models_yaml_has_four,
     "pilot_tasks_validate": pilot_tasks_validate,
+    "saturation_recorded": saturation_recorded,
     "raw_fixture_exists": raw_fixture_exists,
     "score_fixture_exists": score_fixture_exists,
     "twin_suite_validates": twin_suite_validates,

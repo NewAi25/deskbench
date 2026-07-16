@@ -3,25 +3,33 @@
 **A rigorously graded benchmark for messy real-world office work.**
 
 > Most benchmarks test math-olympiad problems. DeskBench tests whether a model
-> can reconcile two messy spreadsheets, triage a contradictory inbox, or draft a
-> report from conflicting notes — and grades it with validated rubrics.
+> can reconcile two messy spreadsheets or triage a contradictory inbox — then
+> re-tests it on a noise-stripped **clean twin** of the same task to measure
+> exactly what the mess costs, and grades it with human-validated rubrics.
 
 Public AI benchmarks over-index on exams and code. Almost none measure the
-ambiguous, judgment-heavy tasks that make up real office work, and those that
-try rarely publish a validated grading method. DeskBench is a small (12 tasks,
-5 categories), open, reproducible benchmark that measures how well language
-models handle realistic desk work — with published rubrics, an LLM judge
-validated against human grades, and a pipeline that runs for **$0**.
+ambiguous, judgment-heavy tasks that make up real office work, and none isolate
+what realistic *mess* costs a model. **DeskBench Pilot** is a deliberately
+small, open, reproducible benchmark: **2 office tasks, each shipped as a twin
+pair** (messy original + clean twin with a byte-identical prompt), run across
+**4 free models × 3 runs**, judge-graded and **100% human-validated**, for
+**$0**. It reports four things: a leaderboard, the **mess penalty**, the
+**silent-failure rate**, and judge–human agreement. Small on purpose — the
+pilot proves the method; scale comes from the
+[generator roadmap](docs/adr/ADR-003-benchmark-as-a-function.md).
 
+- **Twinned** — every task has a clean twin; comparing the pair isolates the
+  cost of the mess from the cost of the work
+  ([methodology](docs/methodology.md)).
 - **Model-agnostic** — every model is a config line (LiteLLM); adding one is a
   one-line change.
 - **Reproducible** — boxes communicate only through typed files on disk; delete
   a stage's output and re-run it in isolation.
-- **Auditable** — every number on the dashboard traces back to a raw model
-  output you can open.
+- **Auditable** — pilot results are committed, so every number traces back to a
+  raw model output in the repo.
 - **Honest** — judge scores are never reported without the human-agreement
-  number beside them, and the writeup includes a "what these results do **not**
-  show" section.
+  number beside them, the first stated limitation is **n = 2 tasks**, and the
+  writeup includes a "what these results do **not** show" section.
 
 ## Architecture
 
@@ -80,18 +88,27 @@ actually exist and its tests actually pass.
 
 ## Documentation
 
-- [PRD.md](PRD.md) — goals, non-goals, success criteria
-- [BUILD_PLAN.md](BUILD_PLAN.md) — architecture, tech stack, data contracts
+- [PRD.md](PRD.md) — goals, non-goals, success criteria (pilot scope)
+- [BUILD_PLAN.md](BUILD_PLAN.md) — architecture, twin design, tech stack, data contracts
+- [docs/methodology.md](docs/methodology.md) — grading philosophy, mess-penalty formula, silent-failure definition
 - [ARCHITECTURE_REVIEW.md](ARCHITECTURE_REVIEW.md) — design review + required fixes
-- [DASHBOARD_SPEC.md](DASHBOARD_SPEC.md) — dashboard UX spec
+- [DESKBENCH_AUDIT.md](DESKBENCH_AUDIT.md) — external audit (2026-07-16) that drove the docs alignment
+- [DASHBOARD_SPEC.md](DASHBOARD_SPEC.md) — dashboard UX spec (pilot: four charts + run inspector)
 - [BUILD_LOG.md](BUILD_LOG.md) — dated log of every build step and decision
 - [docs/adr/](docs/adr/) — Architecture Decision Records
 
 ## Roadmap
 
-- **v1** — 12 tasks, 4 free models, validated judge, dashboard + report.
-- **v1.1** — India-flavored task slice; judge-assigned failure-mode taxonomy
-  (with its own agreement check); optional port of tasks to
+- **v1 (this pilot)** — 2 task pairs (messy + clean twin), 4 free models,
+  3 runs, 100% human-validated judge, dashboard + report.
+- **v2 — the benchmark as a function** ([ADR-003](docs/adr/ADR-003-benchmark-as-a-function.md)):
+  parameterized task templates whose seeded draws change the correct answer,
+  with programmatically computed references — provable contamination
+  resistance, twins for free (noise as a parameter), and real statistical
+  power. Designed; deliberately not built until the pilot's method is
+  validated.
+- **v1.1 candidates** — India-flavored task slice; judge-assigned failure-mode
+  taxonomy (with its own agreement check); optional port of tasks to
   [Inspect](https://inspect.aisi.org.uk/) format as an interop gesture.
 
 ## License

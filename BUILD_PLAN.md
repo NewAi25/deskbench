@@ -1,219 +1,262 @@
-# DeskBench — Build Plan
+# DeskBench — Build Plan (Pilot)
 
 A small, rigorously graded benchmark for messy real-world office work.
 Model-agnostic by design. Built for $0. Every stage documented.
 
-> **One-line pitch:** Most benchmarks test math olympiad problems. DeskBench tests whether a model can reconcile two messy spreadsheets, triage a contradictory inbox, or draft a report from conflicting notes — and grades it with validated rubrics.
+> **One-line pitch:** Most benchmarks test math olympiad problems. DeskBench
+> tests whether a model can reconcile two messy spreadsheets or triage a
+> contradictory inbox — then re-tests it on a noise-stripped *clean twin* of the
+> same task to measure exactly what the mess costs, and grades everything with
+> human-validated rubrics.
+
+> **Scope note (2026-07-11 MVP pivot, aligned 2026-07-16).** This plan describes
+> the **DeskBench Pilot** as actually shipped: 2 tasks × 2 variants (messy +
+> clean twin) × 4 models × 3 runs, judge-graded with 100% human validation. The
+> original 12-static-task plan and the "benchmark as a function" generator
+> vision live in the [Roadmap](#7-roadmap-v2-the-generator-vision) section and
+> [ADR-003](docs/adr/ADR-003-benchmark-as-a-function.md). Canonical step
+> statuses: [BUILDSEQUENCE.md](BUILDSEQUENCE.md). Grading science:
+> [docs/methodology.md](docs/methodology.md).
 
 ---
 
 ## 1. Architecture — the boxes
 
-Strict pipeline. Each box is a standalone module with one job, a typed input, and a typed output. No box reaches into another box's internals; they communicate only through files on disk (versionable, inspectable, re-runnable).
+Strict pipeline. Each box is a standalone module with one job, a typed input,
+and a typed output. No box reaches into another box's internals; they
+communicate only through files on disk (versionable, inspectable, re-runnable).
 
 ```mermaid
 flowchart LR
-    A[Task Suite\ntasks/*/task.yaml\n+ artifacts] --> B[Runner\nrunner/]
+    A[Task Suite\ntasks/*/task.yaml\nmessy + clean twins] --> B[Runner\nrunner.py]
     M[Model Registry\nconfig/models.yaml\n+ .env keys] --> B
     B --> C[Raw Outputs Store\nresults/raw/]
-    C --> D[Grader\ngrader/\nLLM judge + rubric]
-    R[Rubrics\ntasks/*/rubric.yaml] --> D
+    C --> D[Grader\ngrader.py\nheld-out LLM judge]
+    R[Rubrics\ntasks/*/rubric.yaml\nCORE + MESS criteria] --> D
     D --> E[Scores Store\nresults/scores/]
-    H[Human Grades\nresults/human/] --> F
-    E --> F[Analyzer\nanalysis/]
+    H[Human Grades\nresults/human/\n100% of outputs] --> F
+    E --> F[Analyzer\nanalyzer.py]
     F --> G[Visualizer\nsite/index.html\nstatic dashboard]
     F --> W[Writeup\nreport/REPORT.md]
 ```
 
 | # | Box | Input | Output | One job |
 |---|-----|-------|--------|---------|
-| 1 | **Task Suite** | (authored by hand) | `task.yaml` + artifact files + reference answer | Define what "real office work" means, concretely |
+| 1 | **Task Suite** | (authored by hand) | twin pairs: `task.yaml` + artifacts + reference + rubric | Define what "real office work" means — twice per task: with noise, and without |
 | 2 | **Model Registry** | `models.yaml` + env vars | model client objects | Make every model a config entry, never code |
-| 3 | **Runner** | tasks × models | one JSON per (task, model, run) in `results/raw/` | Execute prompts/agent loops, capture everything (output, tokens, latency, tool calls, errors) |
-| 4 | **Grader** | raw outputs + rubrics | one score JSON per raw output in `results/scores/` | Apply rubric via LLM judge; record per-criterion scores + judge rationale |
-| 5 | **Human Grades** | your manual grading of a sample | `results/human/*.json` | Ground truth to validate the judge (agreement rate) |
-| 6 | **Analyzer** | scores + human grades | `results/summary.json` + `results/tables/*.csv` | Aggregate: leaderboard, per-category, variance, judge agreement, cost/latency, failure taxonomy |
-| 7 | **Visualizer** | `summary.json` | `site/index.html` (self-contained) | Static Plotly dashboard — no server, hosts on GitHub Pages |
-| 8 | **Writeup** | summary + your qualitative notes | `report/REPORT.md` | The honest analysis, including "what these results do NOT show" |
+| 3 | **Runner** | tasks × models | one JSON per (task, model, run) in `results/raw/`, `variant` recorded | Execute prompts, capture everything (output, tokens, latency, errors) |
+| 4 | **Grader** | raw outputs + rubrics | one score JSON per raw output in `results/scores/` | Apply rubric via the held-out LLM judge; per-criterion scores + anchor-citing rationale |
+| 5 | **Human Grades** | maintainer grading of **100%** of outputs | `results/human/` | Ground truth: validates the judge AND assigns silent-vs-flagged |
+| 6 | **Analyzer** | scores + human grades | `results/summary.json` + `results/tables/*.csv` | Leaderboard, **mess penalty**, **silent-failure rate**, judge–human agreement, run variance |
+| 7 | **Visualizer** | `summary.json` + raw/scores | `site/index.html` (self-contained) | Static Plotly dashboard: the four pilot charts + run inspector |
+| 8 | **Writeup** | summary + qualitative notes | `report/REPORT.md` | The honest analysis, including "what these results do NOT show" |
 
-**Key invariant:** every box is re-runnable in isolation. Delete `results/scores/` and re-run grading without re-querying models. This is what makes "evaluate a new model in one command" true.
+**Key invariant:** every box is re-runnable in isolation. Delete
+`results/scores/` and re-run grading without re-querying models.
 
 ---
 
-## 2. Repo structure
+## 2. The pilot design: twin pairs and the four findings
+
+The pilot's unit is the **twin pair**: a *messy* task (realistic noise —
+superseded instructions, scheduling clashes, format mismatches, name variants)
+and its *clean* twin (same core problem, noise stripped, **byte-identical
+prompt** — CI-enforced — so the only thing that changes is the artifacts).
+
+- **T01 / T01c — inbox triage** (communication). Messy adds a
+  superseded-instruction trap and a calendar clash; the clean twin keeps the
+  prioritization problem.
+- **T02 / T02c — spreadsheet reconciliation** (data-wrangling). BOTH variants
+  keep both genuine data errors (a duplicated row and a dropped zero — the
+  errors ARE core); the clean twin strips only format/name/date noise.
+
+Rubric criteria carry a `kind`: **core** (shared across the pair, identical
+weights) or **mess** (messy-only). Full rationale, formulas, and the curation
+judgments: [docs/methodology.md](docs/methodology.md).
+
+The pilot reports **four things**, all computed from `results/` files:
+
+1. **Leaderboard** — weight-normalized mean score per model, with run variance.
+2. **MESS PENALTY** — per model, the core-weighted mean per-criterion score
+   difference (clean − messy) across twin pairs: what the mess itself costs.
+3. **SILENT-FAILURE RATE** — of wrong/incomplete answers, the fraction that
+   never flagged the specific problem (human-assigned during grading).
+4. **Judge–human agreement** — the judge is validated against 100% human
+   grading at this scale; scores are never reported without this number.
+
+**Run matrix: 2 tasks × 2 variants × 4 models × 3 runs = 48 completions**, plus
+~48 judge calls (cached, spread over free-tier limits).
+
+---
+
+## 3. Repo structure (as shipped)
 
 ```
 deskbench/
-├── README.md                  # what/why/quickstart/results screenshot
-├── BUILD_LOG.md               # dated log of every build step + decisions
+├── README.md                  # what/why/quickstart/status
+├── BUILD_PLAN.md              # this file
+├── PRD.md · DASHBOARD_SPEC.md · BUILDSEQUENCE.md · ARCHITECTURE_REVIEW.md
+├── BUILD_LOG.md               # dated log of every step + decisions (never backfilled)
+├── DESKBENCH_AUDIT.md         # external audit (2026-07-16) that drove the docs alignment
 ├── docs/
-│   ├── PRD.md                 # one-page goals / non-goals / success criteria
-│   ├── dashboard-spec.md      # visualizer UX: layout, chart inventory, interactions
-│   ├── architecture.md        # this diagram + box contracts (doubles as the TRD)
-│   ├── methodology.md         # grading philosophy, judge validation, limitations
-│   ├── adding-a-task.md       # how to author a task + rubric
-│   ├── adding-a-model.md      # 5-line guide: edit models.yaml, set env var, run
-│   └── adr/                   # Architecture Decision Records (ADR-001, 002…)
-├── config/
-│   └── models.yaml            # model registry — THE env-var insight, materialized
+│   ├── methodology.md         # grading philosophy, twin design, mess-penalty formula
+│   ├── adding-a-task.md · adding-a-model.md
+│   └── adr/                   # ADR-000..003
+├── config/models.yaml         # model registry — 4 leaderboard models + held-out judge
 ├── tasks/
-│   └── T01-inbox-triage/
-│       ├── task.yaml          # id, category, prompt, artifact list, tool needs
-│       ├── artifacts/         # emails.md, data.csv, notes.docx …
-│       ├── reference.md       # what a competent human produces (written BEFORE any model run)
-│       └── rubric.yaml        # weighted criteria + 1/3/5 scoring anchors
+│   ├── T01-inbox-triage/              # messy original
+│   │   ├── task.yaml                  # variant: messy
+│   │   ├── artifacts/ · reference.md  # reference written BEFORE any model run
+│   │   └── rubric.yaml                # CORE + MESS criteria, weights sum to 1.0
+│   ├── T01c-inbox-triage/             # clean twin: variant: clean, twin_of: T01…
+│   ├── T02-spreadsheet-reconciliation/
+│   └── T02c-spreadsheet-reconciliation/
 ├── deskbench/                 # the Python package
-│   ├── schemas.py             # pydantic models for task/rubric/result/score
-│   ├── registry.py            # loads models.yaml → LiteLLM clients
-│   ├── runner.py              # box 3
-│   ├── grader.py              # box 4
-│   ├── analyzer.py            # box 6
-│   ├── visualize.py           # box 7 (writes site/index.html)
-│   └── cli.py                 # deskbench run / grade / analyze / render / all
-├── results/                   # raw/ scores/ human/ tables/ summary.json (gitignored raw, committed summary)
-├── site/                      # generated dashboard → GitHub Pages
-├── report/REPORT.md
-├── tests/                     # schema validation, grader parsing, analyzer math
-├── .env.example               # every key documented, no secrets committed
+│   ├── schemas.py             # the four contracts (§4)
+│   ├── registry.py            # models.yaml → LiteLLM; retry/backoff + response cache
+│   ├── runner.py              # box 3 (records variant)
+│   ├── grader.py              # box 4 (weight-normalized totals)
+│   ├── analyzer.py            # box 6 (lands at Step 8)
+│   ├── visualize.py           # box 7 (lands at Step 9)
+│   └── cli.py                 # deskbench models / ping / run / grade (analyze / render to come)
+├── results/                   # raw/ scores/ human/ COMMITTED for the pilot (chain of evidence);
+│                              # tables/ + summary.json committed; response cache stays ignored
+├── site/ · report/ · scripts/ · tests/
+├── .env.example               # every provider key documented; no secrets in git
 ├── LICENSE                    # MIT
 └── pyproject.toml
 ```
 
 ---
 
-## 3. Tech stack (all free)
+## 4. Tech stack (all free)
 
 | Concern | Choice | Why |
 |---|---|---|
-| Language | Python 3.11+ | job posting: "light coding… python proficiency" |
+| Language | Python 3.11+ | light coding, broad familiarity |
 | Model access | **LiteLLM** | one client, any provider; models become pure config |
-| Free models | Gemini Flash (Google AI Studio), GLM-4.7-Flash (Z.ai), Llama 3.x 70B (Groq), DeepSeek (OpenRouter `:free`) | 4 labs, $0 |
-| Judge model | a capable free model **held out of the leaderboard** (judge independence); local Ollama as fallback for rubric iteration | LLM judges favor their own model family — never let the judge grade itself. If free tiers force overlap, run an explicit self-preference check and report it |
-| Schemas | pydantic v2 | typed contracts between boxes; self-documenting |
+| Free models | Gemini Flash (Google AI Studio), GLM-4.7-Flash (Z.ai), Llama 3.3 70B (Groq), DeepSeek V3 (OpenRouter `:free`) | 4 labs, $0 |
+| Judge model | Qwen2.5-72B (OpenRouter `:free`) — **held out of the leaderboard**, family-independent of all four | LLM judges favor their own family; the registry enforces independence mechanically |
+| Schemas | pydantic v2 | typed contracts between boxes; `extra="forbid"` catches YAML typos |
 | Config | YAML (`task.yaml`, `rubric.yaml`, `models.yaml`) | human-readable, diffable, reviewable |
-| Charts | Plotly → embedded in one static HTML | interactive, zero hosting cost |
-| CLI | Typer | `deskbench all --model gemini-flash` demo-ability |
-| Tests | pytest | credibility; run in CI |
-| CI | GitHub Actions (free) | lint + tests + schema-validate all tasks on push |
+| Charts | Plotly → one static HTML | interactive, zero hosting cost |
+| CLI | Typer | `deskbench run --task T01 --model gemini-flash -n 3` |
+| Tests | pytest | 100+ tests; schema-validates every task dir in CI |
+| CI | GitHub Actions | lint + tests on push; build-status auto-updates BUILDSEQUENCE |
 | Hosting | GitHub Pages | dashboard + report, free |
-| Resilience | tenacity (retry/backoff) + on-disk response cache | free tiers have low rate limits — non-negotiable from day one |
-
-**Note on Antigravity / agentic IDEs:** tools like Google Antigravity are things you build *with*, not part of the deliverable — using one is fine (and worth a line in BUILD_LOG.md about your AI-assisted workflow, which the job explicitly values), but the repo must stand on its own. The visual appeal comes from the dashboard, the Mermaid diagrams in docs, and the README — not the IDE.
+| Resilience | tenacity retry/backoff + on-disk response cache keyed per run | free tiers have low rate limits — non-negotiable from day one |
 
 ---
 
-## 4. Data contracts (the box connectors)
+## 5. Data contracts (the box connectors)
 
-Defined once in `schemas.py`, validated everywhere. Summary:
+Defined once in `schemas.py`, validated everywhere (details in the module):
 
-**task.yaml** — `id`, `title`, `category` (one of: communication, data-wrangling, synthesis, planning, compliance), `difficulty`, `prompt`, `artifacts[]`, `tools_allowed[]`, `author_notes`.
+**task.yaml** — `id`, `title`, `category`, `difficulty`, **`variant`
+(messy | clean)**, **`twin_of`** (clean twins name their messy original —
+pairing is explicit, never a naming convention), `prompt`, `artifacts[]`,
+`tools_allowed[]`, `author_notes`.
 
-**rubric.yaml** — list of criteria, each with `name`, `weight` (sum = 1.0), `description`, and `anchors` for scores 1/3/5 ("what does silently dropping a constraint look like vs. flagging the ambiguity"). Plus `auto_fail` conditions (e.g., fabricated data).
+**rubric.yaml** — `task_id`, **`variant`**, criteria each with `name`, `weight`,
+**`kind` (core | mess)**, `description`, `anchors` for scores 1/3/5, plus
+`auto_fail` conditions. Messy rubric weights sum to 1.0; a clean rubric carries
+only the shared core criteria at **identical** weights (sum < 1.0; the grader
+normalizes — see methodology.md).
 
-**raw result JSON** — `task_id`, `model_id`, `run_index`, `output`, `tool_trace[]`, `tokens_in/out`, `latency_s`, `cost_usd` (0.0 — and say so), `timestamp`, `error`.
+**raw result JSON** — `task_id`, `model_id`, `run_index`, **`variant`**,
+`output`, `tokens_in/out`, `latency_s`, `cost_usd` (0.0 — and we say so),
+`timestamp`, `error`, `sampling` (vendor-default policy, recorded), and
+**`task_hash`** (content-hash versioning: reruns never silently mix task
+versions).
 
-**score JSON** — per-criterion `score` + `judge_rationale`, `weighted_total`, `auto_fail_triggered`, `judge_model`, `rubric_version`.
+**score JSON** — per-criterion `score` + `judge_rationale`, `weighted_total`
+(weight-normalized), `auto_fail_triggered`, `judge_model`, human-assigned
+`failure_modes`, `task_hash` + `rubric_hash`, `timestamp`.
 
-Everything content-addressed by `{task_id}__{model_id}__run{n}` so reruns never clobber history.
-
----
-
-## 5. Build sequence — step by step
-
-Each step has a **Definition of Done (DoD)** and ends with a commit + a dated entry in `BUILD_LOG.md`. No step starts before the previous one's DoD is met. This build log IS your documentation story.
-
-**Step 0 — Repo & scaffolding** (0.5 day)
-Init repo, folder structure, `pyproject.toml`, `.env.example`, pre-commit (ruff), empty CI workflow, README skeleton with architecture diagram.
-*DoD: CI green on empty package; README explains the idea in 10 lines.*
-
-**Step 1 — Schemas first** (0.5 day)
-Write `schemas.py` (all four contracts) + tests that load example YAML/JSON fixtures. Write ADR-001: "files-on-disk pipeline over a database — why."
-*DoD: `pytest` green; a malformed task.yaml fails validation with a readable error.*
-
-**Step 2 — Model registry** (0.5 day)
-`models.yaml` + `registry.py` via LiteLLM. Entries for the 4 free models; keys from env vars only. Retry/backoff + response cache built in HERE, not later. Write `docs/adding-a-model.md`.
-*DoD: `deskbench ping` gets a hello from all 4 providers; second call hits cache.*
-
-**Step 3 — Two pilot tasks + rubrics** (1–1.5 days)
-Author T01 (inbox triage with conflicting requests) and T02 (spreadsheet reconciliation with format mismatches): artifacts, **reference answer written before any model run** (state this discipline in methodology.md), and rubrics with real 1/3/5 anchors. Write `docs/adding-a-task.md` from what you learn.
-*DoD: both tasks pass schema validation; a colleague-level reader could grade a human answer using only the rubric.*
-**Saturation check:** run both pilot tasks against 2 models before scaling. If everything scores ≥4/5, the tasks are too easy and the benchmark measures nothing — raise difficulty (more ambiguity, conflicting constraints, dirtier data) before Step 6.
-
-**Step 4 — Runner** (1 day)
-`runner.py`: task × model × N runs → raw JSONs. Tool use is scoped hard: **exactly 2 of the 12 tasks** use tools (file reading + code exec) in v1; all others are self-contained (artifacts inlined into the prompt). Agent loops multiply failure modes — contain them. CLI: `deskbench run --task T01 --model gemini-flash -n 3`.
-*DoD: 2 tasks × 4 models × 3 runs = 24 raw results on disk, resumable after an interrupt.*
-
-**Step 5 — Grader** (1–1.5 days)
-`grader.py`: LLM judge receives rubric + reference + model output, returns structured per-criterion scores with rationale (enforce JSON schema on judge output; reject-and-retry on parse failure). Judge instruction: grade against the rubric anchors, NOT similarity to the reference — valid alternative approaches must not be penalized. ADR-002: judge prompt design + judge-independence policy (judge model is excluded from the leaderboard).
-*DoD: 24 score files; spot-read 5 rationales — they cite the rubric anchors, not vibes.*
-
-**Step 6 — Full task suite** (3–4 days, the real work)
-Scale to **12 generic tasks** across the 5 categories (India-flavored slice deferred to v1.1 — note this in the roadmap section of README). Iterate rubrics using a local/cheap judge to save rate limits.
-*DoD: 12 tasks, 12 rubrics, all validated; category coverage table in docs.*
-
-**Step 7 — Human grading & judge validation** (1–1.5 days)
-Hand-grade a stratified sample (≥30% of outputs, blind to judge scores) → `results/human/`. Analyzer computes judge–human agreement (correlation + mean absolute difference per criterion). If agreement is weak, fix rubrics/judge prompt and re-run — and KEEP the before/after numbers; that iteration story is gold for the writeup.
-*DoD: agreement metrics computed and honest; methodology.md updated with the number, whatever it is.*
-
-**Step 8 — Full run & analysis** (1 day)
-All 12 tasks × 4 models × 3–5 runs (cache + backoff make this feasible on free tiers; spread over a day if needed). `analyzer.py` → summary.json: leaderboard, per-category scores, run-to-run variance, judge agreement, latency, failure-mode taxonomy (tag each low score: hallucinated data / dropped constraint / false confidence / format failure / refusal).
-*DoD: summary.json complete; every number in it reproducible from raw files.*
-
-**Step 9 — Visualizer** (1–1.5 days)
-`visualize.py` → single self-contained `site/index.html` (Plotly): leaderboard bars with variance whiskers; model × task score heatmap; per-category radar/grouped bars; run-variance box plots; judge-vs-human scatter; failure-mode breakdown; and a **run inspector** — click a cell, see the model's actual output next to the reference and the judge rationale (the "logs" you wanted, made browsable). Publish to GitHub Pages.
-*DoD: one HTML file, opens from disk with no server, every chart labeled and self-explanatory.*
-
-**Step 10 — Writeup & ship** (1.5–2 days)
-`report/REPORT.md`: method → results → 3 surprising findings → failure modes → **"What these results do NOT show"** → limitations & next steps (incl. v1.1 India slice, more models via one-line config). Polish README (add dashboard screenshot). Final BUILD_LOG entry. Then the LinkedIn/X post (findings-first draft already agreed), and apply to Epoch with the repo linked.
-*DoD: a stranger can go from README → dashboard → report → any raw log file and follow the whole chain of evidence.*
-
-**Total: ~12–15 working days part-time.**
+Everything content-addressed by `{task_id}__{model_id}__run{n}` so reruns never
+clobber history.
 
 ---
 
-## 6. Documentation standards (meticulous, as requested)
+## 6. Build sequence
 
-1. **BUILD_LOG.md** — dated entry per step: what was built, what broke, what was decided. Written as you go, never backfilled.
-2. **ADRs** — one page per non-obvious decision (files vs DB, judge prompt design, why free models don't weaken the research, why reference answers precede model runs).
-3. **Docstrings + module READMEs** — every box's module states its contract: input, output, invariants.
-4. **methodology.md** — the scientific heart: grading philosophy, judge validation protocol, contamination note (synthetic tasks authored fresh → can't be in training data), limitations.
-5. **README** — 60-second version: what, why, screenshot, quickstart (`pip install -e . && deskbench all`), results table, roadmap.
+The canonical, machine-checked step list — with its live status table — is
+[BUILDSEQUENCE.md](BUILDSEQUENCE.md). Summary of the pilot sequence: 0
+scaffolding · 1 schemas · 2 model registry · 3 pilot tasks T01/T02 (+ recorded
+saturation probe) · 4 runner · 5 grader · 6 clean twins + CORE/MESS split ·
+7 the 48-run pilot + judge grading · 8 100% human validation + analyzer ·
+9 the pilot dashboard · 10 report & ship.
 
----
-
-## 7. Job-criteria traceability
-
-| Job requirement | Where DeskBench proves it |
-|---|---|
-| Curate an evaluation suite | 12 authored tasks + `adding-a-task.md` + roadmap |
-| Devise rubrics for hard-to-grade tasks | `rubric.yaml` anchors + methodology.md |
-| Evaluate AI systems regularly | model registry + `deskbench all --model X` (one-line addition) |
-| Communicate research | REPORT.md + dashboard + LinkedIn/X post |
-| Data analysis | analyzer: variance, agreement stats, failure taxonomy |
-| Improve the process | caching, CI, resumable runs, one-command pipeline |
-| Grounded, skeptical mentality | judge validation + "what this does NOT show" section |
-| Comfort with AI agents | runner tool-use + LLM judge + AI-assisted workflow noted in BUILD_LOG |
+Every step ends with a dated BUILD_LOG.md entry and a commit; a step's ✅ is
+computed from the repo's actual state by `scripts/build_status.py`, never
+asserted by hand. Steps 7+ are gated on maintainer inputs (API keys → ping →
+saturation probe → editorial pass → go).
 
 ---
 
-## 8. Free-tier budget math (why this fits in $0)
+## 7. Roadmap (v2): the generator vision
 
-Full run: 12 tasks × 4 models × 4 runs = **192 model calls**, plus ~192 judge calls, plus rubric-iteration overhead (done on local Ollama, $0 and unlimited). Free daily quotas (Gemini AI Studio, Groq, Z.ai Flash, OpenRouter `:free`) comfortably cover ~100–200 calls/day per provider, and calls are spread across 4 providers — so a full run fits in 1–2 days, and the on-disk cache means reruns cost zero calls. Budget the calendar accordingly: Step 8 is "spread over two days," not "one afternoon."
+> **Moved here by the MVP pivot — designed, deliberately not built.** The full
+> design is [ADR-003 "Benchmark as a function"](docs/adr/ADR-003-benchmark-as-a-function.md).
+
+The pilot's twin pairs are hand-authored instances of a more general idea:
+**a benchmark as a function, not a list**. Each task becomes a parameterized
+template whose seeded parameter draws *change the correct answer* — which
+deadline is binding, which row is duplicated, where the dropped zero lands —
+with the reference answer **computed** from the drawn parameters rather than
+written by hand. That buys:
+
+- **Contamination resistance you can prove:** a model that memorized any
+  released instance still fails a fresh draw, because the answer moved.
+- **The messy/clean twin for free:** noise becomes a parameter axis (the
+  core/noise split the pilot hand-curated becomes `noise=off`).
+- **Statistical power:** n instances per template instead of n=1.
+
+Honestly stated risk (in the ADR): if the parameter space is shallow, the
+generator is a gimmick — 50 reskins of one problem. The pilot's per-task
+core/noise curation is the evidence that the parameter axes can be chosen
+meaningfully. v1.1 candidates additionally include an India-flavored task
+slice, judge-assigned failure taxonomy (with its own agreement check), and an
+[Inspect](https://inspect.aisi.org.uk/) export as an interop gesture.
 
 ---
 
-## 9. Quality bar / anti-goals
+## 8. Documentation standards
 
-- **No scale theater.** 12 excellent tasks beat 50 mediocre ones. Rubric quality is the differentiator.
-- **No unvalidated judge.** Never report judge scores without the human-agreement number next to them.
-- **No hidden failures.** Errors, refusals, and parse failures are results, not noise to discard.
-- **No claims beyond the data.** 4 free models ≠ "state of the art" — say exactly what was tested and why.
-- **No secrets in git, no results you can't reproduce.**
+1. **BUILD_LOG.md** — dated entry per step: built / broke / decided. Written as
+   the work happens, never backfilled.
+2. **ADRs** — one page per non-obvious decision (000 custom pipeline, 001 files
+   over DB, 002 judge prompt + independence, 003 generator roadmap).
+3. **Docstrings** — every box's module states its contract: input, output,
+   invariants.
+4. **methodology.md** — the scientific heart: grading philosophy, twin design,
+   mess-penalty formula, silent-failure definition, judge validation,
+   limitations.
+5. **README** — 60-second version: what, why, status, quickstart, roadmap.
 
 ---
 
-## Next actions
+## 9. Free-tier budget math (why this fits in $0)
 
-1. You create the GitHub repo and send me the link.
-2. I scaffold Step 0–1 (structure, schemas, CI) in your project folder.
-3. We author T01 together so the task/rubric pattern is set, then I can draft further task artifacts for your review — you stay the editorial voice, since the curation judgment is what you're showcasing.
+Pilot run: 2 tasks × 2 variants × 4 models × 3 runs = **48 model calls**, plus
+~48 judge calls (plus reject-and-retry overhead). Free daily quotas (Gemini AI
+Studio, Groq, Z.ai, OpenRouter `:free`) comfortably cover this spread across 4
+providers in a day; the on-disk cache means reruns cost zero calls and judge
+retries never re-bill a completed grade.
+
+---
+
+## 10. Quality bar / anti-goals
+
+- **No scale theater.** 2 excellent twin pairs beat 50 mediocre tasks — and the
+  report's first limitation says n=2 out loud.
+- **No unvalidated judge.** Judge scores are never reported without the
+  human-agreement number next to them (100% human-graded at this scale).
+- **No hidden failures.** Errors, refusals, and parse failures are results, not
+  noise to discard; the grader never invents a score.
+- **No claims beyond the data.** 4 free models ≠ "state of the art" — the
+  report says exactly what was tested.
+- **No hand-entered numbers.** If a number appears in the report or dashboard,
+  it is computed from files in `results/`.
+- **No secrets in git; the full chain of evidence IS in git** (pilot results
+  committed — see BUILD_LOG 2026-07-11 policy note).

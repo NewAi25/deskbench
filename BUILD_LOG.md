@@ -551,6 +551,56 @@ rule is implemented exactly as stated — identical core weights across twins.*
 
 ---
 
+## 2026-07-16 — Docs-alignment commit (external audit)
+
+*An external audit ([DESKBENCH_AUDIT.md](DESKBENCH_AUDIT.md), 2026-07-16, now
+committed at the repo root) found the code healthy (102/102 tests, honest
+ledger) but the planning docs describing the pre-pivot 12-static-task design
+while the code implements the MVP pilot (F1), the v2 generator ADR never
+written (F2), and Step 3's predicate weaker than its DoD text (F3). This
+commit fixes all three; docs only, no pipeline code.*
+
+**Built.**
+
+- **F1 — planning docs rewritten to the shipped pilot scope.** BUILD_PLAN.md,
+  PRD.md, and DASHBOARD_SPEC.md now describe: 2 twin pairs × 4 models × 3 runs
+  (48 completions), CORE/MESS rubric split, mess penalty per methodology.md's
+  formula, silent-failure rate (human-assigned), 100% human validation, and
+  the committed-results evidence policy. The 12-task/generator vision moved to
+  a clearly-marked Roadmap section in BUILD_PLAN (not deleted); the dashboard
+  spec descoped to the four pilot charts + run inspector (original 8-section
+  spec noted as living in git history). README opening and roadmap fixed NOW
+  rather than at Step 10: "2 task pairs", pilot-honesty tone, n=2 named in the
+  opening bullets.
+- **F2 — `docs/adr/ADR-003-benchmark-as-a-function.md`** (Proposed, v2): task
+  templates as seeded functions whose parameter draws change the correct
+  answer; references computed, not written; core/noise as a parameter axis
+  (clean twin = `noise=off`); anchor parity by construction; the provable
+  contamination claim (fresh draw defeats memorized instances). Plus the
+  honest risk, stated as a first-class section: shallow parameter diversity
+  makes it a gimmick — with mitigations (structural not surface parameters,
+  cross-draw diversity audit + effective-n reporting, human-graded samples of
+  generated references, templates generalized only from audited pilot tasks).
+- **F3 — Step 3's predicate now matches its DoD.** Chose the predicate route
+  (keeps "statuses can't lie" true): new `saturation_recorded` predicate greps
+  BUILD_LOG for a line starting `SATURATION RESULT:` (convention documented in
+  BUILDSEQUENCE). Step 3 will regress to 🟨 on this push — honest and intended
+  — until the maintainer runs the probe and records the line. Certifier tests
+  updated: the ordering test now allows ✅ steps after a regressed 🟨
+  predecessor (tightening a DoD must not unwind later verified work), and new
+  tests pin the marker convention (a promise is not a result; inline mentions
+  don't count).
+
+**Decided.**
+
+- Honest regression is a feature: strengthening a DoD retroactively flips the
+  table to current truth rather than preserving a flattering history. Recorded
+  in BUILDSEQUENCE rule 1.
+- The audit itself is committed at the repo root — the work sample should show
+  its own inspection, not just survive it.
+
+---
+
 ## 2026-07-11 — MVP item 3: methodology.md, results-commit policy, mechanic flag
 
 *Maintainer sent the addendum (core/noise + silent-failure defs + mess-penalty

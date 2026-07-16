@@ -61,17 +61,40 @@ def test_step_zero_is_done_on_real_repo():
 
 
 def test_ordering_blocks_out_of_sequence_completion():
-    # A later step whose predecessor is not done can never be marked done here,
-    # but the ordering rule specifically prevents "in progress" from leaking
-    # past a pending predecessor.
+    # The ordering rule prevents "in progress" from leaking past a pending
+    # predecessor. A DONE step may follow a regressed (🟨) one: tightening an
+    # earlier step's DoD must not unwind later verified work (BUILDSEQUENCE
+    # rule 1, honest-regression note).
     statuses = bs.compute_statuses(REPO_ROOT, run_tests=False)
     # Every step number 0..10 is present.
     assert set(statuses) == {s.number for s in bs.STEPS}
     # No step is "in progress" unless its predecessor is done.
-    done_or_progress = {bs.DONE, bs.IN_PROGRESS}
     for step in bs.STEPS[1:]:
-        if statuses[step.number] in done_or_progress:
+        if statuses[step.number] == bs.IN_PROGRESS:
             assert statuses[step.number - 1] == bs.DONE
+
+
+def test_saturation_predicate_requires_recorded_result(tmp_path):
+    # Audit F3: the predicate must demand a RECORDED result, not a promise.
+    log = tmp_path / "BUILD_LOG.md"
+    log.write_text("Saturation check — status: PENDING maintainer run.\n", encoding="utf-8")
+    assert bs.saturation_recorded(tmp_path) is False  # a promise is not a result
+    log.write_text(
+        "## Probe\nSATURATION RESULT: T01 spread 2-4, T02 spread 1-4; not saturated.\n",
+        encoding="utf-8",
+    )
+    assert bs.saturation_recorded(tmp_path) is True
+    # The marker must start a line — an inline mention doesn't count.
+    log.write_text("we discussed the SATURATION RESULT: convention here\n", encoding="utf-8")
+    assert bs.saturation_recorded(tmp_path) is False
+
+
+def test_step3_regresses_until_probe_recorded():
+    # Until the maintainer records `SATURATION RESULT:` in BUILD_LOG, Step 3
+    # must NOT be done (it reads "in progress", since its dir checks pass).
+    if not bs.saturation_recorded(REPO_ROOT):
+        statuses = bs.compute_statuses(REPO_ROOT, run_tests=False)
+        assert statuses[3] == bs.IN_PROGRESS
 
 
 def test_twin_suite_predicate_on_real_repo():
