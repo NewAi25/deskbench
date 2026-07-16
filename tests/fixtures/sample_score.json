@@ -31,7 +31,7 @@
   ],
   "weighted_total": 4.3,
   "auto_fail_triggered": false,
-  "judge_model": "qwen-2.5-72b-judge",
+  "judge_model": "nemotron-judge",
   "failure_modes": [],
   "task_hash": "sha256:821e17cb7240",
   "rubric_hash": "sha256:de306951f612",

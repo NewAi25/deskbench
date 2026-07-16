@@ -14,7 +14,7 @@ are unit-tested in ``tests/test_saturation.py`` without any network.
 
 Usage:
     python scripts/saturation_check.py                 # gemini-flash + llama-3.3-70b
-    python scripts/saturation_check.py --models gemini-flash deepseek-v3-free
+    python scripts/saturation_check.py --models gemini-flash gpt-oss-20b-free
 """
 
 from __future__ import annotations

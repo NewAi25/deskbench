@@ -21,7 +21,7 @@
 models:
   - id: gemini-flash
     provider: google-ai-studio
-    litellm_model: gemini/gemini-2.0-flash
+    litellm_model: gemini/gemini-2.5-flash
     api_key_env: GEMINI_API_KEY
     sampling:
       source: vendor-default
@@ -42,25 +42,34 @@ models:
     sampling:
       source: vendor-default
 
-  - id: deepseek-v3-free
+  - id: gpt-oss-20b-free
     provider: openrouter
-    litellm_model: openrouter/deepseek/deepseek-chat-v3-0324:free
+    # DeepSeek no longer has a :free OpenRouter variant (all went paid), so this
+    # leaderboard slot now hosts OpenAI's open-weight gpt-oss-20b. Family change
+    # (DeepSeek -> OpenAI) logged in BUILD_LOG. The id was renamed from
+    # deepseek-v3-free to match what it serves (ids appear in result filenames,
+    # the dashboard, and the report, so they must be honest).
+    litellm_model: openrouter/openai/gpt-oss-20b:free
     api_key_env: OPENROUTER_API_KEY
     sampling:
       source: vendor-default
 
 # ---------------------------------------------------------------------------
 # Judge — held out of the leaderboard (never grades its own family).
-# Qwen2.5-72B-Instruct (Alibaba) is independent of all four leaderboard
-# families (Google / Zhipu / Meta / DeepSeek), so it cannot self-prefer any of
-# them. It is the strongest free, family-independent option available; see
-# BUILD_LOG for the rationale and the self-preference fallback if free tiers
-# ever force overlap.
+# NVIDIA Nemotron is independent of all four leaderboard families
+# (Google / Zhipu / Meta / OpenAI), so it cannot self-prefer any of them.
+# Every Qwen :free tier (2.5-72B, qwen3-next, qwen3-coder) is now paid or
+# persistently upstream-rate-limited on OpenRouter, so the judge moved from the
+# Qwen family to NVIDIA Nemotron-3-Ultra-550B :free — the strongest free,
+# family-independent, reliably-answering option (verified 3/3 by ping). The id
+# was renamed from qwen-2.5-72b-judge to nemotron-judge to match what it serves;
+# see BUILD_LOG for the slug history and the self-preference fallback if free
+# tiers ever force overlap.
 # ---------------------------------------------------------------------------
 judge:
-  id: qwen-2.5-72b-judge
+  id: nemotron-judge
   provider: openrouter
-  litellm_model: openrouter/qwen/qwen-2.5-72b-instruct:free
+  litellm_model: openrouter/nvidia/nemotron-3-ultra-550b-a55b:free
   api_key_env: OPENROUTER_API_KEY
   sampling:
     source: vendor-default

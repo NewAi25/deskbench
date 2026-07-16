@@ -653,3 +653,68 @@ untouched for the maintainer's editorial pass.*
 
 **DoD.** 102 tests green; lint clean. Non-task-dir MVP items complete; task dirs
 untouched pending editorial review.
+
+---
+
+## 2026-07-16 — Free-tier slug refresh (config/models.yaml only)
+
+Providers renamed/repriced their free tiers out from under the registry; `ping`
+was failing 4/5. Fixed in `config/models.yaml` **only** (standing rule); sampling
+stays vendor-default; ids kept stable so fixtures/scripts referencing them don't
+break. One line per slug change:
+
+- **gemini-flash slug:** `gemini/gemini-2.0-flash` → `gemini/gemini-2.5-flash`.
+  2.0-flash's free tier is now `limit: 0` (429 RESOURCE_EXHAUSTED); 2.5-flash's
+  free tier answers. Verified by ping.
+- **deepseek-v3-free slug + LEADERBOARD FAMILY CHANGE:**
+  `openrouter/deepseek/deepseek-chat-v3-0324:free` →
+  `openrouter/openai/gpt-oss-20b:free`. DeepSeek's `:free` variant went paid
+  (404, "use the paid slug"); the OpenRouter models API (`/api/v1/models`) lists
+  **no** DeepSeek `:free` at all. Per the fallback rule, picked a free model from
+  a family that is not Google/Zhipu/Meta: **OpenAI gpt-oss-20b**. The four
+  leaderboard labs are therefore now **Google / Zhipu / Meta / OpenAI** (was
+  …/DeepSeek). Id `deepseek-v3-free` left unchanged (fixtures/scripts reference
+  it); the id is now a historical label, not the family. Verified by ping.
+- **qwen-2.5-72b-judge slug + JUDGE FAMILY CHANGE:**
+  `openrouter/qwen/qwen-2.5-72b-instruct:free` →
+  `openrouter/nvidia/nemotron-3-ultra-550b-a55b:free`. Qwen2.5-72B lost its
+  `:free` tier (404 → paid). Every remaining Qwen `:free` (qwen3-next-80b,
+  qwen3-coder) is persistently upstream-rate-limited on OpenRouter (429, 8 rpm,
+  0/3 on a reliability probe), so it is unfit for a judge that must grade every
+  result. OpenRouter **does** have a suitable free judge, so NVIDIA NIM was not
+  needed: **NVIDIA Nemotron-3-Ultra-550B** answered 3/3 on the same probe and is
+  independent of all four leaderboard families (Google/Zhipu/Meta/OpenAI), so it
+  cannot self-prefer. Judge family moves Qwen (Alibaba) → NVIDIA. Id
+  `qwen-2.5-72b-judge` left unchanged (fixture `sample_score.json` references it);
+  it is now a historical label. Verified by ping (~26 s latency — the 550B free
+  endpoint is slow but reliable).
+- **glm-4.7-flash:** NOT a config problem — `AuthenticationError` ("token expired
+  or incorrect") is an expired ZAI key, being regenerated on z.ai. Left as-is.
+  Double-checked its `base_url` points at z.ai's international endpoint
+  (`https://api.z.ai/api/paas/v4`), **not** bigmodel.cn — correct, no change.
+
+**Ping status:** 4/4 config-fixable models green (gemini-flash, llama-3.3-70b,
+deepseek-v3-free, judge). glm-4.7-flash blocked on the maintainer's key
+regeneration, not config. Holding at the gate.
+
+---
+
+## 2026-07-16 — Model-id rename to match served models (approved, pre-pilot)
+
+Follow-up to the slug refresh above. The previous entry kept the ids stable
+under the models.yaml-only rule, leaving `deepseek-v3-free` pointing at OpenAI
+gpt-oss-20b and `qwen-2.5-72b-judge` pointing at NVIDIA Nemotron — dishonest ids
+that surface in result filenames, the dashboard, and the report. Maintainer
+approved a scoped override of the models.yaml-only rule to rename them **now**,
+before the pilot — doing it after would re-key 96 result files.
+
+- **`deepseek-v3-free` → `gpt-oss-20b-free`** and **`qwen-2.5-72b-judge` →
+  `nemotron-judge`**. Updated every reference: `config/models.yaml` (ids +
+  comments), `scripts/saturation_check.py` (docstring example), and
+  `tests/fixtures/sample_score.json` (`judge_model`). `sample_raw_result.json`
+  needed no change — its `model_id` is `gemini-flash`. No test hard-codes either
+  id (assertions use `reg.judge_id` / dynamic ids), so none needed editing.
+
+**DoD.** 104 tests green; ruff check + format clean. Ping re-run after the
+rename: same 4/4 green, glm-4.7-flash still blocked on the key regen. Holding at
+the gate.
