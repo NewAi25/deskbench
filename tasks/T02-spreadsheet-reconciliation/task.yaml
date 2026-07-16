@@ -26,14 +26,21 @@ artifacts:
   - finance_ledger.csv
 tools_allowed: []
 author_notes: >
-  Underlying truth: five deals (Acme 12,000; Bluecrest 8,400; Cirrus 5,250;
-  Delta 3,000; Everest 15,000) → true total 43,650. CRM total = 43,650 (correct).
-  Finance total = 38,550 because of TWO independent problems that partly cancel:
-  (a) Bluecrest INV-1002 is DUPLICATED (double-counts +8,400), and (b) Everest
-  INV-1005 is recorded as 1,500 instead of 15,000 (a dropped zero, −13,500). Net
-  Finance is 5,100 low. Everything else is cosmetic: name variants (Acme Corp vs
-  ACME Corporation, Ltd vs Limited, "cirrus" case, a trailing space), currency
+  Underlying truth: 27 distinct deals (IDs 1001–1027), CRM total = 375,740
+  (correct). Finance total = 370,640 because of TWO
+  total-affecting problems that partly cancel, buried mid-file: (a) Bluecrest
+  INV-1012 (8,400) is DUPLICATED, its second row re-listed lower in the ledger
+  after Tidewater 1021 (+8,400), and (b) Everest INV-1019 is recorded as 1,500
+  instead of 15,000 (a dropped zero, −13,500). Net finance is 5,100 low
+  (13,500 − 8,400). A THIRD genuine discrepancy is non-arithmetic: Halcyon 1008
+  closes 5 Mar in the CRM but 5 Feb in finance (wrong month, same 11,200 amount),
+  so it does not move the total but is a real timing disagreement to flag — not a
+  date-format artifact. Everything else is cosmetic and spans every row: name
+  variants (Acme Corp vs ACME Corporation, Ltd vs Limited, "cirrus" case, "&"
+  vs "and", a trailing space), the finance INV- transaction prefix, currency
   formatting ($ signs, decimals, thousands separators), and date format (CRM
-  MM/DD/YYYY vs finance DD/MM/YYYY — the dates are equivalent here). A weak
-  answer sums one file, misses the duplicate or the dropped zero, or "fixes"
-  Everest to a confident wrong number instead of flagging it for confirmation.
+  MM/DD/YYYY vs finance DD/MM/YYYY — equivalent for all 26 non-Halcyon rows). A
+  weak answer sums one file, misses the buried duplicate or dropped zero, misses
+  or misclassifies the Halcyon month mismatch, manufactures cosmetic "errors"
+  from the formatting, or "fixes" Everest to a confident wrong number instead of
+  flagging it for confirmation.

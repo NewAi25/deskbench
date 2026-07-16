@@ -1,7 +1,29 @@
 Txn,Client,Date,Value
-INV-1001,ACME Corporation,12/03/2024,12000.00
-INV-1002,Bluecrest Limited ,14/03/2024,"8,400.00"
-INV-1002,Bluecrest Limited ,14/03/2024,"8,400.00"
-INV-1003,cirrus,18/03/2024,5250
-INV-1004,Delta Systems,22/03/2024,"3,000.00"
-INV-1005,Everest Retail,29/03/2024,"1,500.00"
+INV-1001,ACME Corporation,04/03/2024,12000
+INV-1002,"Northwind Traders, Inc.",15/01/2024,"22,500.00"
+INV-1003,Sterling Freight Co.,22/01/2024,4750.00
+INV-1004,cirrus analytics,05/02/2024,"5,250.00"
+INV-1005,Delta Systems,12/02/2024,3000
+INV-1006,Meridian Health Group,09/01/2024,"31,200.00"
+INV-1007,Pinnacle Foods Ltd,18/03/2024,6800.00
+INV-1008,Halcyon Travel,05/02/2024,"11,200.00"
+INV-1009,Vantage Media LLC,26/02/2024,9900
+INV-1010,Ironclad Security,30/01/2024,"18,400.00"
+INV-1011,Quorum Legal LLP,11/03/2024,2600.00
+INV-1012,Bluecrest Limited ,14/02/2024,"8,400.00"
+INV-1013,BrightPath Education,19/01/2024,7350
+INV-1014,Cascade Utilities,20/02/2024,"13,750.00"
+INV-1015,"Redwood Logistics, Inc",25/03/2024,5940.00
+INV-1016,Summit Insurance Co,27/01/2024,"27,000.00"
+INV-1017,Kestrel Robotics,08/02/2024,44800
+INV-1018,ONYX Consulting,14/03/2024,"3,850.00"
+INV-1019,Everest Retail,29/02/2024,1500.00
+INV-1020,Larkspur Design Studio,12/01/2024,"6,150.00"
+INV-1021,Tidewater Marine,21/03/2024,19750
+INV-1012,Bluecrest Limited ,14/02/2024,"8,400.00"
+INV-1022,Beacon Analytics,16/02/2024,"8,100.00"
+INV-1023,Fairmont Realty Group,24/01/2024,15600.00
+INV-1024,Glenwood Pharmaceuticals,08/03/2024,"24,300.00"
+INV-1025,Sable & Finch,03/02/2024,4200
+INV-1026,Ashcroft Industrial Ltd,17/01/2024,"33,500.00"
+INV-1027,Vireo Software,28/03/2024,10450.00

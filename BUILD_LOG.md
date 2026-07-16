@@ -718,3 +718,64 @@ before the pilot — doing it after would re-key 96 result files.
 **DoD.** 104 tests green; ruff check + format clean. Ping re-run after the
 rename: same 4/4 green, glm-4.7-flash still blocked on the key regen. Holding at
 the gate.
+
+---
+
+## 2026-07-16 — Step 3 saturation probe: result (flips Step 3)
+
+Ran `scripts/saturation_check.py` against the two probe models now that the
+registry pings green.
+
+**SATURATION RESULT: T01 gemini-flash 2.50/5, llama-3.3-70b 2.50/5; T02
+gemini-flash 5.00/5, llama-3.3-70b 5.00/5 — global spread OK, T02 at ceiling for
+both probe models.**
+
+The global `is_saturated` verdict is False (T01 discriminates at 2.50), so the
+script prints "OK". But T02 is **per-task saturated**: both probe models hit the
+5.00 ceiling, so T02 as written does not discriminate. Per BUILD_PLAN §3 this
+blocks scaling until T02 is hardened. T01 is left as-is (it already spreads).
+Hardening entry follows below.
+
+---
+
+## 2026-07-16 — T02 hardened (twin pair rebuilt), pre-pilot
+
+Rebuilt the T02 / T02c twin pair to break the per-task ceiling, preserving every
+twin invariant. Both CSVs went from ~6 rows to **27 distinct deals** (IDs
+1001–1027; finance 28 rows with the one duplicate).
+
+**Planted discrepancies (identical values in both variants):**
+
+- **Duplicate (same class):** Bluecrest `INV-1012` (8,400) is double-counted, its
+  second row **buried mid-file** (re-listed after Tidewater 1021), not adjacent to
+  the original — far harder to eyeball than the old row-2/row-3 pair.
+- **Magnitude (same class):** Everest `INV-1019` recorded 1,500 vs 15,000 (dropped
+  zero, −13,500), buried at row 19.
+- **NEW class — wrong-month timing:** Halcyon `1008` closes **5 Mar** in the CRM
+  but **5 Feb** in finance (same 11,200 amount). A genuine data disagreement that
+  does **not** move the total, so a total-only reconciliation misses it; and it
+  must be told apart from the pervasive MM/DD-vs-DD/MM date-format *noise*, which
+  is cosmetic on all 26 other rows.
+
+**Arithmetic (verified on-disk through the schema loaders):** CRM total
+**375,740**; finance **370,640**; gap **5,100** = +8,400 (duplicate) − 13,500
+(Everest). Halcyon nets to 0. If Everest were truly 1,500 → 362,240. Twin CRM and
+finance underlying values are byte-for-byte identical between messy and clean;
+only the messy cosmetic noise (name variants, `INV-` prefix, `$`/comma/decimal
+formatting, MM/DD vs DD/MM dates) differs. Prompts remain byte-identical across
+the pair (`test_twin_pair_invariants` passes).
+
+**Rubric.** Same criteria and weights (mess-penalty contract intact:
+0.30 mess + 0.30/0.15/0.15/0.10 core = 1.0 messy; 0.70 clean). Anchors updated for
+the new totals and to require catching all **three** genuine issues:
+`identifies-real-vs-cosmetic` now needs the buried duplicate + Everest + Halcyon
+month and no formatting artifact promoted to a real error;
+`flags-ambiguity-not-guesses` now also covers flagging the Halcyon month;
+`discrepancy-list-quality` credits naming the genuine three without padding the
+list with the 24 identical rows. `reference.md` for both twins rewritten before
+any model run; `author_notes` updated on both.
+
+**DoD.** 104 tests green (schema-validation + twin-pair invariants cover the new
+files); ruff check + format clean. STOP — maintainer re-runs
+`saturation_check.py --tasks T02-spreadsheet-reconciliation` and editorial-reviews
+the new pair before the pilot.

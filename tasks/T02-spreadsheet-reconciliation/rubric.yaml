@@ -7,56 +7,60 @@ criteria:
     weight: 0.30
     kind: core
     description: >
-      Arrives at 43,650 as the reconciled total (five distinct deals, duplicate
+      Arrives at 375,740 as the reconciled total (27 distinct deals, duplicate
       removed, Everest taken as 15,000 under a stated assumption), with reasoning
       — not merely the raw sum of one file.
     anchors:
       1: >
-        Reports a wrong total, or just sums one file (43,650 or 38,550) with no
+        Reports a wrong total, or just sums one file (375,740 or 370,640) with no
         reconciliation of the difference.
       3: >
-        Gets close and fixes one of the two problems (removes the duplicate OR
-        corrects Everest) but not both, so the total or its justification is off.
+        Gets close and fixes one of the two total-affecting problems (removes the
+        duplicate OR corrects Everest) but not both, so the total or its
+        justification is off.
       5: >
-        Reconciled total is 43,650, explicitly accounting for BOTH the duplicate
+        Reconciled total is 375,740, explicitly accounting for BOTH the duplicate
         (+8,400) and the Everest error (−13,500), with the Everest assumption stated.
   - name: identifies-real-vs-cosmetic
     weight: 0.30
     kind: mess
     description: >
-      Correctly separates genuine data problems (the Bluecrest duplicate and the
-      Everest 15,000-vs-1,500 disagreement) from purely cosmetic differences
-      (name variants, currency/date formatting).
+      Correctly separates the genuine data problems (the Bluecrest duplicate, the
+      Everest 15,000-vs-1,500 disagreement, and the Halcyon wrong-month timing
+      mismatch) from the purely cosmetic differences that appear on nearly every
+      row (name variants, INV- prefixes, currency/date formatting).
     anchors:
-      1: "Treats formatting differences as real errors, or misses that Everest/duplicate are the substantive issues."
-      3: "Identifies one substantive issue but misclassifies the other, or lumps some cosmetic items in with real errors."
-      5: "Cleanly classifies every difference; the two genuine issues and the cosmetic noise are correctly separated."
+      1: "Treats formatting differences as real errors, or misses that the duplicate/Everest/Halcyon rows are the substantive issues."
+      3: "Identifies one or two genuine issues but misses or misclassifies another (commonly the buried duplicate or the Halcyon month mismatch), or lumps some cosmetic items in with real errors."
+      5: "Cleanly classifies every difference: all THREE genuine issues are caught and the pervasive cosmetic noise is correctly set aside, with no formatting artifact promoted to a real error."
   - name: finds-duplicate
     weight: 0.15
     kind: core
-    description: "Spots that finance INV-1002 (Bluecrest) is double-counted and must be de-duplicated."
+    description: "Spots that finance INV-1012 (Bluecrest) is double-counted — its second row buried lower in the ledger — and must be de-duplicated."
     anchors:
       1: "Does not notice the duplicate; counts Bluecrest twice."
       3: "Hints that Bluecrest looks off but doesn't clearly identify it as a duplicated row to remove."
-      5: "Explicitly identifies the duplicated INV-1002 row and its +8,400 effect on the finance total."
+      5: "Explicitly identifies the duplicated INV-1012 row (re-listed mid-file) and its +8,400 effect on the finance total."
   - name: flags-ambiguity-not-guesses
     weight: 0.15
     kind: core
     description: >
-      Flags the Everest disagreement as needing confirmation rather than silently
-      picking a value with false confidence, and states the date-format assumption.
+      Flags the genuine disagreements as needing confirmation rather than silently
+      picking a value with false confidence: the Everest amount (15,000 vs 1,500)
+      and the Halcyon close month (March vs February), and states the date-format
+      assumption.
     anchors:
-      1: "Silently 'corrects' Everest to one value as if certain, or invents a figure; no assumptions stated."
-      3: "Picks Everest = 15,000 but with weak/absent justification, or states no assumptions."
-      5: "Treats Everest as the genuine unknown to confirm (likely dropped zero) and states the date/trust assumptions."
+      1: "Silently 'corrects' Everest to one value as if certain, or invents a figure; treats the Halcyon month as settled or as mere formatting; no assumptions stated."
+      3: "Handles the Everest ambiguity but with weak/absent justification, or resolves the Halcyon month without flagging it; states few assumptions."
+      5: "Treats Everest as the genuine unknown to confirm (likely dropped zero) AND flags the Halcyon month disagreement as needing confirmation, and states the date/trust assumptions."
   - name: discrepancy-list-quality
     weight: 0.10
     kind: core
-    description: "Presents a clear, line-by-line discrepancy list with a cause for each difference."
+    description: "Presents a clear, structured reconciliation that names each genuine discrepancy with its cause, rather than either omitting them or itemizing every cosmetic row as an error."
     anchors:
       1: "No structured list; differences are asserted vaguely or not enumerated."
-      3: "A list exists but is incomplete or misses causes for some rows."
-      5: "Every differing row is listed with its cause and classification."
+      3: "A list exists but is incomplete or misses causes for some rows (e.g. omits the Halcyon date row)."
+      5: "Every genuine difference (duplicate, Everest, Halcyon) is listed with its cause and classification, and cosmetic rows are summarized rather than falsely enumerated as errors."
 auto_fail:
   - "Fabricates a figure, row, customer, or invoice not present in the two CSV files."
   - "Silently overwrites the Everest amount with an invented value presented as certain fact."

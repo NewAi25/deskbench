@@ -1,6 +1,28 @@
 Deal ID,Customer,Close Date,Amount
-1001,Acme Corp,03/12/2024,"$12,000.00"
-1002,Bluecrest Ltd,03/14/2024,"$8,400.00"
-1003,Cirrus,03/18/2024,5250
-1004,Delta Systems,03/22/2024,"$3,000"
-1005,Everest Retail,03/29/2024,"$15,000.00"
+1001,Acme Corp,03/04/2024,"$12,000"
+1002,Northwind Traders,01/15/2024,"$22,500.00"
+1003,Sterling Freight,01/22/2024,"$4,750.00"
+1004,Cirrus Analytics,02/05/2024,"$5,250.00"
+1005,Delta Systems,02/12/2024,"$3,000.00"
+1006,Meridian Health,01/09/2024,31200
+1007,Pinnacle Foods,03/18/2024,"$6,800.00"
+1008,Halcyon Travel,03/05/2024,"$11,200.00"
+1009,Vantage Media,02/26/2024,"$9,900.00"
+1010,Ironclad Security,01/30/2024,"$18,400.00"
+1011,Quorum Legal,03/11/2024,2600
+1012,Bluecrest Ltd,02/14/2024,"$8,400.00"
+1013,Brightpath Education,01/19/2024,"$7,350.00"
+1014,Cascade Utilities,02/20/2024,"$13,750.00"
+1015,Redwood Logistics,03/25/2024,"$5,940.00"
+1016,Summit Insurance,01/27/2024,"$27,000"
+1017,Kestrel Robotics,02/08/2024,"$44,800.00"
+1018,Onyx Consulting,03/14/2024,"$3,850.00"
+1019,Everest Retail,02/29/2024,"$15,000"
+1020,Larkspur Design,01/12/2024,"$6,150.00"
+1021,Tidewater Marine,03/21/2024,19750
+1022,Beacon Analytics,02/16/2024,"$8,100.00"
+1023,Fairmont Realty,01/24/2024,"$15,600.00"
+1024,Glenwood Pharma,03/08/2024,"$24,300.00"
+1025,Sable and Finch,02/03/2024,"$4,200.00"
+1026,Ashcroft Industrial,01/17/2024,33500
+1027,Vireo Software,03/28/2024,"$10,450.00"
