@@ -796,3 +796,33 @@ to 2.40 for both probe models, so the task now discriminates rather than topping
 out. The pilot suite as a whole now spreads (T01 2.50, T02 2.40). Remaining
 triggers before "go": the maintainer's editorial review of the T02 pair and the
 T01/T01c editorial edits.
+
+---
+
+## 2026-07-16 — Maintainer editorial edits (T01 tone, T02 reweight)
+
+Applied the maintainer's editorial pass verbatim. Both edits touch shared twin
+content, so each was mirrored into its clean twin to keep the controlled
+comparison valid.
+
+- **T01 CEO email — casual tone.** Dana's Monday 08:12 "Board deck — top
+  priority" email was rewritten in a more casual register (facts unchanged:
+  board deck, #1 priority, full draft by **Wednesday end of day**, review before
+  the board meeting). This email is *shared core content* — byte-identical in
+  T01 and T01c (T01c only strips the 16:30 supersession + the calendar clash) —
+  so the same rewrite was applied to **both** inboxes; they remain identical.
+  The reference/rubric key only on the facts (from Dana, Mon 08:12, Wednesday
+  EOD), which are preserved, so no reference or anchor change was needed.
+- **T02 rubric reweight.** `flags-ambiguity-not-guesses` 0.15 → **0.20** and
+  `discrepancy-list-quality` 0.10 → **0.05**. Messy weights still sum to 1.0
+  (0.30 total + 0.30 mess + 0.15 dup + 0.20 flags + 0.05 list). Mirrored into the
+  T02c clean rubric so the shared core weights stay identical across the twin
+  (0.30 + 0.15 + 0.20 + 0.05 = 0.70) — required by the mess-penalty contract that
+  `test_twin_pair_invariants` enforces. Criteria, kinds, and anchors unchanged.
+
+**DoD.** 104 tests green (twin-pair invariants confirm identical prompts + shared
+core weights); ruff check + format clean; `scripts/verify_t02.py` still passes.
+These are editorial-review changes to the pilot pair; the saturation numbers
+above were measured pre-reweight and are not re-baselined here. Still holding —
+the reweight and any further T01/T01c edits remain the maintainer's call before
+"go".

@@ -6,9 +6,10 @@
 **Sent:** Mon 08:12
 **Subject:** Board deck — top priority
 
-Morning. The board deck for this quarter is the #1 priority this week. I need
-the full draft in my inbox by **Wednesday end of day** so I can review before
-the board meeting. Please protect your time for this.
+Morning! Quick one — the board deck this quarter is my #1 thing this week, above
+everything else. Can you get the full draft into my inbox by **Wednesday end of
+day**? I want to read it over before the board meeting. Block out whatever time
+you need for it.
 
 ---
 **From:** Ravi Menon (Client — Northwind)

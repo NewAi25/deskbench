@@ -42,7 +42,7 @@ criteria:
       3: "Hints that Bluecrest looks off but doesn't clearly identify it as a duplicated row to remove."
       5: "Explicitly identifies the duplicated INV-1012 row (re-listed mid-file) and its +8,400 effect on the finance total."
   - name: flags-ambiguity-not-guesses
-    weight: 0.15
+    weight: 0.20
     kind: core
     description: >
       Flags the genuine disagreements as needing confirmation rather than silently
@@ -54,7 +54,7 @@ criteria:
       3: "Handles the Everest ambiguity but with weak/absent justification, or resolves the Halcyon month without flagging it; states few assumptions."
       5: "Treats Everest as the genuine unknown to confirm (likely dropped zero) AND flags the Halcyon month disagreement as needing confirmation, and states the date/trust assumptions."
   - name: discrepancy-list-quality
-    weight: 0.10
+    weight: 0.05
     kind: core
     description: "Presents a clear, structured reconciliation that names each genuine discrepancy with its cause, rather than either omitting them or itemizing every cosmetic row as an error."
     anchors:
