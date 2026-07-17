@@ -779,3 +779,20 @@ any model run; `author_notes` updated on both.
 files); ruff check + format clean. STOP — maintainer re-runs
 `saturation_check.py --tasks T02-spreadsheet-reconciliation` and editorial-reviews
 the new pair before the pilot.
+
+---
+
+## 2026-07-16 — Step 3 re-probe: hardened T02 breaks the ceiling
+
+Maintainer re-ran `saturation_check.py --tasks T02-spreadsheet-reconciliation`
+against the two probe models after the hardening.
+
+**SATURATION RESULT (hardened T02): T02 gemini-flash 2.40/5, llama-3.3-70b
+2.40/5 — ceiling broken (was 5.00/5.00 pre-hardening). Both tasks now
+discriminate: T01 2.50, T02 2.40.**
+
+The per-task saturation flagged above is resolved: T02 dropped from a flat 5.00
+to 2.40 for both probe models, so the task now discriminates rather than topping
+out. The pilot suite as a whole now spreads (T01 2.50, T02 2.40). Remaining
+triggers before "go": the maintainer's editorial review of the T02 pair and the
+T01/T01c editorial edits.
