@@ -1,0 +1,739 @@
+{
+  "seed": 20260718,
+  "blind": true,
+  "source": "results/raw",
+  "entries": [
+    {
+      "entry_id": "H01",
+      "task_id": "T02c-spreadsheet-reconciliation",
+      "model_id": "gpt-oss-20b-free",
+      "run_index": 2,
+      "variant": "clean",
+      "task_hash": "sha256:37df14c562e1",
+      "rubric_hash": "sha256:cc95aebc366c",
+      "criteria": [
+        "correct-reconciled-total",
+        "finds-duplicate",
+        "flags-ambiguity-not-guesses",
+        "discrepancy-list-quality"
+      ]
+    },
+    {
+      "entry_id": "H02",
+      "task_id": "T02c-spreadsheet-reconciliation",
+      "model_id": "gpt-oss-20b-free",
+      "run_index": 1,
+      "variant": "clean",
+      "task_hash": "sha256:37df14c562e1",
+      "rubric_hash": "sha256:cc95aebc366c",
+      "criteria": [
+        "correct-reconciled-total",
+        "finds-duplicate",
+        "flags-ambiguity-not-guesses",
+        "discrepancy-list-quality"
+      ]
+    },
+    {
+      "entry_id": "H03",
+      "task_id": "T02-spreadsheet-reconciliation",
+      "model_id": "llama-3.3-70b",
+      "run_index": 1,
+      "variant": "messy",
+      "task_hash": "sha256:917839b0e004",
+      "rubric_hash": "sha256:4b1ca7a658be",
+      "criteria": [
+        "correct-reconciled-total",
+        "identifies-real-vs-cosmetic",
+        "finds-duplicate",
+        "flags-ambiguity-not-guesses",
+        "discrepancy-list-quality"
+      ]
+    },
+    {
+      "entry_id": "H04",
+      "task_id": "T01-inbox-triage",
+      "model_id": "gemini-flash",
+      "run_index": 0,
+      "variant": "messy",
+      "task_hash": "sha256:f4af4e3fe4dc",
+      "rubric_hash": "sha256:2e87138a717f",
+      "criteria": [
+        "correct-prioritization",
+        "catches-superseded-instruction",
+        "catches-scheduling-conflict",
+        "surfaces-not-silently-resolves",
+        "reply-quality"
+      ]
+    },
+    {
+      "entry_id": "H05",
+      "task_id": "T01c-inbox-triage",
+      "model_id": "glm-4.7-flash",
+      "run_index": 2,
+      "variant": "clean",
+      "task_hash": "sha256:3d0cfd3a2366",
+      "rubric_hash": "sha256:e5ec94ffec6f",
+      "criteria": [
+        "correct-prioritization",
+        "surfaces-not-silently-resolves",
+        "reply-quality"
+      ]
+    },
+    {
+      "entry_id": "H06",
+      "task_id": "T01c-inbox-triage",
+      "model_id": "gemini-flash",
+      "run_index": 1,
+      "variant": "clean",
+      "task_hash": "sha256:3d0cfd3a2366",
+      "rubric_hash": "sha256:e5ec94ffec6f",
+      "criteria": [
+        "correct-prioritization",
+        "surfaces-not-silently-resolves",
+        "reply-quality"
+      ]
+    },
+    {
+      "entry_id": "H07",
+      "task_id": "T02c-spreadsheet-reconciliation",
+      "model_id": "gemini-flash",
+      "run_index": 2,
+      "variant": "clean",
+      "task_hash": "sha256:37df14c562e1",
+      "rubric_hash": "sha256:cc95aebc366c",
+      "criteria": [
+        "correct-reconciled-total",
+        "finds-duplicate",
+        "flags-ambiguity-not-guesses",
+        "discrepancy-list-quality"
+      ]
+    },
+    {
+      "entry_id": "H08",
+      "task_id": "T01-inbox-triage",
+      "model_id": "llama-3.3-70b",
+      "run_index": 0,
+      "variant": "messy",
+      "task_hash": "sha256:f4af4e3fe4dc",
+      "rubric_hash": "sha256:2e87138a717f",
+      "criteria": [
+        "correct-prioritization",
+        "catches-superseded-instruction",
+        "catches-scheduling-conflict",
+        "surfaces-not-silently-resolves",
+        "reply-quality"
+      ]
+    },
+    {
+      "entry_id": "H09",
+      "task_id": "T01-inbox-triage",
+      "model_id": "llama-3.3-70b",
+      "run_index": 2,
+      "variant": "messy",
+      "task_hash": "sha256:f4af4e3fe4dc",
+      "rubric_hash": "sha256:2e87138a717f",
+      "criteria": [
+        "correct-prioritization",
+        "catches-superseded-instruction",
+        "catches-scheduling-conflict",
+        "surfaces-not-silently-resolves",
+        "reply-quality"
+      ]
+    },
+    {
+      "entry_id": "H10",
+      "task_id": "T01c-inbox-triage",
+      "model_id": "gpt-oss-20b-free",
+      "run_index": 0,
+      "variant": "clean",
+      "task_hash": "sha256:3d0cfd3a2366",
+      "rubric_hash": "sha256:e5ec94ffec6f",
+      "criteria": [
+        "correct-prioritization",
+        "surfaces-not-silently-resolves",
+        "reply-quality"
+      ]
+    },
+    {
+      "entry_id": "H11",
+      "task_id": "T01-inbox-triage",
+      "model_id": "gpt-oss-20b-free",
+      "run_index": 0,
+      "variant": "messy",
+      "task_hash": "sha256:f4af4e3fe4dc",
+      "rubric_hash": "sha256:2e87138a717f",
+      "criteria": [
+        "correct-prioritization",
+        "catches-superseded-instruction",
+        "catches-scheduling-conflict",
+        "surfaces-not-silently-resolves",
+        "reply-quality"
+      ]
+    },
+    {
+      "entry_id": "H12",
+      "task_id": "T02-spreadsheet-reconciliation",
+      "model_id": "gpt-oss-20b-free",
+      "run_index": 0,
+      "variant": "messy",
+      "task_hash": "sha256:917839b0e004",
+      "rubric_hash": "sha256:4b1ca7a658be",
+      "criteria": [
+        "correct-reconciled-total",
+        "identifies-real-vs-cosmetic",
+        "finds-duplicate",
+        "flags-ambiguity-not-guesses",
+        "discrepancy-list-quality"
+      ]
+    },
+    {
+      "entry_id": "H13",
+      "task_id": "T01c-inbox-triage",
+      "model_id": "glm-4.7-flash",
+      "run_index": 0,
+      "variant": "clean",
+      "task_hash": "sha256:3d0cfd3a2366",
+      "rubric_hash": "sha256:e5ec94ffec6f",
+      "criteria": [
+        "correct-prioritization",
+        "surfaces-not-silently-resolves",
+        "reply-quality"
+      ]
+    },
+    {
+      "entry_id": "H14",
+      "task_id": "T02c-spreadsheet-reconciliation",
+      "model_id": "gpt-oss-20b-free",
+      "run_index": 0,
+      "variant": "clean",
+      "task_hash": "sha256:37df14c562e1",
+      "rubric_hash": "sha256:cc95aebc366c",
+      "criteria": [
+        "correct-reconciled-total",
+        "finds-duplicate",
+        "flags-ambiguity-not-guesses",
+        "discrepancy-list-quality"
+      ]
+    },
+    {
+      "entry_id": "H15",
+      "task_id": "T02-spreadsheet-reconciliation",
+      "model_id": "gemini-flash",
+      "run_index": 2,
+      "variant": "messy",
+      "task_hash": "sha256:917839b0e004",
+      "rubric_hash": "sha256:4b1ca7a658be",
+      "criteria": [
+        "correct-reconciled-total",
+        "identifies-real-vs-cosmetic",
+        "finds-duplicate",
+        "flags-ambiguity-not-guesses",
+        "discrepancy-list-quality"
+      ]
+    },
+    {
+      "entry_id": "H16",
+      "task_id": "T01c-inbox-triage",
+      "model_id": "gpt-oss-20b-free",
+      "run_index": 1,
+      "variant": "clean",
+      "task_hash": "sha256:3d0cfd3a2366",
+      "rubric_hash": "sha256:e5ec94ffec6f",
+      "criteria": [
+        "correct-prioritization",
+        "surfaces-not-silently-resolves",
+        "reply-quality"
+      ]
+    },
+    {
+      "entry_id": "H17",
+      "task_id": "T01-inbox-triage",
+      "model_id": "gemini-flash",
+      "run_index": 1,
+      "variant": "messy",
+      "task_hash": "sha256:f4af4e3fe4dc",
+      "rubric_hash": "sha256:2e87138a717f",
+      "criteria": [
+        "correct-prioritization",
+        "catches-superseded-instruction",
+        "catches-scheduling-conflict",
+        "surfaces-not-silently-resolves",
+        "reply-quality"
+      ]
+    },
+    {
+      "entry_id": "H18",
+      "task_id": "T02c-spreadsheet-reconciliation",
+      "model_id": "glm-4.7-flash",
+      "run_index": 2,
+      "variant": "clean",
+      "task_hash": "sha256:37df14c562e1",
+      "rubric_hash": "sha256:cc95aebc366c",
+      "criteria": [
+        "correct-reconciled-total",
+        "finds-duplicate",
+        "flags-ambiguity-not-guesses",
+        "discrepancy-list-quality"
+      ]
+    },
+    {
+      "entry_id": "H19",
+      "task_id": "T01-inbox-triage",
+      "model_id": "glm-4.7-flash",
+      "run_index": 2,
+      "variant": "messy",
+      "task_hash": "sha256:f4af4e3fe4dc",
+      "rubric_hash": "sha256:2e87138a717f",
+      "criteria": [
+        "correct-prioritization",
+        "catches-superseded-instruction",
+        "catches-scheduling-conflict",
+        "surfaces-not-silently-resolves",
+        "reply-quality"
+      ]
+    },
+    {
+      "entry_id": "H20",
+      "task_id": "T01c-inbox-triage",
+      "model_id": "llama-3.3-70b",
+      "run_index": 0,
+      "variant": "clean",
+      "task_hash": "sha256:3d0cfd3a2366",
+      "rubric_hash": "sha256:e5ec94ffec6f",
+      "criteria": [
+        "correct-prioritization",
+        "surfaces-not-silently-resolves",
+        "reply-quality"
+      ]
+    },
+    {
+      "entry_id": "H21",
+      "task_id": "T02-spreadsheet-reconciliation",
+      "model_id": "gpt-oss-20b-free",
+      "run_index": 2,
+      "variant": "messy",
+      "task_hash": "sha256:917839b0e004",
+      "rubric_hash": "sha256:4b1ca7a658be",
+      "criteria": [
+        "correct-reconciled-total",
+        "identifies-real-vs-cosmetic",
+        "finds-duplicate",
+        "flags-ambiguity-not-guesses",
+        "discrepancy-list-quality"
+      ]
+    },
+    {
+      "entry_id": "H22",
+      "task_id": "T02-spreadsheet-reconciliation",
+      "model_id": "llama-3.3-70b",
+      "run_index": 2,
+      "variant": "messy",
+      "task_hash": "sha256:917839b0e004",
+      "rubric_hash": "sha256:4b1ca7a658be",
+      "criteria": [
+        "correct-reconciled-total",
+        "identifies-real-vs-cosmetic",
+        "finds-duplicate",
+        "flags-ambiguity-not-guesses",
+        "discrepancy-list-quality"
+      ]
+    },
+    {
+      "entry_id": "H23",
+      "task_id": "T02-spreadsheet-reconciliation",
+      "model_id": "gpt-oss-20b-free",
+      "run_index": 1,
+      "variant": "messy",
+      "task_hash": "sha256:917839b0e004",
+      "rubric_hash": "sha256:4b1ca7a658be",
+      "criteria": [
+        "correct-reconciled-total",
+        "identifies-real-vs-cosmetic",
+        "finds-duplicate",
+        "flags-ambiguity-not-guesses",
+        "discrepancy-list-quality"
+      ]
+    },
+    {
+      "entry_id": "H24",
+      "task_id": "T01c-inbox-triage",
+      "model_id": "gemini-flash",
+      "run_index": 0,
+      "variant": "clean",
+      "task_hash": "sha256:3d0cfd3a2366",
+      "rubric_hash": "sha256:e5ec94ffec6f",
+      "criteria": [
+        "correct-prioritization",
+        "surfaces-not-silently-resolves",
+        "reply-quality"
+      ]
+    },
+    {
+      "entry_id": "H25",
+      "task_id": "T02c-spreadsheet-reconciliation",
+      "model_id": "glm-4.7-flash",
+      "run_index": 1,
+      "variant": "clean",
+      "task_hash": "sha256:37df14c562e1",
+      "rubric_hash": "sha256:cc95aebc366c",
+      "criteria": [
+        "correct-reconciled-total",
+        "finds-duplicate",
+        "flags-ambiguity-not-guesses",
+        "discrepancy-list-quality"
+      ]
+    },
+    {
+      "entry_id": "H26",
+      "task_id": "T01c-inbox-triage",
+      "model_id": "gemini-flash",
+      "run_index": 2,
+      "variant": "clean",
+      "task_hash": "sha256:3d0cfd3a2366",
+      "rubric_hash": "sha256:e5ec94ffec6f",
+      "criteria": [
+        "correct-prioritization",
+        "surfaces-not-silently-resolves",
+        "reply-quality"
+      ]
+    },
+    {
+      "entry_id": "H27",
+      "task_id": "T02c-spreadsheet-reconciliation",
+      "model_id": "llama-3.3-70b",
+      "run_index": 0,
+      "variant": "clean",
+      "task_hash": "sha256:37df14c562e1",
+      "rubric_hash": "sha256:cc95aebc366c",
+      "criteria": [
+        "correct-reconciled-total",
+        "finds-duplicate",
+        "flags-ambiguity-not-guesses",
+        "discrepancy-list-quality"
+      ]
+    },
+    {
+      "entry_id": "H28",
+      "task_id": "T02c-spreadsheet-reconciliation",
+      "model_id": "gemini-flash",
+      "run_index": 1,
+      "variant": "clean",
+      "task_hash": "sha256:37df14c562e1",
+      "rubric_hash": "sha256:cc95aebc366c",
+      "criteria": [
+        "correct-reconciled-total",
+        "finds-duplicate",
+        "flags-ambiguity-not-guesses",
+        "discrepancy-list-quality"
+      ]
+    },
+    {
+      "entry_id": "H29",
+      "task_id": "T02c-spreadsheet-reconciliation",
+      "model_id": "llama-3.3-70b",
+      "run_index": 2,
+      "variant": "clean",
+      "task_hash": "sha256:37df14c562e1",
+      "rubric_hash": "sha256:cc95aebc366c",
+      "criteria": [
+        "correct-reconciled-total",
+        "finds-duplicate",
+        "flags-ambiguity-not-guesses",
+        "discrepancy-list-quality"
+      ]
+    },
+    {
+      "entry_id": "H30",
+      "task_id": "T02-spreadsheet-reconciliation",
+      "model_id": "glm-4.7-flash",
+      "run_index": 0,
+      "variant": "messy",
+      "task_hash": "sha256:917839b0e004",
+      "rubric_hash": "sha256:4b1ca7a658be",
+      "criteria": [
+        "correct-reconciled-total",
+        "identifies-real-vs-cosmetic",
+        "finds-duplicate",
+        "flags-ambiguity-not-guesses",
+        "discrepancy-list-quality"
+      ]
+    },
+    {
+      "entry_id": "H31",
+      "task_id": "T02c-spreadsheet-reconciliation",
+      "model_id": "glm-4.7-flash",
+      "run_index": 0,
+      "variant": "clean",
+      "task_hash": "sha256:37df14c562e1",
+      "rubric_hash": "sha256:cc95aebc366c",
+      "criteria": [
+        "correct-reconciled-total",
+        "finds-duplicate",
+        "flags-ambiguity-not-guesses",
+        "discrepancy-list-quality"
+      ]
+    },
+    {
+      "entry_id": "H32",
+      "task_id": "T02-spreadsheet-reconciliation",
+      "model_id": "gemini-flash",
+      "run_index": 1,
+      "variant": "messy",
+      "task_hash": "sha256:917839b0e004",
+      "rubric_hash": "sha256:4b1ca7a658be",
+      "criteria": [
+        "correct-reconciled-total",
+        "identifies-real-vs-cosmetic",
+        "finds-duplicate",
+        "flags-ambiguity-not-guesses",
+        "discrepancy-list-quality"
+      ]
+    },
+    {
+      "entry_id": "H33",
+      "task_id": "T01-inbox-triage",
+      "model_id": "gpt-oss-20b-free",
+      "run_index": 1,
+      "variant": "messy",
+      "task_hash": "sha256:f4af4e3fe4dc",
+      "rubric_hash": "sha256:2e87138a717f",
+      "criteria": [
+        "correct-prioritization",
+        "catches-superseded-instruction",
+        "catches-scheduling-conflict",
+        "surfaces-not-silently-resolves",
+        "reply-quality"
+      ]
+    },
+    {
+      "entry_id": "H34",
+      "task_id": "T02-spreadsheet-reconciliation",
+      "model_id": "glm-4.7-flash",
+      "run_index": 1,
+      "variant": "messy",
+      "task_hash": "sha256:917839b0e004",
+      "rubric_hash": "sha256:4b1ca7a658be",
+      "criteria": [
+        "correct-reconciled-total",
+        "identifies-real-vs-cosmetic",
+        "finds-duplicate",
+        "flags-ambiguity-not-guesses",
+        "discrepancy-list-quality"
+      ]
+    },
+    {
+      "entry_id": "H35",
+      "task_id": "T01-inbox-triage",
+      "model_id": "gemini-flash",
+      "run_index": 2,
+      "variant": "messy",
+      "task_hash": "sha256:f4af4e3fe4dc",
+      "rubric_hash": "sha256:2e87138a717f",
+      "criteria": [
+        "correct-prioritization",
+        "catches-superseded-instruction",
+        "catches-scheduling-conflict",
+        "surfaces-not-silently-resolves",
+        "reply-quality"
+      ]
+    },
+    {
+      "entry_id": "H36",
+      "task_id": "T02-spreadsheet-reconciliation",
+      "model_id": "llama-3.3-70b",
+      "run_index": 0,
+      "variant": "messy",
+      "task_hash": "sha256:917839b0e004",
+      "rubric_hash": "sha256:4b1ca7a658be",
+      "criteria": [
+        "correct-reconciled-total",
+        "identifies-real-vs-cosmetic",
+        "finds-duplicate",
+        "flags-ambiguity-not-guesses",
+        "discrepancy-list-quality"
+      ]
+    },
+    {
+      "entry_id": "H37",
+      "task_id": "T01-inbox-triage",
+      "model_id": "gpt-oss-20b-free",
+      "run_index": 2,
+      "variant": "messy",
+      "task_hash": "sha256:f4af4e3fe4dc",
+      "rubric_hash": "sha256:2e87138a717f",
+      "criteria": [
+        "correct-prioritization",
+        "catches-superseded-instruction",
+        "catches-scheduling-conflict",
+        "surfaces-not-silently-resolves",
+        "reply-quality"
+      ]
+    },
+    {
+      "entry_id": "H38",
+      "task_id": "T02-spreadsheet-reconciliation",
+      "model_id": "glm-4.7-flash",
+      "run_index": 2,
+      "variant": "messy",
+      "task_hash": "sha256:917839b0e004",
+      "rubric_hash": "sha256:4b1ca7a658be",
+      "criteria": [
+        "correct-reconciled-total",
+        "identifies-real-vs-cosmetic",
+        "finds-duplicate",
+        "flags-ambiguity-not-guesses",
+        "discrepancy-list-quality"
+      ]
+    },
+    {
+      "entry_id": "H39",
+      "task_id": "T01-inbox-triage",
+      "model_id": "llama-3.3-70b",
+      "run_index": 1,
+      "variant": "messy",
+      "task_hash": "sha256:f4af4e3fe4dc",
+      "rubric_hash": "sha256:2e87138a717f",
+      "criteria": [
+        "correct-prioritization",
+        "catches-superseded-instruction",
+        "catches-scheduling-conflict",
+        "surfaces-not-silently-resolves",
+        "reply-quality"
+      ]
+    },
+    {
+      "entry_id": "H40",
+      "task_id": "T02c-spreadsheet-reconciliation",
+      "model_id": "llama-3.3-70b",
+      "run_index": 1,
+      "variant": "clean",
+      "task_hash": "sha256:37df14c562e1",
+      "rubric_hash": "sha256:cc95aebc366c",
+      "criteria": [
+        "correct-reconciled-total",
+        "finds-duplicate",
+        "flags-ambiguity-not-guesses",
+        "discrepancy-list-quality"
+      ]
+    },
+    {
+      "entry_id": "H41",
+      "task_id": "T01c-inbox-triage",
+      "model_id": "llama-3.3-70b",
+      "run_index": 1,
+      "variant": "clean",
+      "task_hash": "sha256:3d0cfd3a2366",
+      "rubric_hash": "sha256:e5ec94ffec6f",
+      "criteria": [
+        "correct-prioritization",
+        "surfaces-not-silently-resolves",
+        "reply-quality"
+      ]
+    },
+    {
+      "entry_id": "H42",
+      "task_id": "T01-inbox-triage",
+      "model_id": "glm-4.7-flash",
+      "run_index": 1,
+      "variant": "messy",
+      "task_hash": "sha256:f4af4e3fe4dc",
+      "rubric_hash": "sha256:2e87138a717f",
+      "criteria": [
+        "correct-prioritization",
+        "catches-superseded-instruction",
+        "catches-scheduling-conflict",
+        "surfaces-not-silently-resolves",
+        "reply-quality"
+      ]
+    },
+    {
+      "entry_id": "H43",
+      "task_id": "T02c-spreadsheet-reconciliation",
+      "model_id": "gemini-flash",
+      "run_index": 0,
+      "variant": "clean",
+      "task_hash": "sha256:37df14c562e1",
+      "rubric_hash": "sha256:cc95aebc366c",
+      "criteria": [
+        "correct-reconciled-total",
+        "finds-duplicate",
+        "flags-ambiguity-not-guesses",
+        "discrepancy-list-quality"
+      ]
+    },
+    {
+      "entry_id": "H44",
+      "task_id": "T01c-inbox-triage",
+      "model_id": "llama-3.3-70b",
+      "run_index": 2,
+      "variant": "clean",
+      "task_hash": "sha256:3d0cfd3a2366",
+      "rubric_hash": "sha256:e5ec94ffec6f",
+      "criteria": [
+        "correct-prioritization",
+        "surfaces-not-silently-resolves",
+        "reply-quality"
+      ]
+    },
+    {
+      "entry_id": "H45",
+      "task_id": "T01c-inbox-triage",
+      "model_id": "glm-4.7-flash",
+      "run_index": 1,
+      "variant": "clean",
+      "task_hash": "sha256:3d0cfd3a2366",
+      "rubric_hash": "sha256:e5ec94ffec6f",
+      "criteria": [
+        "correct-prioritization",
+        "surfaces-not-silently-resolves",
+        "reply-quality"
+      ]
+    },
+    {
+      "entry_id": "H46",
+      "task_id": "T02-spreadsheet-reconciliation",
+      "model_id": "gemini-flash",
+      "run_index": 0,
+      "variant": "messy",
+      "task_hash": "sha256:917839b0e004",
+      "rubric_hash": "sha256:4b1ca7a658be",
+      "criteria": [
+        "correct-reconciled-total",
+        "identifies-real-vs-cosmetic",
+        "finds-duplicate",
+        "flags-ambiguity-not-guesses",
+        "discrepancy-list-quality"
+      ]
+    },
+    {
+      "entry_id": "H47",
+      "task_id": "T01-inbox-triage",
+      "model_id": "glm-4.7-flash",
+      "run_index": 0,
+      "variant": "messy",
+      "task_hash": "sha256:f4af4e3fe4dc",
+      "rubric_hash": "sha256:2e87138a717f",
+      "criteria": [
+        "correct-prioritization",
+        "catches-superseded-instruction",
+        "catches-scheduling-conflict",
+        "surfaces-not-silently-resolves",
+        "reply-quality"
+      ]
+    },
+    {
+      "entry_id": "H48",
+      "task_id": "T01c-inbox-triage",
+      "model_id": "gpt-oss-20b-free",
+      "run_index": 2,
+      "variant": "clean",
+      "task_hash": "sha256:3d0cfd3a2366",
+      "rubric_hash": "sha256:e5ec94ffec6f",
+      "criteria": [
+        "correct-prioritization",
+        "surfaces-not-silently-resolves",
+        "reply-quality"
+      ]
+    }
+  ]
+}
