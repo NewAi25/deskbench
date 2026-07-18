@@ -11,7 +11,7 @@
 | 4 | Runner | `runner.py` | `tests/test_runner.py` passes; ≥1 raw result JSON committed as fixture | ✅ done |
 | 5 | Grader | `grader.py` | `tests/test_grader.py` passes; ≥1 score JSON fixture validates | ✅ done |
 | 6 | Clean twins (MVP) | tasks T01c–T02c | 4 task dirs schema-validate (2 twin pairs); twin invariants pass (`tests/test_tasks.py`: byte-identical prompts, shared core criteria at identical weights) | ✅ done |
-| 7 | Pilot run + judge grading | `runner.py`, `grader.py` | 48 raw results (2 tasks × 2 variants × 4 models × 3 runs) and 48 judge scores present under `results/` | ⬜ pending |
+| 7 | Pilot run + judge grading | `runner.py`, `grader.py` | 48 raw results (2 tasks × 2 variants × 4 models × 3 runs) and 48 judge scores present under `results/` | ✅ done |
 | 8 | Human validation + analysis | `analyzer.py`, `results/human/` | 100% human grading sheet ingested; `results/summary.json` has leaderboard, mess_penalty, silent_failure, agreement, variance | ⬜ pending |
 | 9 | Pilot dashboard | `visualize.py` | `site/index.html` embeds summary data; renders the four pilot charts + run inspector | ⬜ pending |
 | 10 | Pilot report & ship | `report/REPORT.md` | REPORT.md has "What these results do NOT show" (n=2 tasks stated first); README reframed to pilot; no hand-entered numbers | ⬜ pending |
