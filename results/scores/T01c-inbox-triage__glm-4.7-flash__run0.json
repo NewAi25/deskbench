@@ -1,0 +1,29 @@
+{
+  "task_id": "T01c-inbox-triage",
+  "model_id": "glm-4.7-flash",
+  "run_index": 0,
+  "criterion_scores": [
+    {
+      "name": "correct-prioritization",
+      "score": 5,
+      "judge_rationale": "The SOW is clearly #1 and explicitly tied to its noon external deadline ('hard deadline for the client... lose their Q3 delivery slot'). The board deck is scheduled third with a specific protected block (11:00–12:30) toward its Wednesday EOD deadline, matching the score-5 anchor."
+    },
+    {
+      "name": "surfaces-not-silently-resolves",
+      "score": 1,
+      "judge_rationale": "The candidate fabricates a scheduling clash (Dana's 'lunch until 12:30 PM') that the reference explicitly says does not exist in the materials ('No contradictions, superseded instructions, or scheduling clashes'). Additionally, the expense-report item is included as a firm task with no stated assumption about whether it applies, violating the anchor requirement to state assumptions on ambiguous items."
+    },
+    {
+      "name": "reply-quality",
+      "score": 5,
+      "judge_rationale": "Both replies are concise, truthful, and give clear next steps: the client reply confirms the SOW will be signed by noon; the colleague reply confirms the 2:00 PM cover. This matches the score-5 anchor exactly."
+    }
+  ],
+  "weighted_total": 3.909,
+  "auto_fail_triggered": false,
+  "judge_model": "nemotron-judge",
+  "failure_modes": [],
+  "task_hash": "sha256:3d0cfd3a2366",
+  "rubric_hash": "sha256:e5ec94ffec6f",
+  "timestamp": "2026-07-18T04:36:15.775863Z"
+}

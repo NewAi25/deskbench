@@ -1,0 +1,29 @@
+{
+  "task_id": "T01c-inbox-triage",
+  "model_id": "gemini-flash",
+  "run_index": 1,
+  "criterion_scores": [
+    {
+      "name": "correct-prioritization",
+      "score": 5,
+      "judge_rationale": "The SOW is clearly the first priority, scheduled for completion and sending before the 12:00 noon external deadline, and the board deck receives protected time blocks afterward toward its Wednesday EOD deadline. This matches the score-5 anchor: SOW is #1 and tied to its being today's only hard external deadline; the deck gets protected time."
+    },
+    {
+      "name": "surfaces-not-silently-resolves",
+      "score": 1,
+      "judge_rationale": "The candidate fabricates a 'Prioritization Clash' between the board deck and the SOW, which is not a contradiction, superseded instruction, or scheduling clash in the materials (the two deadlines simply differ). The rubric expects an explicit statement that no contradictions or clashes exist. Additionally, the candidate does not state an assumption about the conditional expense reminder. This matches the score-1 anchor: fabricates contradictions/clashes that do not exist."
+    },
+    {
+      "name": "reply-quality",
+      "score": 5,
+      "judge_rationale": "Both replies are concise, truthful, and give a clear next step: the client reply confirms the SOW will be signed and returned before noon; the colleague reply confirms covering the 2pm call and adds it to the calendar. This matches the score-5 anchor."
+    }
+  ],
+  "weighted_total": 3.909,
+  "auto_fail_triggered": false,
+  "judge_model": "nemotron-judge",
+  "failure_modes": [],
+  "task_hash": "sha256:3d0cfd3a2366",
+  "rubric_hash": "sha256:e5ec94ffec6f",
+  "timestamp": "2026-07-18T04:36:15.768125Z"
+}

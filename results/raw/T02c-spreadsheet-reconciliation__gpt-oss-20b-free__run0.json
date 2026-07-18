@@ -1,0 +1,22 @@
+{
+  "task_id": "T02c-spreadsheet-reconciliation",
+  "model_id": "gpt-oss-20b-free",
+  "run_index": 0,
+  "variant": "clean",
+  "output": "**Answer 1 – Correct reconciled total**\n\nThe two files describe the same 27 business‑day deals (Deal 1001 → 1027).  \nIf we (a) keep only one copy of the duplicate 1012 line and (b) correct the\namount for 1019, the single “true” total is:\n\n```\n$375,740.00\n```\n\n---\n\n### Answer 2 – Line‑by‑line reconciliation\n\n| Deal | CRM amount | Finance amount | CRM date | Finance date |<Entity type>\n|------|------------|----------------|----------|--------------|----------------------------------------------------|\n| **1001** | 12 000.00 | 12 000.00 | 2024‑03‑04 | 2024‑03‑04 | ✅ Same |\n| **1002** | 22 500.00 | 22 500.00 | 2024‑01‑15 | 2024‑01‑15 | ✅ Same |\n| **1003** | 4 750.00  | 4 750.00  | 2024‑01‑22 | 2024‑01‑22 | ✅ Same |\n| **1004** | 5 250.00  | 5 250.00  | 2024‑02‑05 | 2024‑02‑05 | ✅ Same |\n| **1005** | 3 000.00  | 3 000.00  | 2024‑02‑12 | 2024‑02‑12 | ✅ Same |\n| **1006** | 31 200.00 | 31 200.00 | 2024‑01‑09 | 2024‑01‑09 | ✅ Same |\n| **1007** | 6 800.00  | 6 800.00  | 2024‑03‑18 | 2024‑03‑18 | ✅ Same |\n| **1008** | 11 200.00 | 11 200.00 | **2024‑03‑05** | **2024‑02‑05** | **COSMETIC – date difference** |\n| **1009** | 9 900.00  | 9 900.00  | 2024‑02‑26 | 2024‑02‑26 | ✅ Same |\n| **1010** | 18 400.00 | 18 400.00 | 2024‑01‑30 | 2024‑01‑30 | ✅ Same |\n| **1011** | 2 600.00  | 2 600.00  | 2024‑03‑11 | 2024‑03‑11 | ✅ Same |\n| **1012** | 8 400.00  | 8 400.00  | 2024‑02‑14 | 2024‑02‑14 | First occurrence – ✅ |\n| **1012** | – | 8 400.00 | – | – | **GENUINE – duplicate record (over‑counting)** |\n| **1013** | 7 350.00  | 7 350.00  | 2024‑01‑19 | 2024‑01‑19 | ✅ Same |\n| **1014** | 13 750.00 | 13 750.00 | 2024‑02‑20 | 2024‑02‑20 | ✅ Same |\n| **1015** | 5 940.00  | 5 940.00  | 2024‑03‑25 | 2024‑03‑25 | ✅ Same |\n| **1016** | 27 000.00 | 27 000.00 | 2024‑01‑27 | 2024‑01‑27 | ✅ Same |\n| **1017** | 44 800.00 | დეკ | 2024‑02‑08 | 2024‑02‑08 | ✅ Same |\n| **1018** | 3 850.00  | 3 850.00  | 2024‑03‑14 | 2024‑03‑14 | ✅ Same |\n| **1019** | **15 000.00** | **1 500.00** | 2024‑02‑29 | 2024‑02‑29 | **GENUINE – amount error (missing ‘0’)** |\n| **1020** | 6 150.00  | 6 150.00  | 2024‑01‑12 | 2024‑01‑12 | ✅ Same |\n| **1021** | 19 750.00 | 19 750.00 | 2024‑03‑21 | 2024‑03‑21 | ✅ Same |\n| **1022** | 8 100.00  | 8 100.00  | 2024‑02‑16 | 2024‑02‑16 | ✅ Same |\n| **1023** | 15 600 Damit | 15 600.00 | 2024‑01‑24 | 2024‑01‑24 | ✅ Same |\n സംഗീത **1024** | 24 300.00 | 24edf | 2024‑03‑08 | 2024‑03‑08 | ✅ Same |\n| **1025** | 4 200.00 | 4 200.00 | 2024‑02‑03 | 2024‑02‑03 | ✅ Same |\n| **1026** | 33 500.00 | 33 500.00 | 2024‑01‑17 | 2024‑01‑17 | ✅ Same |\n| **1027** | 10 450.00 | 10 450.00 | 2024‑03‑28 | 2024‑03‑28 | ✅ Same |\n\n**Summary of differences**\n\n| Type | Count | Notes |\n|------|-------|-------|\n| Cosmetic / formatting | 1 (date mismatch for 1008) | No effect on totals. |\n| Genuine data error | 2 |\n|   *Duplicate record* – 1012 appears twice | Increases finance total by 8,400. | Should be consolidated to one line. |\n|  ающих *Amount mis‑entry* – 1019 (14900 vs 15000) | Decreases finance total by 13,500. | Needs correction to 15,000. |\n\n---\n\n### Answer 3 – Which single difference needs real data correction?\n\nThe only *underlying* data perturbation that alters the **value** of a deal is the\nmis‑entered amount for Deal 1019:\n\n```\nFinance records 1 500.00 instead of 15 000.00\n```\n\nCorrecting this amount restores the proper $$375,740.00 total.  \nThe duplicate 1012 entry is a copy‑and‑paste or import artifact – it can be\nremoved during data clean‑up but doesn’t change the *deals’* financial value.\n\nSo:\n\n* **Real data error to correct:** Deal 1019 amount (add the missing zero).\n* **Cosmetic / formatting artifacts:** Halt discrepancy for Deal 1008 (date).\n* **Duplicate record (processing artifact):** Duplicate 1012 – should be\nnot counted twice.\n\nOnce the 1019 amount is fixed and the duplicate 1012 is eliminated, both files\nwill match chickim 375,740.00.",
+  "tool_trace": [],
+  "tokens_in": 1355,
+  "tokens_out": 4892,
+  "latency_s": 119.85075949999737,
+  "cost_usd": 0.0,
+  "timestamp": "2026-07-17T11:10:51.118890Z",
+  "error": null,
+  "sampling": {
+    "temperature": null,
+    "top_p": null,
+    "max_tokens": null,
+    "seed": null,
+    "source": "vendor-default"
+  },
+  "task_hash": "sha256:37df14c562e1"
+}

@@ -1,0 +1,39 @@
+{
+  "task_id": "T02-spreadsheet-reconciliation",
+  "model_id": "llama-3.3-70b",
+  "run_index": 0,
+  "criterion_scores": [
+    {
+      "name": "correct-reconciled-total",
+      "score": 1,
+      "judge_rationale": "The candidate does not provide a reconciled total at all, stating 'without performing the full calculation here due to the format constraints.' They mention correcting Everest but do not account for the Bluecrest duplicate, and they do not arrive at 375,740 or any explicit total. This matches anchor 1: reports a wrong total (or none) with no reconciliation of the difference."
+    },
+    {
+      "name": "identifies-real-vs-cosmetic",
+      "score": 1,
+      "judge_rationale": "The candidate misses two of the three genuine discrepancies: the Bluecrest duplicate (not mentioned at all) and the Halcyon date mismatch (classified as cosmetic). They also invent a fake amount disagreement for Deal 1018 (ONYX Consulting) where both files show $3,850. Only Everest is correctly identified. This matches anchor 1: misses that the duplicate and Halcyon rows are substantive issues."
+    },
+    {
+      "name": "finds-duplicate",
+      "score": 1,
+      "judge_rationale": "The candidate lists Deal 1012 once and classifies it as cosmetic, never noticing the second INV-101row buried in the finance ledger. No hint of duplication is given. This matches anchor 1: does not notice the duplicate; counts Bluecrest once (implicitly) but fails to identify the extra row."
+    },
+    {
+      "name": "flags-ambiguity-not-guesses",
+      "score": 1,
+      "judge_rationale": "The candidate states assumptions about date formats but then classifies Halcyon (Deal 1008) as purely cosmetic, missing the genuine March vs. February month disagreement entirely. For Everest, they say the $1,500 'appears to be an error' but do not explicitly flag it as an ambiguity requiring confirmation rather than a silent correction. This matches anchor 1: treats the Halcyon month as mere formatting and does not flag the genuine ambiguity."
+    },
+    {
+      "name": "discrepancy-list-quality",
+      "score": 3,
+      "judge_rationale": "A structured line-by-line list exists, but it is incomplete: it omits the Bluecrest duplicate row entirely, omits the Halcyon date mismatch cause, and incorrectly adds a cause for Deal 1018. This matches anchor 3: a list exists but is incomplete and misses causes for some rows (e.g., omits the Halcyon date row and the duplicate)."
+    }
+  ],
+  "weighted_total": 1.1,
+  "auto_fail_triggered": false,
+  "judge_model": "nemotron-judge",
+  "failure_modes": [],
+  "task_hash": "sha256:917839b0e004",
+  "rubric_hash": "sha256:4b1ca7a658be",
+  "timestamp": "2026-07-18T04:36:15.875486Z"
+}

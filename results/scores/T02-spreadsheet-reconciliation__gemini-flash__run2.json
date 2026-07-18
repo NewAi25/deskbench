@@ -1,0 +1,39 @@
+{
+  "task_id": "T02-spreadsheet-reconciliation",
+  "model_id": "gemini-flash",
+  "run_index": 2,
+  "criterion_scores": [
+    {
+      "name": "correct-reconciled-total",
+      "score": 1,
+      "judge_rationale": "Candidate reports reconciled total of $410,890, which is incorrect. The anchor for score 1 states: 'Reports a wrong total, or just sums one file (375,740 or 370,640) with no reconciliation of the difference.' The candidate's total is wrong and does not match the required 375,740."
+    },
+    {
+      "name": "identifies-real-vs-cosmetic",
+      "score": 3,
+      "judge_rationale": "Candidate correctly identifies the three genuine issues (Bluecrest duplicate, Everest amount, Halcyon date) but also misclassifies the Deal ID 1001 date difference as a genuine error when it is a cosmetic formatting artifact under the correct date-format assumption. This matches the score 3 anchor: 'Identifies one or two genuine issues but misses or misclassifies another ..., or lumps some cosmetic items in with real errors.'"
+    },
+    {
+      "name": "finds-duplicate",
+      "score": 5,
+      "judge_rationale": "Candidate explicitly identifies the duplicated INV-1012 row in finance, notes it appears twice, and quantifies its +$8,400 effect. This matches the score 5 anchor: 'Explicitly identifies the duplicated INV-1012 row (re-listed mid-file) and its +8,400 effect on the finance total.'"
+    },
+    {
+      "name": "flags-ambiguity-not-guesses",
+      "score": 3,
+      "judge_rationale": "Candidate states an assumption that CRM's Everest value is correct due to factor-of-ten error but does not flag it as needing confirmation; treats Halcyon month mismatch as a genuine error but does not explicitly flag it as requiring confirmation. This matches score 3: 'Handles the Everest ambiguity but with weak/absent justification, or resolves the Halcyon month without flagging it; states few assumptions.'"
+    },
+    {
+      "name": "discrepancy-list-quality",
+      "score": 3,
+      "judge_rationale": "Candidate provides a structured list of genuine discrepancies covering the three required items (duplicate, Everest, Halcyon) but also incorrectly includes Deal ID 1001 as a genuine error. Cosmetic differences are summarized. This meets score 3: 'A list exists but is incomplete or misses causes for some rows (e.g. omits the Halcyon date row)' — though not omitted, the list includes a false genuine error, preventing a score of 5."
+    }
+  ],
+  "weighted_total": 2.7,
+  "auto_fail_triggered": false,
+  "judge_model": "nemotron-judge",
+  "failure_modes": [],
+  "task_hash": "sha256:917839b0e004",
+  "rubric_hash": "sha256:4b1ca7a658be",
+  "timestamp": "2026-07-18T04:36:15.833110Z"
+}

@@ -1,0 +1,39 @@
+{
+  "task_id": "T02-spreadsheet-reconciliation",
+  "model_id": "gpt-oss-20b-free",
+  "run_index": 1,
+  "criterion_scores": [
+    {
+      "name": "correct-reconciled-total",
+      "score": 4,
+      "judge_rationale": "Candidate arrives at the correct total of 375,740 and explicitly accounts for both the duplicate (+8,400) and the Everest error (−13,500) in the narrative. However, the Everest assumption (that CRM's 15,000 is correct pending confirmation) is not stated, which the score‑5 anchor requires. This falls between the score‑3 anchor (fixes only one problem) and the score‑5 anchor, so a 4 is appropriate."
+    },
+    {
+      "name": "identifies-real-vs-cosmetic",
+      "score": 1,
+      "judge_rationale": "Candidate classifies the Bluecrest duplicate and the Halcyon date mismatch as COSMETIC, missing two of the three genuine discrepancies. Only Everest is flagged as a genuine data error. This matches the score‑1 anchor: 'misses that the duplicate/Everest/Halcyon rows are the substantive issues.'"
+    },
+    {
+      "name": "finds-duplicate",
+      "score": 4,
+      "judge_rationale": "Candidate explicitly identifies the duplicated INV‑1012 row and its +8,400 effect on the finance total in the total reconciliation (section 1), which exceeds the score‑3 anchor ('hints but doesn't clearly identify'). However, the line‑by‑line table labels it COSMETIC and the summary claims it 'does not change the amount,' creating inconsistency. This falls between the score‑3 and score‑5 anchors, warranting a 4."
+    },
+    {
+      "name": "flags-ambiguity-not-guesses",
+      "score": 1,
+      "judge_rationale": "Candidate silently adopts CRM's 15,000 for Everest as the certain correct value ('Adjust the ledger entry to $15,000') without stating it as an assumption or flagging the need for confirmation. The Halcyon month mismatch is dismissed as date formatting. This matches the score‑1 anchor: 'Silently \"corrects\" Everest to one value as if certain... treats the Halcyon month as settled or as mere formatting; no assumptions stated.'"
+    },
+    {
+      "name": "discrepancy-list-quality",
+      "score": 3,
+      "judge_rationale": "Candidate provides a structured table covering all rows, but misclassifies the Bluecrest duplicate and Halcyon date as cosmetic, omitting their true causes (duplicate row and timing disagreement). The list exists but is incomplete on genuine discrepancies, matching the score‑3 anchor: 'A list exists but is incomplete or misses causes for some rows (e.g. omits the Halcyon date row).'"
+    }
+  ],
+  "weighted_total": 2.45,
+  "auto_fail_triggered": false,
+  "judge_model": "nemotron-judge",
+  "failure_modes": [],
+  "task_hash": "sha256:917839b0e004",
+  "rubric_hash": "sha256:4b1ca7a658be",
+  "timestamp": "2026-07-18T04:36:15.864216Z"
+}

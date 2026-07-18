@@ -1,0 +1,29 @@
+{
+  "task_id": "T01c-inbox-triage",
+  "model_id": "gpt-oss-20b-free",
+  "run_index": 0,
+  "criterion_scores": [
+    {
+      "name": "correct-prioritization",
+      "score": 5,
+      "judge_rationale": "The SOW is clearly the first item on the action list (08:15–09:00) with its reason tied to the 12:00 noon external deadline; the board deck receives multiple protected time blocks (09:30–10:00, 11:00–12:00, 13:00–14:00) toward its Wednesday EOD deadline. This matches the score‑5 anchor: SOW is #1 and linked to its hard external deadline, while the deck gets protected time."
+    },
+    {
+      "name": "surfaces-not-silently-resolves",
+      "score": 1,
+      "judge_rationale": "The candidate invents several conflicts (SOW deadline vs. free time, expense reporting vs. board deck, vendor call vs. expense buffer) that are not contradictions in the source materials, instead of explicitly stating that no contradictions or clashes exist. This matches the score‑1 anchor: fabricates contradictions/clashes that do not exist."
+    },
+    {
+      "name": "reply-quality",
+      "score": 5,
+      "judge_rationale": "Both replies are concise, truthful, and give a clear next step: the client reply confirms the SOW will be handed to Dana at 10 am for a noon return; the colleague reply confirms coverage of the 2 pm call. This matches the score‑5 anchor."
+    }
+  ],
+  "weighted_total": 3.909,
+  "auto_fail_triggered": false,
+  "judge_model": "nemotron-judge",
+  "failure_modes": [],
+  "task_hash": "sha256:3d0cfd3a2366",
+  "rubric_hash": "sha256:e5ec94ffec6f",
+  "timestamp": "2026-07-18T04:36:15.788506Z"
+}

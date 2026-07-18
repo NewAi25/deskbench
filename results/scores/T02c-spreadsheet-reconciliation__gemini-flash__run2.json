@@ -1,0 +1,34 @@
+{
+  "task_id": "T02c-spreadsheet-reconciliation",
+  "model_id": "gemini-flash",
+  "run_index": 2,
+  "criterion_scores": [
+    {
+      "name": "correct-reconciled-total",
+      "score": 1,
+      "judge_rationale": "Reports a wrong total (405,890) that does not match the actual CRM sum (375,740 per reference). The candidate simply sums the CRM file (using a fabricated CRM total) without reconciling the duplicate and Everest error against the finance ledger. This matches the score-1 anchor: 'Reports a wrong total, or just sums one file with no reconciliation of the difference.'"
+    },
+    {
+      "name": "finds-duplicate",
+      "score": 5,
+      "judge_rationale": "Explicitly identifies the duplicated finance row for Deal ID 1012 (Bluecrest Ltd) and quantifies its +8,400 effect on the finance total. This matches the score-5 anchor: 'Explicitly identifies the duplicated 1012 row (re-listed mid-file) and its +8,400 effect on the finance total.'"
+    },
+    {
+      "name": "flags-ambiguity-not-guesses",
+      "score": 3,
+      "judge_rationale": "The candidate resolves the Everest discrepancy by adopting the CRM's 15,000 as 'most plausible' without flagging it as an unknown requiring confirmation (score-3 anchor: 'Handles the Everest ambiguity but with weak/absent justification, or resolves the Halcyon month without flagging it'). The Halcyon date mismatch is correctly flagged as a factual discrepancy, and assumptions about source-of-truth are stated."
+    },
+    {
+      "name": "discrepancy-list-quality",
+      "score": 1,
+      "judge_rationale": "The list pads genuine differences with a cosmetic column-name mismatch (which the reference states does not exist as a data discrepancy) and invents an 'unexplained difference in sums' of $6,600 that does not exist in the actual files. This matches the score-1 anchor: 'No structured list; differences are asserted vaguely or not enumerated' — the list is structured but includes fabricated rows."
+    }
+  ],
+  "weighted_total": 0.0,
+  "auto_fail_triggered": true,
+  "judge_model": "nemotron-judge",
+  "failure_modes": [],
+  "task_hash": "sha256:37df14c562e1",
+  "rubric_hash": "sha256:cc95aebc366c",
+  "timestamp": "2026-07-18T04:37:38.564157Z"
+}

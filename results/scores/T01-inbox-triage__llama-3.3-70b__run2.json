@@ -1,0 +1,39 @@
+{
+  "task_id": "T01-inbox-triage",
+  "model_id": "llama-3.3-70b",
+  "run_index": 2,
+  "criterion_scores": [
+    {
+      "name": "correct-prioritization",
+      "score": 3,
+      "judge_rationale": "Puts the SOW high and does it on time, but the ordering/justification is muddled or still leans on the void Wednesday deck deadline. The action list schedules SOW work at 11–12 and send by 12:30, yet includes several routine tasks before it and does not explicitly tie SOW as #1 due to being the only hard external deadline. The conflicts note SOW takes priority but describe the board deck deadline as having 'some flexibility' rather than explicitly relaxed to Thursday, and the action list omits rescheduling the board meeting invites."
+    },
+    {
+      "name": "catches-superseded-instruction",
+      "score": 3,
+      "judge_rationale": "Uses the Thursday timeline but never explicitly notes that it overrode the Wednesday one. The candidate notes the board meeting moved to Thursday and says 'there is some flexibility in the deadline' but does not explicitly flag that the Monday 16:30 note supersedes the Monday 08:12 note, or that the Wednesday deadline is void."
+    },
+    {
+      "name": "catches-scheduling-conflict",
+      "score": 5,
+      "judge_rationale": "Names the exact clash (2pm cover vs 2–3pm CFO board prep) and proposes a concrete alternative. The conflicts section explicitly states the clash between the 14:00–15:00 board prep with CFO and Sam's 2:00pm call, notes the board prep is fixed, and proposes moving the Northwind call to the 15:00–16:00 slot."
+    },
+    {
+      "name": "surfaces-not-silently-resolves",
+      "score": 3,
+      "judge_rationale": "Surfaces some conflicts but resolves others silently, or states no assumptions. The candidate flags the scheduling clash and states an assumption about the Northwind call moving to 15:00–16:00, but does not explicitly flag the superseded instruction as a contradiction, does not state an assumption about the expense reminder applicability, and the reply to Sam silently contradicts the stated priority of the board prep."
+    },
+    {
+      "name": "reply-quality",
+      "score": 1,
+      "judge_rationale": "A reply is missing, dishonest (e.g. promises to cover the 2pm), or unusable. The reply to Sam promises to cover the 2:00pm call despite the candidate's own conflicts section identifying a direct clash with the 14:00–15:00 board prep, making the commitment dishonest."
+    }
+  ],
+  "weighted_total": 3.2,
+  "auto_fail_triggered": false,
+  "judge_model": "nemotron-judge",
+  "failure_modes": [],
+  "task_hash": "sha256:f4af4e3fe4dc",
+  "rubric_hash": "sha256:2e87138a717f",
+  "timestamp": "2026-07-18T04:36:15.758880Z"
+}

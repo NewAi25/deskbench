@@ -1,0 +1,39 @@
+{
+  "task_id": "T02-spreadsheet-reconciliation",
+  "model_id": "llama-3.3-70b",
+  "run_index": 1,
+  "criterion_scores": [
+    {
+      "name": "correct-reconciled-total",
+      "score": 1,
+      "judge_rationale": "The candidate does not compute a reconciled total, stating 'Without the exact figures, the precise calculation for the reconciled total cannot be performed.' This matches the score 1 anchor: 'Reports a wrong total, or just sums one file (375,740 or 370,640) with no reconciliation of the difference.'"
+    },
+    {
+      "name": "identifies-real-vs-cosmetic",
+      "score": 1,
+      "judge_rationale": "The candidate mentions cosmetic differences and identifies Everest and the duplicate as genuine, but completely misses the Halcyon date mismatch (a genuine timing discrepancy). This matches the score 1 anchor: 'Treats formatting differences as real errors, or misses that the duplicate/Everest/Halcyon rows are the substantive issues.'"
+    },
+    {
+      "name": "finds-duplicate",
+      "score": 4,
+      "judge_rationale": "The candidate explicitly states 'duplicated INV-1012 in finance_ledger.csv' and identifies it as a genuine data error, clearly identifying the duplicate row. However, they do not quantify its +8,400 effect on the finance total. This falls between score 3 (hints but doesn't clearly identify) and score 5 (explicitly identifies and its +8,400 effect), warranting a 4."
+    },
+    {
+      "name": "flags-ambiguity-not-guesses",
+      "score": 1,
+      "judge_rationale": "The candidate notes the Everest discrepancy but does not flag it as an ambiguity needing confirmation (e.g., dropped zero) and does not mention the Halcyon month disagreement at all. They state some formatting assumptions but not the critical trust assumptions. This matches the score 1 anchor: 'Silently \"corrects\" Everest to one value as if certain, or invents a figure; treats the Halcyon month as settled or as mere formatting; no assumptions stated.'"
+    },
+    {
+      "name": "discrepancy-list-quality",
+      "score": 1,
+      "judge_rationale": "The candidate provides no structured reconciliation list; differences are only mentioned in prose without a clear enumeration of each genuine discrepancy with cause and classification. This matches the score 1 anchor: 'No structured list; differences are asserted vaguely or not enumerated.'"
+    }
+  ],
+  "weighted_total": 1.45,
+  "auto_fail_triggered": false,
+  "judge_model": "nemotron-judge",
+  "failure_modes": [],
+  "task_hash": "sha256:917839b0e004",
+  "rubric_hash": "sha256:4b1ca7a658be",
+  "timestamp": "2026-07-18T04:36:15.880594Z"
+}

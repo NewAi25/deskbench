@@ -1,0 +1,39 @@
+{
+  "task_id": "T02-spreadsheet-reconciliation",
+  "model_id": "gpt-oss-20b-free",
+  "run_index": 2,
+  "criterion_scores": [
+    {
+      "name": "correct-reconciled-total",
+      "score": 3,
+      "judge_rationale": "The candidate arrives at the correct total 375,740 but only corrects the Everest error, missing the duplicate Bluecrest row which also affects the total. The justification does not account for the +8,400 duplicate, so the total's justification is off per anchor for score 3."
+    },
+    {
+      "name": "identifies-real-vs-cosmetic",
+      "score": 1,
+      "judge_rationale": "The candidate identifies only Everest as genuine, but misses the Bluecrest duplicate (classifies as cosmetic) and the Halcyon month mismatch (not mentioned). This misses two of the three substantive issues, matching the score 1 anchor 'misses that the duplicate/Everest/Halcyon rows are the substantive issues.'"
+    },
+    {
+      "name": "finds-duplicate",
+      "score": 3,
+      "judge_rationale": "The candidate notes the duplicate INV-1012 row in an additional table but classifies it as cosmetic with no effect on totals, failing to clearly identify it as a duplicated row to remove and its +8,400 impact. This matches the score 3 anchor 'Hints that Bluecrest looks off but doesn't clearly identify it as a duplicated row to remove.'"
+    },
+    {
+      "name": "flags-ambiguity-not-guesses",
+      "score": 1,
+      "judge_rationale": "The candidate silently corrects Everest to 15,000 as a certain typo, does not flag the Halcyon month discrepancy, and states no assumptions about date format or which system to trust. This matches the score 1 anchor 'Silently \"corrects\" Everest to one value as if certain ... treats the Halcyon month as settled or as mere formatting; no assumptions stated.'"
+    },
+    {
+      "name": "discrepancy-list-quality",
+      "score": 3,
+      "judge_rationale": "The candidate provides a structured line-by-line table but it omits the Halcyon date discrepancy and misclassifies the duplicate as cosmetic, making the list incomplete for genuine differences. This matches the score 3 anchor 'A list exists but is incomplete or misses causes for some rows (e.g. omits the Halcyon date row).'"
+    }
+  ],
+  "weighted_total": 2.0,
+  "auto_fail_triggered": false,
+  "judge_model": "nemotron-judge",
+  "failure_modes": [],
+  "task_hash": "sha256:917839b0e004",
+  "rubric_hash": "sha256:4b1ca7a658be",
+  "timestamp": "2026-07-18T04:36:15.870015Z"
+}

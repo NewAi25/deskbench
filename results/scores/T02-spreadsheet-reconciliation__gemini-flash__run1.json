@@ -1,0 +1,39 @@
+{
+  "task_id": "T02-spreadsheet-reconciliation",
+  "model_id": "gemini-flash",
+  "run_index": 1,
+  "criterion_scores": [
+    {
+      "name": "correct-reconciled-total",
+      "score": 1,
+      "judge_rationale": "The candidate reports a reconciled total of $421,140, which is incorrect. The correct reconciled total is 375,740 (per the data). The candidate simply sums the CRM amounts (but even that sum is miscalculated; the actual CRM sum is 375,740) and does not reconcile the difference with the finance ledger by removing the duplicate and correcting Everest. This matches the score‑1 anchor: 'Reports a wrong total, or just sums one file (375,740 or 370,640) with no reconciliation of the difference.'"
+    },
+    {
+      "name": "identifies-real-vs-cosmetic",
+      "score": 1,
+      "judge_rationale": "The candidate treats formatting differences as real errors. For example, the Acme Corp date difference (CRM 03/04/2024 vs finance 04/03/2024) is purely a date‑format artifact (MM/DD vs DD/MM) but is classified as 'GENUINE (Date)'. Similarly, a fabricated amount discrepancy for Meridian Health (CRM 31,200 vs finance 34,300) is introduced and labeled genuine. This matches the score‑1 anchor: 'Treats formatting differences as real errors, or misses that the duplicate/Everest/Halcyon rows are the substantive issues.'"
+    },
+    {
+      "name": "finds-duplicate",
+      "score": 5,
+      "judge_rationale": "The candidate explicitly identifies the duplicated INV‑1012 (Bluecrest) row in the finance ledger, lists it separately, and notes its +8,400 effect. This matches the score‑5 anchor: 'Explicitly identifies the duplicated INV-1012 row (re-listed mid-file) and its +8,400 effect on the finance total.'"
+    },
+    {
+      "name": "flags-ambiguity-not-guesses",
+      "score": 1,
+      "judge_rationale": "The candidate silently adopts the CRM’s Everest value (15,000) as correct without flagging it as an ambiguity needing confirmation, and invents a finance figure of 34,300 for Meridian Health that does not exist in the source files. The Halcyon month mismatch is noted but not flagged as requiring verification. This matches the score‑1 anchor: 'Silently \"corrects\" Everest to one value as if certain, or invents a figure; treats the Halcyon month as settled or as mere formatting; no assumptions stated.' (The candidate does state assumptions, but the invention of a figure triggers the anchor.)"
+    },
+    {
+      "name": "discrepancy-list-quality",
+      "score": 3,
+      "judge_rationale": "A structured line‑by‑line table is provided, but it misclassifies cosmetic differences (Acme date, Meridian amount) as genuine errors, thereby missing the true cause (cosmetic) for those rows. This matches the score‑3 anchor: 'A list exists but is incomplete or misses causes for some rows (e.g. omits the Halcyon date row).' Here the causes for Acme and Meridian are missed."
+    }
+  ],
+  "weighted_total": 0.0,
+  "auto_fail_triggered": true,
+  "judge_model": "nemotron-judge",
+  "failure_modes": [],
+  "task_hash": "sha256:917839b0e004",
+  "rubric_hash": "sha256:4b1ca7a658be",
+  "timestamp": "2026-07-18T04:36:15.827273Z"
+}

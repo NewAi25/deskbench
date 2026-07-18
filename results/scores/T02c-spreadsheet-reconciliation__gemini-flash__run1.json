@@ -1,0 +1,34 @@
+{
+  "task_id": "T02c-spreadsheet-reconciliation",
+  "model_id": "gemini-flash",
+  "run_index": 1,
+  "criterion_scores": [
+    {
+      "name": "correct-reconciled-total",
+      "score": 1,
+      "judge_rationale": "The candidate reports a reconciled total of 390,740, which is incorrect. The anchor for score 1 states: 'Reports a wrong total, or just sums one file (375,740 or 370,640) with no reconciliation of the difference.' The candidate's total is wrong and their reasoning double-counts the Everest amount (adding 15,000 to a base that already includes it)."
+    },
+    {
+      "name": "finds-duplicate",
+      "score": 5,
+      "judge_rationale": "The candidate explicitly identifies the duplicated finance row for Bluecrest (Txn 1012) appearing twice and states its effect: 'leading to an over-reporting of 8400.00 in its total.' This matches the score 5 anchor: 'Explicitly identifies the duplicated 1012 row (re-listed mid-file) and its +8,400 effect on the finance total.'"
+    },
+    {
+      "name": "flags-ambiguity-not-guesses",
+      "score": 3,
+      "judge_rationale": "The candidate states an assumption for Everest (CRM value assumed correct) but treats it as the basis for the total rather than flagging it as an unknown needing confirmation. More critically, they classify the Halcyon date mismatch as 'COSMETIC' and settled, not flagging it as a genuine disagreement needing confirmation. This matches the score 3 anchor: 'Handles the Everest ambiguity but with weak/absent justification, or resolves the Halcyon month without flagging it; states few assumptions.'"
+    },
+    {
+      "name": "discrepancy-list-quality",
+      "score": 3,
+      "judge_rationale": "The candidate presents a structured list of three differences, but misclassifies the Halcyon date mismatch as cosmetic when it is a genuine timing discrepancy. The score 3 anchor fits: 'A list exists but is incomplete or misses causes for some rows (e.g. omits the Halcyon date row).' Here the cause (genuine timing disagreement) is missed/misidentified."
+    }
+  ],
+  "weighted_total": 0.0,
+  "auto_fail_triggered": true,
+  "judge_model": "nemotron-judge",
+  "failure_modes": [],
+  "task_hash": "sha256:37df14c562e1",
+  "rubric_hash": "sha256:cc95aebc366c",
+  "timestamp": "2026-07-18T04:37:11.625919Z"
+}

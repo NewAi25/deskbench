@@ -826,3 +826,52 @@ These are editorial-review changes to the pilot pair; the saturation numbers
 above were measured pre-reweight and are not re-baselined here. Still holding —
 the reweight and any further T01/T01c edits remain the maintainer's call before
 "go".
+
+---
+
+## 2026-07-18 — Pilot run + grade complete (48/48)
+
+Maintainer said "go". Ran the full pilot: **2 tasks × 2 variants × 4 models × 3
+runs = 48 completions**, then graded every one with the held-out judge.
+
+**Run.** `deskbench run --task all --model all -n 3` → 48 raw results, all clean
+(0 errored) after two free-tier quota stalls were cleared (see below). Ping was
+5/5 green first, including glm-4.7-flash on the regenerated z.ai key.
+
+**Grade.** `deskbench grade` → 48/48 scored with **nemotron-judge**
+(`openrouter/nvidia/nemotron-3-ultra-550b-a55b:free`). 0 judge parse-failures,
+0 skipped.
+
+**Leaderboard (mean weighted_total across all 12 runs/model, 1–5):**
+
+| Model | Overall | messy | clean |
+|-------|:------:|:-----:|:-----:|
+| glm-4.7-flash | 2.79 | 2.52 | 3.06 |
+| gpt-oss-20b-free | 2.72 | 3.01 | 2.44 |
+| gemini-flash | 2.52 | 3.08 | 1.95 |
+| llama-3.3-70b | 1.96 | 1.46 | 2.45 |
+
+**Auto-fails: 10/48**, firing as designed (fabrication / false-confidence). The
+sharpest signal: **gemini-flash auto-failed all three T02c runs (0.00×3)** — on
+the *clean* 27-row reconciliation it confidently overwrote/fabricated the Everest
+figure rather than flagging it, exactly the failure the `flags-ambiguity` +
+auto-fail rules target. That single cell drags gemini's clean mean below its
+messy mean; with n=3 and auto-fails as zeros, the naive messy-vs-clean deltas
+above are **not** the formal mess penalty (core-criteria-only, per methodology
+§3) — that is the Step-8 analyzer's job, not computed here.
+
+**Infra lesson — free-tier quota contention (worth an ADR/roadmap note).** The
+run stalled twice on daily free caps, both external, both since cleared:
+- **z.ai**: `T02c × glm-4.7-flash × run2` hit a z.ai rate cap and was recorded as
+  an errored result (empty output). Refilled by a scoped resume run after reset.
+- **OpenRouter**: the judge (nemotron) and one leaderboard model (gpt-oss) share
+  the **same 50-requests/day OpenRouter free pool**; 48 run+grade calls exhausted
+  it mid-grade, so grading got exactly through T01/T01c/T02 (36 scores) and 429'd
+  on T02c. Finished after the 00:00 UTC reset; the judge response cache meant the
+  36 done runs cache-hit and only ~12 fresh T02c calls were needed. **Takeaway:**
+  a full pilot cannot run judge+leaderboard on one free OpenRouter key in a day —
+  either add OpenRouter credits or move the judge to an independent provider
+  (NVIDIA NIM), which also strengthens the judge-independence story.
+
+**DoD.** 48 raw + 48 score JSONs committed as the evidence chain. Pipeline proven
+end to end (run → grade) on real free-tier providers.

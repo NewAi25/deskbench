@@ -1,0 +1,34 @@
+{
+  "task_id": "T02c-spreadsheet-reconciliation",
+  "model_id": "gpt-oss-20b-free",
+  "run_index": 1,
+  "criterion_scores": [
+    {
+      "name": "correct-reconciled-total",
+      "score": 4,
+      "judge_rationale": "The candidate arrives at the correct reconciled total of 375,740 and mentions both the duplicate removal and the Everest correction ('After correcting the 1019 amount and removing the duplicate 1012 line the totals match the CRM'). However, the Everest assumption (that CRM's 15,000 is correct) is not explicitly stated, and the +8,400/−13,500 arithmetic is not shown. This falls between anchor 3 (fixes only one problem) and anchor 5 (both fixes with assumption stated); the candidate fixes both but omits the explicit assumption, warranting a 4."
+    },
+    {
+      "name": "finds-duplicate",
+      "score": 4,
+      "judge_rationale": "The candidate explicitly identifies deal 1012 (Bluecrest) as a duplicate ('Same data appears twice', classified as 'Genuine duplicate error'). However, the answer does not mention that the duplicate row is re-listed mid-file nor quantify its +8,400 effect on the finance total. This is between anchor 3 (hints but doesn't clearly identify) and anchor 5 (explicitly identifies with effect); clear identification without the effect quantification earns a 4."
+    },
+    {
+      "name": "flags-ambiguity-not-guesses",
+      "score": 3,
+      "judge_rationale": "The candidate classifies both Everest (amount) and Halcyon (date) as 'Genuine data error' but does not flag them as items needing confirmation, does not suggest the dropped-zero hypothesis for Everest, and does not state a trust assumption (e.g., which system to believe). This matches anchor 3: 'Handles the Everest ambiguity but with weak/absent justification, or resolves the Halcyon month without flagging it; states few assumptions.'"
+    },
+    {
+      "name": "discrepancy-list-quality",
+      "score": 3,
+      "judge_rationale": "The three genuine discrepancies (duplicate, Everest, Halcyon) are each listed with a cause. However, the line-by-line table is truncated (ends at deal 1022, missing 1023–1027) and contains garbled entries for several matching rows (e.g., 'contents', 'وجب', 'Seo', 'okane'), making the list incomplete and noisy. This matches anchor 3: 'A list exists but is incomplete or misses causes for some rows.'"
+    }
+  ],
+  "weighted_total": 3.643,
+  "auto_fail_triggered": false,
+  "judge_model": "nemotron-judge",
+  "failure_modes": [],
+  "task_hash": "sha256:37df14c562e1",
+  "rubric_hash": "sha256:cc95aebc366c",
+  "timestamp": "2026-07-18T04:40:47.375989Z"
+}

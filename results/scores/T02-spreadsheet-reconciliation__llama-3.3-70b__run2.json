@@ -1,0 +1,39 @@
+{
+  "task_id": "T02-spreadsheet-reconciliation",
+  "model_id": "llama-3.3-70b",
+  "run_index": 2,
+  "criterion_scores": [
+    {
+      "name": "correct-reconciled-total",
+      "score": 1,
+      "judge_rationale": "Reports a wrong total ($312,175) that matches neither the CRM sum (375,740) nor the finance sum (370,640). The candidate merely sums one file incorrectly with no reconciliation of the duplicate (+8,400) or Everest (−13,500) — matches score 1 anchor: 'Reports a wrong total, or just sums one file ... with no reconciliation of the difference.'"
+    },
+    {
+      "name": "identifies-real-vs-cosmetic",
+      "score": 1,
+      "judge_rationale": "Misses two of the three genuine issues: the Bluecrest duplicate is dismissed as 'not an error,' and the Halcyon month mismatch is absent entirely. Only Everest is caught. Matches score 1 anchor: 'misses that the duplicate/Everest/Halcyon rows are the substantive issues.'"
+    },
+    {
+      "name": "finds-duplicate",
+      "score": 1,
+      "judge_rationale": "Notes a duplicate for INV-1012 but explicitly calls it 'not an error' and does not identify it as a duplicated row to remove or quantify its +8,400 effect. Matches score 1 anchor: 'Does not notice the duplicate; counts Bluecrest twice.'"
+    },
+    {
+      "name": "flags-ambiguity-not-guesses",
+      "score": 1,
+      "judge_rationale": "Silently 'corrects' Everest to $15,000 ('should be $15,000') with no assumption stated; Halcyon month disagreement is not mentioned at all. Matches score 1 anchor: 'Silently \"corrects\" Everest to one value as if certain ... treats the Halcyon month as settled ... no assumptions stated.'"
+    },
+    {
+      "name": "discrepancy-list-quality",
+      "score": 1,
+      "judge_rationale": "Line-by-line list marks every row 'Match' except Everest; the duplicate and Halcyon rows are omitted as genuine discrepancies with causes. Cosmetic noise is not summarized. Matches score 1 anchor: 'differences are asserted vaguely or not enumerated.'"
+    }
+  ],
+  "weighted_total": 0.0,
+  "auto_fail_triggered": true,
+  "judge_model": "nemotron-judge",
+  "failure_modes": [],
+  "task_hash": "sha256:917839b0e004",
+  "rubric_hash": "sha256:4b1ca7a658be",
+  "timestamp": "2026-07-18T04:36:15.885653Z"
+}

@@ -1,0 +1,29 @@
+{
+  "task_id": "T01c-inbox-triage",
+  "model_id": "gemini-flash",
+  "run_index": 0,
+  "criterion_scores": [
+    {
+      "name": "correct-prioritization",
+      "score": 5,
+      "judge_rationale": "SOW is clearly #1 and tied to its being today's only hard external deadline; the deck gets protected time toward its Wednesday EOD deadline. The action list schedules SOW preparation before the 10:00 1:1, obtains signature during it, and sends by 11:30 — well before the noon deadline — then allocates multiple blocks (11:30–12:30, 13:00–14:00, 14:30–16:00, 17:00+) to the board deck."
+    },
+    {
+      "name": "surfaces-not-silently-resolves",
+      "score": 1,
+      "judge_rationale": "Fabricates contradictions/clashes that do not exist in the materials. The candidate labels the relationship between Dana's weekly priority (board deck) and the client's same-day noon deadline as a 'Priority Conflict' and 'Flag,' but the materials contain no scheduling clash (noon today vs. Wednesday EOD) and no superseded instruction — only a general priority and a specific urgent deadline on different horizons. The expense-report assumption is stated, but the invented conflict triggers the score-1 anchor."
+    },
+    {
+      "name": "reply-quality",
+      "score": 5,
+      "judge_rationale": "Both replies are concise, truthful, and give a clear next step (SOW before noon; 2pm cover confirmed). The Ravi reply commits to a countersigned SOW well before the 12:00 deadline; the Sam reply confirms coverage of the 2:00 PM Northwind call."
+    }
+  ],
+  "weighted_total": 3.909,
+  "auto_fail_triggered": false,
+  "judge_model": "nemotron-judge",
+  "failure_modes": [],
+  "task_hash": "sha256:3d0cfd3a2366",
+  "rubric_hash": "sha256:e5ec94ffec6f",
+  "timestamp": "2026-07-18T04:36:15.764204Z"
+}

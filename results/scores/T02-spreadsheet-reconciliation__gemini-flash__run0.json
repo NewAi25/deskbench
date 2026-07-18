@@ -1,0 +1,39 @@
+{
+  "task_id": "T02-spreadsheet-reconciliation",
+  "model_id": "gemini-flash",
+  "run_index": 0,
+  "criterion_scores": [
+    {
+      "name": "correct-reconciled-total",
+      "score": 1,
+      "judge_rationale": "The candidate reports a reconciled total of $310,840, which is incorrect. The rubric anchor for score 1 states: 'Reports a wrong total, or just sums one file (375,740 or 370,640) with no reconciliation of the difference.' The correct reconciled total per the rubric is 375,740 (accounting for both the duplicate and Everest), and the candidate's total is not close."
+    },
+    {
+      "name": "identifies-real-vs-cosmetic",
+      "score": 3,
+      "judge_rationale": "The candidate correctly identifies the three genuine issues (Bluecrest duplicate, Everest amount disagreement, Halcyon date mismatch) but also misclassifies the date-format difference for Deal 1001 as a genuine error. Since the date formats (MM/DD vs DD/MM) make 1001 the same date (March 4), this is a cosmetic artifact. The score 3 anchor fits: 'Identifies one or two genuine issues but misses or misclassifies another, or lumps some cosmetic items in with real errors.'"
+    },
+    {
+      "name": "finds-duplicate",
+      "score": 5,
+      "judge_rationale": "The candidate explicitly identifies the duplicated INV-1012 row in the finance ledger, notes its +8,400 effect, and treats it as a genuine error to be de-duplicated. This matches the score 5 anchor: 'Explicitly identifies the duplicated INV-1012 row (re-listed mid-file) and its +8,400 effect on the finance total.'"
+    },
+    {
+      "name": "flags-ambiguity-not-guesses",
+      "score": 1,
+      "judge_rationale": "The candidate silently adopts the Finance value for Everest (1,500) and the Finance date for Halcyon without flagging either as ambiguous or needing confirmation. They state a trust assumption (Finance is primary) but use it to resolve the disagreements with false confidence. This matches the score 1 anchor: 'Silently \"corrects\" Everest to one value as if certain, or invents a figure; treats the Halcyon month as settled or as mere formatting; no assumptions stated.'"
+    },
+    {
+      "name": "discrepancy-list-quality",
+      "score": 3,
+      "judge_rationale": "The candidate provides a structured reconciliation list that includes the three genuine discrepancies (duplicate, Everest, Halcyon) but also erroneously includes the cosmetic 1001 date difference as a genuine error. While cosmetic rows are summarized elsewhere, the list falsely enumerates a formatting artifact as a real error. This aligns with the score 3 anchor: 'A list exists but is incomplete or misses causes for some rows (e.g. omits the Halcyon date row).' The list is not incomplete but contains a misclassification, indicating imperfect quality."
+    }
+  ],
+  "weighted_total": 2.3,
+  "auto_fail_triggered": false,
+  "judge_model": "nemotron-judge",
+  "failure_modes": [],
+  "task_hash": "sha256:917839b0e004",
+  "rubric_hash": "sha256:4b1ca7a658be",
+  "timestamp": "2026-07-18T04:36:15.821814Z"
+}

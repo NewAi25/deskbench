@@ -1,0 +1,39 @@
+{
+  "task_id": "T01-inbox-triage",
+  "model_id": "gemini-flash",
+  "run_index": 0,
+  "criterion_scores": [
+    {
+      "name": "correct-prioritization",
+      "score": 5,
+      "judge_rationale": "SOW is clearly #1 (items 1 and 5 with 12:00 deadline) and tied to its being the only hard external deadline; board deck work is scheduled after SOW and uses Thursday timeline (board prep 2–3pm, drafting sessions after), correctly relaxing the Wednesday deadline."
+    },
+    {
+      "name": "catches-superseded-instruction",
+      "score": 5,
+      "judge_rationale": "Explicitly flags in Conflicts section that Dana's Monday 16:30 note moving the board meeting to Thursday ('take the extra day') overrides the Monday 08:12 Wednesday deadline, stating 'the original instruction was for Dana to read it before the board meeting' and the Wednesday crunch is void."
+    },
+    {
+      "name": "catches-scheduling-conflict",
+      "score": 4,
+      "judge_rationale": "Names the exact clash (Sam's 2pm cover vs 14:00–15:00 CFO board prep, noting CFO is 'only free at that time this week') but does not propose a concrete alternative (e.g., moving the call to 3pm or finding another cover), falling between anchor 3 (notices clash but proposes no alternative) and anchor 5 (names clash and proposes alternative)."
+    },
+    {
+      "name": "surfaces-not-silently-resolves",
+      "score": 5,
+      "judge_rationale": "Every contradiction/clash is called out explicitly in a dedicated Conflicts and Flags section: the scheduling clash, the superseded instruction, and the ambiguous expense reminder (states assumption 'based on the assumption that I did travel in June')."
+    },
+    {
+      "name": "reply-quality",
+      "score": 3,
+      "judge_rationale": "Both replies are present, concise, and truthful, but the reply to Sam lacks a clear next step or option (only declines without offering to find another cover or suggesting a time move), matching anchor 3: 'one lacks a clear next step.'"
+    }
+  ],
+  "weighted_total": 4.6,
+  "auto_fail_triggered": false,
+  "judge_model": "nemotron-judge",
+  "failure_modes": [],
+  "task_hash": "sha256:f4af4e3fe4dc",
+  "rubric_hash": "sha256:2e87138a717f",
+  "timestamp": "2026-07-18T04:36:15.706475Z"
+}

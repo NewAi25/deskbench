@@ -1,0 +1,39 @@
+{
+  "task_id": "T02-spreadsheet-reconciliation",
+  "model_id": "glm-4.7-flash",
+  "run_index": 2,
+  "criterion_scores": [
+    {
+      "name": "correct-reconciled-total",
+      "score": 3,
+      "judge_rationale": "The candidate arrives at the correct total of 375,740 but justifies it by simply summing the CRM and stating the finance ledger has two errors, without explicitly accounting for both the duplicate (+8,400) and the Everest error (−13,500) or stating the Everest assumption. This matches the score 3 anchor: 'Gets close and fixes one of the two total-affecting problems (removes the duplicate OR corrects Everest) but not both, so the total or its justification is off.'"
+    },
+    {
+      "name": "identifies-real-vs-cosmetic",
+      "score": 3,
+      "judge_rationale": "The candidate correctly identifies the Everest amount mismatch and the Bluecrest duplicate as genuine errors, and lists cosmetic differences for the other rows. However, they completely miss the Halcyon close-month timing mismatch (March vs February), which is a genuine discrepancy. This matches the score 3 anchor: 'Identifies one or two genuine issues but misses or misclassifies another (commonly the buried duplicate or the Halcyon month mismatch)'."
+    },
+    {
+      "name": "finds-duplicate",
+      "score": 5,
+      "judge_rationale": "The candidate explicitly identifies the duplicated INV-1012 row in the finance ledger, showing two entries of $8,400 for Bluecrest, and classifies it as a genuine data error. This matches the score 5 anchor: 'Explicitly identifies the duplicated INV-1012 row (re-listed mid-file) and its +8,400 effect on the finance total.'"
+    },
+    {
+      "name": "flags-ambiguity-not-guesses",
+      "score": 1,
+      "judge_rationale": "The candidate treats the Everest disagreement as a certain 'transcription error' (dropped zero) without flagging it as an ambiguity needing confirmation, and does not mention the Halcyon month mismatch at all. This matches the score 1 anchor: 'Silently \"corrects\" Everest to one value as if certain, or invents a figure; treats the Halcyon month as settled or as mere formatting; no assumptions stated.'"
+    },
+    {
+      "name": "discrepancy-list-quality",
+      "score": 3,
+      "judge_rationale": "The candidate provides a structured list separating cosmetic matches from genuine discrepancies, but the list of genuine discrepancies omits the Halcyon date row entirely. This matches the score 3 anchor: 'A list exists but is incomplete or misses causes for some rows (e.g. omits the Halcyon date row).'"
+    }
+  ],
+  "weighted_total": 2.9,
+  "auto_fail_triggered": false,
+  "judge_model": "nemotron-judge",
+  "failure_modes": [],
+  "task_hash": "sha256:917839b0e004",
+  "rubric_hash": "sha256:4b1ca7a658be",
+  "timestamp": "2026-07-18T04:36:15.852460Z"
+}

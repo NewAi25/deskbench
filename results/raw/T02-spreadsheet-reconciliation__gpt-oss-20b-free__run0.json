@@ -1,0 +1,22 @@
+{
+  "task_id": "T02-spreadsheet-reconciliation",
+  "model_id": "gpt-oss-20b-free",
+  "run_index": 0,
+  "variant": "messy",
+  "output": "**1. Correct reconciled total**\n\n| Source | Total (USD) |\n|--------|-------------|\n| **CRM export** | **$375 740** |\n| ** চাপ Ledger (after correcting the two issues)** | **$375 740** |\n\nThe two totals now match exactly.  \n\nThe corrections that bring the ledger total up to the CRM amount are:\n\n| Issue | Value in ledger | How it wasર્ડ (adjusted) | Δ (USD) |\n|-------|-----------------|--------------------------|--------|\n| Duplicate line “INV‑1012” | $8 400 (counted twice) | – $8 400 | – $8 400 |\n| Amount for deal 1019 | $1 500 | + $13 500 (should be $15 000) | + $13 500 |\n| **Net色情** | | | **+ $5 100** |\n\n(Adding the difference for 1019 and subtracting the duplicate entry gives the total $375 740.)\n\n---\n\n**2. Line‑by‑line reconciliation**\n\nBelow is a concise table of every observable mismatch between the two files.  \nFor each mismatch we state whether it is only a cosmetic/formatting artifact (i.e., the same underlying data, just written differently) or a **GENUINE** data error (the underlying numbers actually disagree).\n\n| # | CRM field | Ledger field | Value in CRM | Value in Ledger | Classification | Comment |\n|---|-----------|--------------|--------------|-----------------|----------------|---------|\n| 1 | Deal ID 1001 | Txn INV‑1001 | – | – | **COSMETIC** | Prefix “INV‑” added in ledger, same numeric part |\n| 2 | Customer “Acme Corp” | Client “ACME Corporation” | – | – | **COSMETIC** | Corporate naming variation |\n| 3 | Close Date 03/04/2024 | Date  youn | 03/04/2024 (MM/DD) | 04/03/2024 (DD/MM) | **COSMETIC** | Date format swap – same day (4 Mar) |\n| 4 | Amount “$12,000” | Value 12000 | – | – | **COSMETIC** | Currency symbol and commas removed |\n| … | *All other deals with identical dates under their respective formats* | | | | **COSMETIC** | Same reasoning:   email. |\n| **1019** | Amount “$15 000” | Value 1 500 | $15 000 | $1 500 | **GENUINE** | Under‑reported by a factor of ten |\n| **1012** | Duplicate ledger row “INV‑1012” (appears twice) | | – | Same two rows of 8 400 | **GENUINE** | Duplicate transaction inflates total |\n| 12 | Deal IDs 1004, 1008, 1006, 1013 etc. date fields swapped | | | | **COSMETIC** | Marketing – format change |\n| 13 | Deal ID 1015: CRM shows “$5 940” | Ledger shows 5 940.00 | – | – | **COSMETIC** |_DS’ye_ separators |\n| 15 | Deal ID 1024: CRM “$24 300.00” | Ledger “24 300.00” | – | veta",
+  "tool_trace": [],
+  "tokens_in": 921,
+  "tokens_out": 2834,
+  "latency_s": 125.4411858000094,
+  "cost_usd": 0.0,
+  "timestamp": "2026-07-17T10:31:04.723158Z",
+  "error": null,
+  "sampling": {
+    "temperature": null,
+    "top_p": null,
+    "max_tokens": null,
+    "seed": null,
+    "source": "vendor-default"
+  },
+  "task_hash": "sha256:917839b0e004"
+}

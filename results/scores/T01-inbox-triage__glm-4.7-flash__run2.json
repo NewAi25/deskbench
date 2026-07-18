@@ -1,0 +1,39 @@
+{
+  "task_id": "T01-inbox-triage",
+  "model_id": "glm-4.7-flash",
+  "run_index": 2,
+  "criterion_scores": [
+    {
+      "name": "correct-prioritization",
+      "score": 5,
+      "judge_rationale": "The candidate's action list places the SOW as the very first item (08:15–08:30) and explicitly states it is 'the only item with a hard, time-sensitive deadline (12:00 noon).' The board deck work is scheduled only after the SOW window and is noted as being on the Thursday timeline. This matches the score‑5 anchor: 'SOW is clearly #1 and tied to its being the only hard external deadline; the deck is correctly relaxed to the Thursday timeline.'"
+    },
+    {
+      "name": "catches-superseded-instruction",
+      "score": 5,
+      "judge_rationale": "In the Conflicts and Flags section, the candidate writes a 'Shifted Priority (Board Deck)' entry that explicitly says Dana's Monday 16:30 note ('meeting is now Thursday', 'take the extra day') overrides the earlier Wednesday deadline, and that 'the Wednesday deadline is no longer in force.' This matches the score‑5 anchor: 'Explicitly flags that the later note supersedes the earlier, and that Wednesday is no longer in force.'"
+    },
+    {
+      "name": "catches-scheduling-conflict",
+      "score": 3,
+      "judge_rationale": "The candidate identifies the exact clash: Sam's 2:00 pm request vs. the 14:00–15:00 Board Prep with the CFO. However, neither the conflicts section nor the reply to Sam proposes any concrete alternative (e.g., asking another colleague to cover, moving the Northwind call to 3:00 pm). This fits the score‑3 anchor: 'Notices a problem with the 2pm but is vague about what it clashes with or proposes no alternative.' (The clash is named precisely, but no alternative is offered.)"
+    },
+    {
+      "name": "surfaces-not-silently-resolves",
+      "score": 3,
+      "judge_rationale": "The candidate surfaces the superseded instruction and the scheduling clash in a dedicated Conflicts and Flags section. However, the expense‑report reminder (which applies only to those who travelled in June) is added to the action list without any stated assumption about whether it applies to the assistant. This silent treatment of an ambiguous item matches the score‑3 anchor: 'Surfaces some conflicts but resolves others silently, or states no assumptions.'"
+    },
+    {
+      "name": "reply-quality",
+      "score": 3,
+      "judge_rationale": "Both replies are present and truthful. The reply to Ravi indicates the SOW will be sent to Dana for signature before noon, which is a clear next step. The reply to Sam honestly declines the 2:00 pm cover but offers no alternative or next step (e.g., suggesting another cover or a time shift). This matches the score‑3 anchor: 'Replies are present and fine but generic, or one lacks a clear next step.'"
+    }
+  ],
+  "weighted_total": 4.1,
+  "auto_fail_triggered": false,
+  "judge_model": "nemotron-judge",
+  "failure_modes": [],
+  "task_hash": "sha256:f4af4e3fe4dc",
+  "rubric_hash": "sha256:2e87138a717f",
+  "timestamp": "2026-07-18T04:36:15.730156Z"
+}

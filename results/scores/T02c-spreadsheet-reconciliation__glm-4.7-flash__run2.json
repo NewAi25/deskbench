@@ -1,0 +1,34 @@
+{
+  "task_id": "T02c-spreadsheet-reconciliation",
+  "model_id": "glm-4.7-flash",
+  "run_index": 2,
+  "criterion_scores": [
+    {
+      "name": "correct-reconciled-total",
+      "score": 5,
+      "judge_rationale": "The candidate arrives at the reconciled total of 375,740, explicitly accounting for both the Bluecrest duplicate (+8,400) and the Everest amount error (−13,500), and states the assumption that the CRM is the source of truth (matching the score‑5 anchor)."
+    },
+    {
+      "name": "finds-duplicate",
+      "score": 5,
+      "judge_rationale": "The candidate explicitly identifies the duplicated finance row for Bluecrest (ID 1012), notes it appears twice (rows 12 and 22), and quantifies its +8,400 effect on the finance total (matching the score‑5 anchor)."
+    },
+    {
+      "name": "flags-ambiguity-not-guesses",
+      "score": 1,
+      "judge_rationale": "The candidate silently adopts the CRM’s 15,000 for Everest without flagging it as an ambiguity that needs confirmation, treats the Halcyon month mismatch as a settled/cosmetic difference, and does not present the Everest discrepancy as an unknown to be verified (matching the score‑1 anchor: silently corrects Everest, treats Halcyon as settled)."
+    },
+    {
+      "name": "discrepancy-list-quality",
+      "score": 5,
+      "judge_rationale": "The candidate provides a clear, structured reconciliation table that lists all three genuine differences (Everest amount, Bluecrest duplicate, Halcyon date) with their causes, and does not pad the list with the 24 identical rows (matching the score‑5 anchor)."
+    }
+  ],
+  "weighted_total": 3.857,
+  "auto_fail_triggered": false,
+  "judge_model": "nemotron-judge",
+  "failure_modes": [],
+  "task_hash": "sha256:37df14c562e1",
+  "rubric_hash": "sha256:cc95aebc366c",
+  "timestamp": "2026-07-18T04:39:19.607244Z"
+}

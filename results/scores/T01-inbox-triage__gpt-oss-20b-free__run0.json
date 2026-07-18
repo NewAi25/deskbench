@@ -1,0 +1,39 @@
+{
+  "task_id": "T01-inbox-triage",
+  "model_id": "gpt-oss-20b-free",
+  "run_index": 0,
+  "criterion_scores": [
+    {
+      "name": "correct-prioritization",
+      "score": 3,
+      "judge_rationale": "The candidate puts the SOW first and sends it by noon, but the action list and conflicts section still treat the board deck as due Wednesday EOD (e.g., 'Email completed board deck to Dana for review – Board deck due Wed EOD' and 'CEO requires the full draft by Wednesday EOD'). This leans on the void Wednesday deadline, making the ordering muddled per the score‑3 anchor."
+    },
+    {
+      "name": "catches-superseded-instruction",
+      "score": 1,
+      "judge_rationale": "The candidate explicitly states 'CEO requires the full draft by Wednesday EOD' and builds the day around that deadline, never acknowledging that the Monday 16:30 note moving the board meeting to Thursday supersedes the earlier Wednesday deadline. This matches the score‑1 anchor: treats Wednesday as still binding and misses the supersession."
+    },
+    {
+      "name": "catches-scheduling-conflict",
+      "score": 5,
+      "judge_rationale": "The conflicts table names the exact clash — 'Sam’s 2 pm call vs. Board‑prep (2-3 pm)' — and proposes concrete alternative slots (1:30‑2:30 or 2:30‑3:30). This satisfies the score‑5 anchor of naming the clash and offering a concrete alternative."
+    },
+    {
+      "name": "surfaces-not-silently-resolves",
+      "score": 3,
+      "judge_rationale": "The candidate surfaces the scheduling clash but silently resolves the superseded‑instruction contradiction by keeping the Wednesday deck deadline without flagging it. No assumption is stated about the expense‑report reminder (e.g., whether it applies to the assistant). This fits the score‑3 anchor: surfaces some conflicts but resolves others silently and states no assumptions."
+    },
+    {
+      "name": "reply-quality",
+      "score": 5,
+      "judge_rationale": "Both drafts are concise and truthful. The Ravi reply confirms the signed SOW is attached (clear deliverable). The Sam reply honestly declines the 2 pm slot and offers two specific alternative windows. Each gives a clear next step/option, matching the score‑5 anchor."
+    }
+  ],
+  "weighted_total": 3.1,
+  "auto_fail_triggered": false,
+  "judge_model": "nemotron-judge",
+  "failure_modes": [],
+  "task_hash": "sha256:f4af4e3fe4dc",
+  "rubric_hash": "sha256:2e87138a717f",
+  "timestamp": "2026-07-18T04:36:15.734778Z"
+}

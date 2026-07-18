@@ -1,0 +1,39 @@
+{
+  "task_id": "T01-inbox-triage",
+  "model_id": "gemini-flash",
+  "run_index": 1,
+  "criterion_scores": [
+    {
+      "name": "correct-prioritization",
+      "score": 5,
+      "judge_rationale": "Matches score 5 anchor: SOW is clearly #1 and tied to its being the only hard external deadline; the deck is correctly relaxed to the Thursday timeline. The action list schedules SOW signing and sending before 12:00 as the first deliverable, then board deck work after, with deadline confirmed for Thursday."
+    },
+    {
+      "name": "catches-superseded-instruction",
+      "score": 5,
+      "judge_rationale": "Matches score 5 anchor: Explicitly flags that the later note supersedes the earlier, and that Wednesday is no longer in force. The conflicts section states Dana's follow-up email supersedes the firm Wednesday EOD deadline."
+    },
+    {
+      "name": "catches-scheduling-conflict",
+      "score": 4,
+      "judge_rationale": "Between score 3 and 5 anchors. The conflict section names the exact clash (2pm cover vs 14:00-15:00 CFO board prep) meeting the score 5 requirement for naming, but does not propose a concrete alternative (score 5 requires both). The reply to Sam also offers no alternative. Thus it falls between anchors; score 4 reflects explicit clash identification without alternative proposal."
+    },
+    {
+      "name": "surfaces-not-silently-resolves",
+      "score": 5,
+      "judge_rationale": "Matches score 5 anchor: Every contradiction/clash is called out explicitly (superseded deadline, scheduling conflict) and ambiguous items carry stated assumptions (expense report applicability, new board deck deadline)."
+    },
+    {
+      "name": "reply-quality",
+      "score": 3,
+      "judge_rationale": "Matches score 3 anchor: Replies are present but one lacks a clear next step/option. The Ravi reply is concise with a clear next step (send before noon). The Sam reply declines due to conflict but offers no alternative cover or reschedule option, lacking a clear next step."
+    }
+  ],
+  "weighted_total": 4.6,
+  "auto_fail_triggered": false,
+  "judge_model": "nemotron-judge",
+  "failure_modes": [],
+  "task_hash": "sha256:f4af4e3fe4dc",
+  "rubric_hash": "sha256:2e87138a717f",
+  "timestamp": "2026-07-18T04:36:15.711595Z"
+}

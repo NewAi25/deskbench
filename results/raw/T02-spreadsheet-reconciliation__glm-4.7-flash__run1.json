@@ -1,0 +1,22 @@
+{
+  "task_id": "T02-spreadsheet-reconciliation",
+  "model_id": "glm-4.7-flash",
+  "run_index": 1,
+  "variant": "messy",
+  "output": "### 1. Correct Reconciled Total\n\n**Reconciled Total: $373,240**\n\n**Reasoning:**\nThe total derived from the Finance Ledger, minus the duplicate entry, matches the Sales CRM totals in all other rows except for a specific value discrepancy in Row 1019. The Finance Ledger total is $373,240 (excluding the duplicate). While the CRM shows $15,000 for Deal 1019 and Finance shows $1,500.00, the duplicate row in Finance is a clear structural error. Assuming the Finance Ledger is the source of truth for the accounting totals, the correct reconciled total is the Finance total minus the duplicate entry ($381,640 - $8,400).\n\n### 2. Line-by-Line Reconciliation\n\n| Row | CRM Export Value | Finance Ledger Value | Difference | Classification |\n| :--- | :--- | :--- | :--- | :--- |\n| **1001** | $12,000 | 12,000 | $0 | Match |\n| **1002** | $22,500.00 | 22,500.00 | $0 | Match |\n| **1003** | $4,750.00 | 4,750.00 | $0 | Match |\n| **1004** | $5,250.00 | 5,250.00 | $0 | Match |\n| **1005** | $3,000.00 | 3,000 | $0 | Match |\n| **1006** | 31,200 | 31,200.00 | $0 | Match |\n| **1007** | $6,800.00 | 6,800.00 | $0 | Match |\n| **1008** | $11,200.00 | 11,200.00 | $0 | Match |\n| **1009** | $9,900.00 | 9,900 | $0 | Match |\n| **1010** | $18,400.00 | 18,400.00 | $0 | Match |\n| **1011** | 2,600 | 2,600.00 | $0 | Match |\n| **1012** | $8,400.00 | 8,400.00 | **Duplicate Row** | **Genuine Data Error** |\n| **1013** | $7,350.00 | 7,350 | $0 | Match |\n| **1014** | $13,750.00 | 13,750.00 | $0 | Match |\n| **1015** | $5,940.00 | 5,940.00 | $0 | Match |\n| **1016** | $27,000 | 27,000.00 | $0 | Match |\n| **1017** | $44,800.00 | 44,800 | $0 | Match |\n| **1018** | $3,850.00 | 3,850.00 | $0 | Match |\n| **1019** | $15,000 | 1,500.00 | **$13,500** | **Genuine Data Error** |\n| **1020** | $6,150.00 | 6,150.00 | $0 | Match |\n| **1021** | 19,750 | 19,750 | $0 | Match |\n| **1022** | $8,100.00 | 8,100.00 | $0 | Match |\n| **1023** | $15,600.00 | 15,600.00 | $0 | Match |\n| **1024** | $24,300.00 | 24,300.00 | $0 | Match |\n| **1025** | $4,200.00 | 4,200 | $0 | Match |\n| **1026** | 33,500 | 33,500.00 | $0 | Match |\n| **1027** | $10,450.00 | 10,450.00 | $0 | Match |\n\n### 3. Call on the Real Data Error\n\n*   **Genuine Data Error (The Real Error):** The **Duplicate Row (INV-1012)** in the Finance Ledger.\n    *   **Reasoning:** This is a structural data integrity issue. The same deal appears twice in the Finance file but only once in the CRM file. This accounts for an $8,400 discrepancy in the totals. It is a clear error in the export or data entry process.\n*   **Genuine Data Error (Secondary):** The **Value Mismatch (Row 1019)**.\n    *   **Reasoning:** Deal 1019 shows $15,000 in the CRM and $1,500.00 in the Finance Ledger. This represents a $13,500 discrepancy. While both are errors, the duplicate row is the primary cause of the total mismatch, whereas the value error likely stems from a typo or formatting issue in one system.\n\n**Assumptions:**\n1.  The Finance Ledger is the authoritative source for the total revenue figure.\n2.  The duplicate row in the Finance Ledger is an error (not a missing deal in CRM).\n3.  The value discrepancy in Row 1019 is a typo (CRM likely meant 1,500 or Finance meant 15,000), but the duplicate is the more fundamental structural error.",
+  "tool_trace": [],
+  "tokens_in": 1413,
+  "tokens_out": 25870,
+  "latency_s": 269.3406987000053,
+  "cost_usd": 0.0,
+  "timestamp": "2026-07-17T10:23:18.559344Z",
+  "error": null,
+  "sampling": {
+    "temperature": null,
+    "top_p": null,
+    "max_tokens": null,
+    "seed": null,
+    "source": "vendor-default"
+  },
+  "task_hash": "sha256:917839b0e004"
+}

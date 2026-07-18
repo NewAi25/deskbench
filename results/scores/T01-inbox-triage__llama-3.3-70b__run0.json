@@ -1,0 +1,39 @@
+{
+  "task_id": "T01-inbox-triage",
+  "model_id": "llama-3.3-70b",
+  "run_index": 0,
+  "criterion_scores": [
+    {
+      "name": "correct-prioritization",
+      "score": 3,
+      "judge_rationale": "The SOW is placed high in the action list (items 2 and 4) with a 12:00 send target, and board deck work follows, but the list does not explicitly justify why the SOW is #1 (i.e., that it is the only hard external deadline) or tie the relaxed deck timeline to the superseded Wednesday deadline. The ordering works but the rationale is muddled, matching the score-3 anchor."
+    },
+    {
+      "name": "catches-superseded-instruction",
+      "score": 3,
+      "judge_rationale": "The conflicts section notes the board deck deadline changed from Wednesday to Thursday but does not explicitly state that the CEO's Monday 16:30 note supersedes her Monday 08:12 note. It uses the Thursday timeline without flagging the supersession, matching the score-3 anchor."
+    },
+    {
+      "name": "catches-scheduling-conflict",
+      "score": 3,
+      "judge_rationale": "The answer notices the 2:00 pm cover request conflicts with 'other scheduled events' and proposes rescheduling to 16:30, but it does not name the exact clash (2:00 pm cover vs. 14:00–15:00 CFO board prep). This vagueness matches the score-3 anchor."
+    },
+    {
+      "name": "surfaces-not-silently-resolves",
+      "score": 3,
+      "judge_rationale": "Some conflicts are surfaced (deadline change, 2 pm clash mentioned vaguely), but the 2 pm conflict is silently resolved by unilaterally moving it to 16:30 in the action list without explicit discussion, and the expense-report assumption is not clearly stated as an assumption. This matches the score-3 anchor."
+    },
+    {
+      "name": "reply-quality",
+      "score": 3,
+      "judge_rationale": "The reply to Ravi is clear and actionable. The reply to Sam unilaterally commits to a 16:30 client call without confirming the client's availability or offering alternatives, so it lacks a clear, mutually agreeable next step. This matches the score-3 anchor."
+    }
+  ],
+  "weighted_total": 3.0,
+  "auto_fail_triggered": false,
+  "judge_model": "nemotron-judge",
+  "failure_modes": [],
+  "task_hash": "sha256:f4af4e3fe4dc",
+  "rubric_hash": "sha256:2e87138a717f",
+  "timestamp": "2026-07-18T04:36:15.749235Z"
+}

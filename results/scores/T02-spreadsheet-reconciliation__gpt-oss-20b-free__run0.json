@@ -1,0 +1,39 @@
+{
+  "task_id": "T02-spreadsheet-reconciliation",
+  "model_id": "gpt-oss-20b-free",
+  "run_index": 0,
+  "criterion_scores": [
+    {
+      "name": "correct-reconciled-total",
+      "score": 4,
+      "judge_rationale": "The candidate arrives at the correct reconciled total of 375,740 and explicitly accounts for both the duplicate (+8,400) and the Everest error (−13,500). However, the anchor for score 5 requires the Everest assumption to be stated; the candidate corrects Everest to 15,000 without flagging it as an assumption, so the answer falls between the score 3 and score 5 anchors."
+    },
+    {
+      "name": "identifies-real-vs-cosmetic",
+      "score": 3,
+      "judge_rationale": "The candidate correctly identifies the Bluecrest duplicate and the Everest amount mismatch as genuine, but treats the Halcyon close‑date discrepancy (March vs February) as a cosmetic format swap. This matches the score 3 anchor: identifies one or two genuine issues but misses or misclassifies another (commonly the Halcyon month mismatch)."
+    },
+    {
+      "name": "finds-duplicate",
+      "score": 5,
+      "judge_rationale": "The candidate explicitly identifies the duplicated INV‑1012 row (appearing twice in the ledger) and quantifies its +8,400 effect on the finance total, matching the score 5 anchor."
+    },
+    {
+      "name": "flags-ambiguity-not-guesses",
+      "score": 1,
+      "judge_rationale": "The candidate silently corrects the Everest amount to 15,000 as if certain and treats the Halcyon month disagreement as a mere formatting artifact, with no assumptions stated. This matches the score 1 anchor: silently 'corrects' Everest to one value as if certain and treats the Halcyon month as settled or mere formatting."
+    },
+    {
+      "name": "discrepancy-list-quality",
+      "score": 3,
+      "judge_rationale": "The candidate presents a structured reconciliation table but omits the Halcyon date mismatch as a genuine discrepancy (listing it as cosmetic). This matches the score 3 anchor: a list exists but is incomplete or misses causes for some rows (e.g., omits the Halcyon date row)."
+    }
+  ],
+  "weighted_total": 3.2,
+  "auto_fail_triggered": false,
+  "judge_model": "nemotron-judge",
+  "failure_modes": [],
+  "task_hash": "sha256:917839b0e004",
+  "rubric_hash": "sha256:4b1ca7a658be",
+  "timestamp": "2026-07-18T04:36:15.858257Z"
+}

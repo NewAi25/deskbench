@@ -1,0 +1,29 @@
+{
+  "task_id": "T01c-inbox-triage",
+  "model_id": "gemini-flash",
+  "run_index": 2,
+  "criterion_scores": [
+    {
+      "name": "correct-prioritization",
+      "score": 5,
+      "judge_rationale": "The SOW is clearly the first substantive work item (items 3–5) and explicitly tied to the 12:00 noon external deadline ('Critical for 12:00 noon deadline'). The board deck receives multiple protected blocks (11:30–12:30, 13:00–14:00, 15:00–16:00, after 17:00) toward its Wednesday EOD deadline. Matches the score-5 anchor: SOW is #1 and linked to today's only hard external deadline; deck gets protected time."
+    },
+    {
+      "name": "surfaces-not-silently-resolves",
+      "score": 1,
+      "judge_rationale": "The candidate invents three 'conflicts' that do not exist in the materials: (1) SOW vs. board deck (deadlines are on different days, no clash), (2) Sam's 2pm call vs. board deck (call fits an open calendar slot), (3) expense reports vs. higher priorities (just a prioritization choice, not a contradiction). The rubric's score-1 anchor states: 'fabricates contradictions/clashes that do not exist in the materials.' The candidate also states an assumption on expenses, but the fabrication of conflicts dominates."
+    },
+    {
+      "name": "reply-quality",
+      "score": 5,
+      "judge_rationale": "Both replies are concise, truthful, and give a clear next step: Ravi reply confirms SOW will be returned 'well before the 12:00 noon deadline'; Sam reply confirms 'I can definitely cover your 2:00pm Northwind call today.' Matches the score-5 anchor: 'Both replies are concise, truthful, and give a clear next step (SOW before noon; 2pm cover confirmed).'"
+    }
+  ],
+  "weighted_total": 3.909,
+  "auto_fail_triggered": false,
+  "judge_model": "nemotron-judge",
+  "failure_modes": [],
+  "task_hash": "sha256:3d0cfd3a2366",
+  "rubric_hash": "sha256:e5ec94ffec6f",
+  "timestamp": "2026-07-18T04:36:15.771865Z"
+}

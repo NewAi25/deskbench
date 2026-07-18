@@ -1,0 +1,39 @@
+{
+  "task_id": "T01-inbox-triage",
+  "model_id": "llama-3.3-70b",
+  "run_index": 1,
+  "criterion_scores": [
+    {
+      "name": "correct-prioritization",
+      "score": 3,
+      "judge_rationale": "SOW is addressed early but ordering includes board deck work before sending SOW; justification muddled, not explicitly tied to being the only hard external deadline."
+    },
+    {
+      "name": "catches-superseded-instruction",
+      "score": 3,
+      "judge_rationale": "Acknowledges Thursday timeline but does not explicitly flag that Wednesday deadline is superseded/void; only says change may affect urgency."
+    },
+    {
+      "name": "catches-scheduling-conflict",
+      "score": 3,
+      "judge_rationale": "Identifies clash between 2pm call and CFO board prep but proposes no concrete alternative, only vague 'decline or find alternative'."
+    },
+    {
+      "name": "surfaces-not-silently-resolves",
+      "score": 3,
+      "judge_rationale": "Surfaces some conflicts but does not state assumption on expense reminder; superseded instruction not explicitly flagged as contradiction."
+    },
+    {
+      "name": "reply-quality",
+      "score": 3,
+      "judge_rationale": "Replies present but generic; Sam reply lacks clear next step."
+    }
+  ],
+  "weighted_total": 0.0,
+  "auto_fail_triggered": true,
+  "judge_model": "nemotron-judge",
+  "failure_modes": [],
+  "task_hash": "sha256:f4af4e3fe4dc",
+  "rubric_hash": "sha256:2e87138a717f",
+  "timestamp": "2026-07-18T04:36:15.753826Z"
+}

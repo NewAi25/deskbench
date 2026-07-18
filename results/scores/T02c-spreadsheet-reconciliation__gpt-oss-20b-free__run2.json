@@ -1,0 +1,34 @@
+{
+  "task_id": "T02c-spreadsheet-reconciliation",
+  "model_id": "gpt-oss-20b-free",
+  "run_index": 2,
+  "criterion_scores": [
+    {
+      "name": "correct-reconciled-total",
+      "score": 5,
+      "judge_rationale": "Matches anchor 5: reconciled total is 375,740, explicitly accounting for both the duplicate (+8,400) and the Everest error (−13,500), with the Everest assumption (CRM as source of truth) stated."
+    },
+    {
+      "name": "finds-duplicate",
+      "score": 5,
+      "judge_rationale": "Matches anchor 5: explicitly identifies the duplicated 1012 row (re-listed mid-file) and its +8,400 effect on the finance total, shown in the reconciliation table and the total calculation."
+    },
+    {
+      "name": "flags-ambiguity-not-guesses",
+      "score": 3,
+      "judge_rationale": "Matches anchor 3: handles the Everest ambiguity (states CRM authority assumption) but resolves the Halcyon month disagreement without flagging it as needing confirmation, instead classifying it as a cosmetic typo and directing a correction to the finance ledger."
+    },
+    {
+      "name": "discrepancy-list-quality",
+      "score": 5,
+      "judge_rationale": "Matches anchor 5: every genuine difference (duplicate, Everest, Halcyon) is listed with its cause in a structured table; the 24 identical rows are not padded with invented findings."
+    }
+  ],
+  "weighted_total": 4.429,
+  "auto_fail_triggered": false,
+  "judge_model": "nemotron-judge",
+  "failure_modes": [],
+  "task_hash": "sha256:37df14c562e1",
+  "rubric_hash": "sha256:cc95aebc366c",
+  "timestamp": "2026-07-18T04:41:15.323724Z"
+}

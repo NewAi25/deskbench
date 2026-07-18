@@ -1,0 +1,22 @@
+{
+  "task_id": "T02c-spreadsheet-reconciliation",
+  "model_id": "gpt-oss-20b-free",
+  "run_index": 1,
+  "variant": "clean",
+  "output": "**1. Reconciled total**\n\n| System | Total of all listed persu | Notes |\n|--------|----------------------------|-------|\n| **CRM export** | **$375 740.00** | Straight‑forward sum of the 27 lines. |\n| **Finance ledger (as‑shown)** | $370 640.00 | Includes the duplicate 1012 line and the 1019 amount error. |\n| **Finance ledger (corrected)** | **$375 740.00** | After correcting the 1019 amount and removing the duplicate 1012 line the totals match the CRM. |\n\nThus the *correct* reconciled total for the Q1 deals is **$375 740.00**.\n\n---\n\n**2. Line‑by‑line reconciliation**\n\n| Deal ID | CRM (amount / date) | Finance (amount / date) | Difference | Classification |\n|---------|---------------------|-------------------------|------------|----------------|\n| 1001 | $12 000.00 / 2024‑03‑04 | $12 000.00 / 2024‑03‑04 | None | – |\n| 1002 | $22 500.00 / 2024‑01‑15 | $22 500.00 /  contents | None | – |\n| 1003 | $4 750.00 / 2024‑01‑22 | $4 750.00 / 2024‑01‑22 | None | – |\n| 1004 | $5 250.00 / 2024‑02‑05 | $5 250.00 / 2024‑02‑05 | None | – |\n| 1005 | $3 000.00 / 2024‑02‑12 | $3 000.00 / 2024‑02‑12 | None | – |\n| 1006 | $31 200.00 / 2024‑01‑09 | $31 200.00 / 2024‑01‑09 | None | – |\n| 1007 | $6 800.00 / 2024‑03‑18 | $6 800.00 / 2024‑03‑18 | None | – |\n| **1008** | $11 200.00 / **2024‑03‑05** | $11 200.00 / **202ctor‑02‑05** | Date differs by one month | **Genuine data error** (different close date) |\n| 1009 | $9 900.00 / 2024‑02‑26 | $9 900.00 / 2024‑02‑26 | None | – |\n| 1010 | $18 400.00 / 2024‑01‑30 | $18 400.00 / 2024‑01‑30 | None | – |\n| 1011 | $2 600.00 / 2024‑03‑11 | $2 600.00 / 2024‑03‑11 | None | – |\n| 1012 | $8 400.00 / 2024‑02‑14 | $8 وجب 8400.00 / 2024‑02‑14 | Same data appears twice | **Genuine duplicate error** |\n| 1013 | $7 350.00 / 2024‑01‑19 | $7 350.00 / 2024‑01‑19 | None | – |\n| 1014 | $13 750.00 / 2024‑02‑20 | $13 750.00 / 2024‑02‑20 | None | – |\n| 1015 | Seo | $5 940.00 / 2024‑03‑25 | $5 940.00 / 2024‑03‑25 | None | – |\n| 1016 | $27 000.00 / 2024‑01‑27 | $27 000.00 / 202okane‑01‑27 | None | – |\n| 1017 | $44 800.00 / 2024‑02‑08 | $44 800.00 / 2024‑02‑08 | None | – |\n| 1018 | $3 850.00 / 2024‑03‑14 | $3 850.00 / 2024‑03‑14 | None | – |\n| **1019** | **$15 000.00** / 2024‑02‑29 | **$1 500.00** / 2024‑02‑29 | Amount is $13 500 short | **Genuine data error** |\n| 1020 | $6 150.00 / 2024‑01‑12 | $6 150.00 / 2024‑01‑12 | None | – |\n| 1021 | $19 750.00 / 2024‑03‑21 | $19 750.00 / 2024‑03‑21 | None | – |\n| 1022 | $8 100.00 / 2024‑02‑16 | $8 100.00 / 2024‑02",
+  "tool_trace": [],
+  "tokens_in": 850,
+  "tokens_out": 2851,
+  "latency_s": 121.662571199995,
+  "cost_usd": 0.0,
+  "timestamp": "2026-07-17T11:12:52.784565Z",
+  "error": null,
+  "sampling": {
+    "temperature": null,
+    "top_p": null,
+    "max_tokens": null,
+    "seed": null,
+    "source": "vendor-default"
+  },
+  "task_hash": "sha256:37df14c562e1"
+}

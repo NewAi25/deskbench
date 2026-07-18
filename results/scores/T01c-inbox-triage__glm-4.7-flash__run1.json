@@ -1,0 +1,29 @@
+{
+  "task_id": "T01c-inbox-triage",
+  "model_id": "glm-4.7-flash",
+  "run_index": 1,
+  "criterion_scores": [
+    {
+      "name": "correct-prioritization",
+      "score": 2,
+      "judge_rationale": "The candidate schedules the Board Deck first (08:15–09:00) citing the CEO's weekly priority, and only addresses the SOW at 11:00–11:45 — cutting it extremely close to the 12:00 hard deadline. While the SOW appears in the morning and the conflicts section acknowledges its urgency, the ordering does not treat it as the clear #1 tied to today's only external, irreversible deadline (score 5 anchor). It is not buried or after noon (score 1 anchor), but the justification is muddled and the plan risks the noon deadline slipping, placing it between the 1 and 3 anchors."
+    },
+    {
+      "name": "surfaces-not-silently-resolves",
+      "score": 1,
+      "judge_rationale": "The candidate fabricates two 'flags' (SOW vs. Dana availability; CEO priority vs. SOW deadline) that are normal scheduling/prioritization tensions, not contradictions or clashes in the materials. The reference explicitly states no contradictions or scheduling clashes exist. The candidate also fails to state an assumption about the ambiguous expense reminder (simply scheduling it at 16:30), violating the score 5 anchor requirement to explicitly note consistency and state assumptions. This matches the score 1 anchor: fabricates clashes that do not exist and silently makes choices on ambiguous items."
+    },
+    {
+      "name": "reply-quality",
+      "score": 3,
+      "judge_rationale": "Both replies are present. The Sam reply confirms the 2pm cover and offers a next step (sync later), meeting the standard. The Ravi reply states 'I've got the SOW over to Dana' as a done fact at 08:15, but the action plan sends it at 11:00–11:45 — misleading and lacking a clear, time-bound next step (e.g., 'well before 12:00'). This matches the score 3 anchor: replies are present and fine but one is generic and lacks a clear next step."
+    }
+  ],
+  "weighted_total": 1.909,
+  "auto_fail_triggered": false,
+  "judge_model": "nemotron-judge",
+  "failure_modes": [],
+  "task_hash": "sha256:3d0cfd3a2366",
+  "rubric_hash": "sha256:e5ec94ffec6f",
+  "timestamp": "2026-07-18T04:36:15.779780Z"
+}

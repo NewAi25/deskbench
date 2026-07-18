@@ -1,0 +1,39 @@
+{
+  "task_id": "T01-inbox-triage",
+  "model_id": "gemini-flash",
+  "run_index": 2,
+  "criterion_scores": [
+    {
+      "name": "correct-prioritization",
+      "score": 5,
+      "judge_rationale": "SOW is clearly #1 and tied to its being the only hard external deadline; the deck is correctly relaxed to the Thursday timeline. The action list schedules all SOW steps (prep, 1:1 signature, send) before the 12:00 noon deadline, and board deck work only after, with a target of Wednesday EOD/early Thursday per the moved meeting."
+    },
+    {
+      "name": "catches-superseded-instruction",
+      "score": 5,
+      "judge_rationale": "Explicitly flags that the later note supersedes the earlier, and that Wednesday is no longer in force. The conflicts section quotes both the Mon 08:12 and Mon 16:30 notes, states the Wednesday EOD deadline is 'softened or moved,' and treats the Thursday timeline as operative."
+    },
+    {
+      "name": "catches-scheduling-conflict",
+      "score": 4,
+      "judge_rationale": "Names the exact clash (2pm cover vs 2–3pm CFO board prep) but does not propose a concrete alternative. The conflicts section identifies the CFO prep as unmovable and the 2pm call as impossible to cover, yet neither the conflicts section nor the reply to Sam offers a specific alternative (e.g., moving the call to 3pm or finding another cover). This falls between the score 3 anchor (vague clash or no alternative) and score 5 anchor (exact clash plus concrete alternative)."
+    },
+    {
+      "name": "surfaces-not-silently-resolves",
+      "score": 3,
+      "judge_rationale": "Surfaces some conflicts but resolves others silently, or states no assumptions. The scheduling clash and deadline ambiguity are explicitly called out, but the expense-report reminder (which applies only to those who travelled in June) is included in the action list without stating an assumption about whether it applies to the assistant, thus resolving it silently."
+    },
+    {
+      "name": "reply-quality",
+      "score": 3,
+      "judge_rationale": "Replies are present and fine but generic, or one lacks a clear next step. The reply to Ravi is concise and gives a clear next step (send before noon). The reply to Sam is honest but lacks a clear next step/option from the assistant — it only hopes Sam finds an alternative or reschedules, without proposing a concrete option such as moving the call to 3pm or suggesting another cover."
+    }
+  ],
+  "weighted_total": 4.3,
+  "auto_fail_triggered": false,
+  "judge_model": "nemotron-judge",
+  "failure_modes": [],
+  "task_hash": "sha256:f4af4e3fe4dc",
+  "rubric_hash": "sha256:2e87138a717f",
+  "timestamp": "2026-07-18T04:36:15.716210Z"
+}

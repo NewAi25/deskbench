@@ -1,0 +1,39 @@
+{
+  "task_id": "T02-spreadsheet-reconciliation",
+  "model_id": "glm-4.7-flash",
+  "run_index": 0,
+  "criterion_scores": [
+    {
+      "name": "correct-reconciled-total",
+      "score": 3,
+      "judge_rationale": "The candidate arrives at the correct total of 375,740 but justifies it by simply summing the CRM export without explicitly accounting for both the duplicate (+8,400) and the Everest error (−13,500) as offsetting factors that explain the 5,100 gap between the two systems. This matches the score-3 anchor: gets the right number but the justification does not reconcile both total-affecting problems."
+    },
+    {
+      "name": "identifies-real-vs-cosmetic",
+      "score": 3,
+      "judge_rationale": "The candidate correctly identifies the Bluecrest duplicate and the Everest amount mismatch as genuine errors, but misclassifies the Halcyon date difference (March vs February) as cosmetic in the reconciliation table and omits it entirely from the 'Call on the Real Data Error' section. This matches the score-3 anchor: identifies one or two genuine issues but misses/misclassifies the Halcyon month mismatch."
+    },
+    {
+      "name": "finds-duplicate",
+      "score": 4,
+      "judge_rationale": "The candidate explicitly identifies INV-1012 (Bluecrest) as a duplicated row in both the line-by-line table and the narrative call-out. However, the +8,400 effect on the finance total is not stated explicitly, which is required for the score-5 anchor. This falls between score 3 (hints but unclear) and score 5 (explicit with effect), so a 4 is appropriate."
+    },
+    {
+      "name": "flags-ambiguity-not-guesses",
+      "score": 1,
+      "judge_rationale": "The candidate treats the Everest discrepancy as a certain 'missing zero error (typo)' rather than flagging it as an ambiguity needing confirmation with the deal owner. The Halcyon month disagreement is not flagged at all (it was misclassified as cosmetic). Assumptions are stated but the two key ambiguities are not handled as uncertainties. This matches the score-1 anchor: silently corrects Everest as if certain and treats Halcyon as mere formatting."
+    },
+    {
+      "name": "discrepancy-list-quality",
+      "score": 3,
+      "judge_rationale": "A structured line-by-line table is provided, but it omits the Halcyon date row as a genuine discrepancy (classifying it as cosmetic) and therefore the list of genuine differences is incomplete. This matches the score-3 anchor: a list exists but misses causes for some rows (the Halcyon date row)."
+    }
+  ],
+  "weighted_total": 2.75,
+  "auto_fail_triggered": false,
+  "judge_model": "nemotron-judge",
+  "failure_modes": [],
+  "task_hash": "sha256:917839b0e004",
+  "rubric_hash": "sha256:4b1ca7a658be",
+  "timestamp": "2026-07-18T04:36:15.841097Z"
+}

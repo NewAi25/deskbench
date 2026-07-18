@@ -1,0 +1,34 @@
+{
+  "task_id": "T02c-spreadsheet-reconciliation",
+  "model_id": "glm-4.7-flash",
+  "run_index": 1,
+  "criterion_scores": [
+    {
+      "name": "correct-reconciled-total",
+      "score": 4,
+      "judge_rationale": "Candidate arrives at the correct total of 375,740 but does not explicitly account for both the duplicate (+8,400) and the Everest error (−13,500) with arithmetic, nor state the Everest assumption explicitly. It mentions both issues but lacks the explicit reconciliation and assumption required for a 5, placing it between the 3 and 5 anchors."
+    },
+    {
+      "name": "finds-duplicate",
+      "score": 5,
+      "judge_rationale": "Candidate explicitly identifies the duplicated finance row for Bluecrest (1012) with two occurrences and its +8,400 effect on the finance total, matching the score 5 anchor."
+    },
+    {
+      "name": "flags-ambiguity-not-guesses",
+      "score": 3,
+      "judge_rationale": "Candidate treats the Everest amount as a certain missing zero without flagging it as ambiguous or stating a trust assumption, and classifies the Halcyon date difference as cosmetic rather than flagging it as a genuine timing discrepancy needing confirmation. This aligns with the score 3 anchor (weak/absent justification for Everest ambiguity, resolves Halcyon without flagging)."
+    },
+    {
+      "name": "discrepancy-list-quality",
+      "score": 5,
+      "judge_rationale": "Candidate presents a clear, structured reconciliation listing all three genuine discrepancies (duplicate, Everest, Halcyon) with their causes, without padding the list with non‑differing rows, matching the score 5 anchor."
+    }
+  ],
+  "weighted_total": 4.0,
+  "auto_fail_triggered": false,
+  "judge_model": "nemotron-judge",
+  "failure_modes": [],
+  "task_hash": "sha256:37df14c562e1",
+  "rubric_hash": "sha256:cc95aebc366c",
+  "timestamp": "2026-07-18T04:38:56.073363Z"
+}

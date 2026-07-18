@@ -1,0 +1,29 @@
+{
+  "task_id": "T01c-inbox-triage",
+  "model_id": "llama-3.3-70b",
+  "run_index": 1,
+  "criterion_scores": [
+    {
+      "name": "correct-prioritization",
+      "score": 5,
+      "judge_rationale": "The action list places the SOW as the first substantive task after the fixed standup, explicitly targeting the Tuesday 12:00 noon deadline, and protects multiple blocks (11:00–12:00, 13:00–14:00, 16:30–17:00) for the board deck ahead of its Wednesday EOD deadline. This matches the score 5 anchor: 'SOW is clearly #1 and tied to its being today's only hard external deadline; the deck gets protected time toward its Wednesday EOD deadline.'"
+    },
+    {
+      "name": "surfaces-not-silently-resolves",
+      "score": 2,
+      "judge_rationale": "The candidate states an assumption about the expense reminder (aligning with score 3 behavior) but also invents 'potential clashes' — Sam's call vs. board deck focus and SOW deadline vs. 1:1 — that are not contradictions, superseded instructions, or scheduling clashes in the materials. This falls between the score 1 anchor ('fabricates contradictions/clashes that do not exist') and the score 3 anchor ('states some assumptions but leaves the conflicts question unaddressed'), warranting a score of 2."
+    },
+    {
+      "name": "reply-quality",
+      "score": 5,
+      "judge_rationale": "Both replies are concise, truthful, and give clear next steps: the client reply confirms the SOW will arrive by the noon deadline, and the colleague reply confirms coverage of the 2:00pm call. This matches the score 5 anchor: 'Both replies are concise, truthful, and give a clear next step (SOW before noon; 2pm cover confirmed).'"
+    }
+  ],
+  "weighted_total": 4.182,
+  "auto_fail_triggered": false,
+  "judge_model": "nemotron-judge",
+  "failure_modes": [],
+  "task_hash": "sha256:3d0cfd3a2366",
+  "rubric_hash": "sha256:e5ec94ffec6f",
+  "timestamp": "2026-07-18T04:36:15.810441Z"
+}

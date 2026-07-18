@@ -1,0 +1,29 @@
+{
+  "task_id": "T01c-inbox-triage",
+  "model_id": "llama-3.3-70b",
+  "run_index": 2,
+  "criterion_scores": [
+    {
+      "name": "correct-prioritization",
+      "score": 3,
+      "judge_rationale": "The candidate's action list includes the SOW at 12:00 but schedules board deck work from 11:00–12:00 immediately before the deadline, without explicitly tying the SOW to its status as the only hard external deadline. This matches the score 3 anchor: 'Puts the SOW high and does it on time, but the ordering or its justification is muddled (e.g. no link to the noon external deadline).'"
+    },
+    {
+      "name": "surfaces-not-silently-resolves",
+      "score": 1,
+      "judge_rationale": "The conflicts section invents a clash between the 2:00pm call and board deck focus ('may conflict with the intense focus needed'), which is not a contradiction, superseded instruction, or scheduling clash present in the materials. This matches the score 1 anchor: 'fabricates contradictions/clashes that do not exist in the materials.'"
+    },
+    {
+      "name": "reply-quality",
+      "score": 5,
+      "judge_rationale": "Both replies are concise, truthful, and provide clear next steps: the client reply confirms the SOW will be sent by noon, and the colleague reply confirms coverage of the 2:00pm call. This matches the score 5 anchor: 'Both replies are concise, truthful, and give a clear next step (SOW before noon; 2pm cover confirmed).'"
+    }
+  ],
+  "weighted_total": 2.818,
+  "auto_fail_triggered": false,
+  "judge_model": "nemotron-judge",
+  "failure_modes": [],
+  "task_hash": "sha256:3d0cfd3a2366",
+  "rubric_hash": "sha256:e5ec94ffec6f",
+  "timestamp": "2026-07-18T04:36:15.815023Z"
+}

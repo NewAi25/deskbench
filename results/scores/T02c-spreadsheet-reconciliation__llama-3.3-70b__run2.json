@@ -1,0 +1,34 @@
+{
+  "task_id": "T02c-spreadsheet-reconciliation",
+  "model_id": "llama-3.3-70b",
+  "run_index": 2,
+  "criterion_scores": [
+    {
+      "name": "correct-reconciled-total",
+      "score": 1,
+      "judge_rationale": "Candidate reports reconciled total of 311,340, which is incorrect (correct is 375,740). The sums for both files are fabricated and do not match the provided data."
+    },
+    {
+      "name": "finds-duplicate",
+      "score": 5,
+      "judge_rationale": "Candidate explicitly identifies the duplicated Txn 1012 in finance_ledger.csv and notes its +8,400 effect on the total."
+    },
+    {
+      "name": "flags-ambiguity-not-guesses",
+      "score": 1,
+      "judge_rationale": "Candidate silently assumes CRM's Everest amount (15,000) is correct without flagging the ambiguity, and misclassifies the Halcyon date mismatch as cosmetic rather than a genuine discrepancy needing confirmation."
+    },
+    {
+      "name": "discrepancy-list-quality",
+      "score": 3,
+      "judge_rationale": "Candidate provides a structured list but misclassifies the Halcyon date difference as cosmetic and omits the correct cause (genuine timing discrepancy)."
+    }
+  ],
+  "weighted_total": 0.0,
+  "auto_fail_triggered": true,
+  "judge_model": "nemotron-judge",
+  "failure_modes": [],
+  "task_hash": "sha256:37df14c562e1",
+  "rubric_hash": "sha256:cc95aebc366c",
+  "timestamp": "2026-07-18T04:42:47.190048Z"
+}

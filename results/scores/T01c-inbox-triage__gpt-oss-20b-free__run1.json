@@ -1,0 +1,29 @@
+{
+  "task_id": "T01c-inbox-triage",
+  "model_id": "gpt-oss-20b-free",
+  "run_index": 1,
+  "criterion_scores": [
+    {
+      "name": "correct-prioritization",
+      "score": 5,
+      "judge_rationale": "SOW is clearly #1 (first work block after stand-up at 9:30, signature at 10:00, send by 10:30) and explicitly tied to the 12:00 external deadline; board deck receives protected time today (10:30–12:00) toward its Wednesday EOD deadline."
+    },
+    {
+      "name": "surfaces-not-silently-resolves",
+      "score": 1,
+      "judge_rationale": "Fabricates three ‘conflicts’ (Dana might not sign, call duration unknown, deck timeline risk) that are not contradictions in the materials; fails to state the explicit assumption about the expense reminder; does not acknowledge that the materials contain no contradictions."
+    },
+    {
+      "name": "reply-quality",
+      "score": 5,
+      "judge_rationale": "Both replies are concise and truthful: Ravi reply confirms SOW will be returned before noon; Sam reply confirms 2 pm cover and asks for any prep needed."
+    }
+  ],
+  "weighted_total": 0.0,
+  "auto_fail_triggered": true,
+  "judge_model": "nemotron-judge",
+  "failure_modes": [],
+  "task_hash": "sha256:3d0cfd3a2366",
+  "rubric_hash": "sha256:e5ec94ffec6f",
+  "timestamp": "2026-07-18T04:36:15.793368Z"
+}

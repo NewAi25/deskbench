@@ -1,0 +1,34 @@
+{
+  "task_id": "T02c-spreadsheet-reconciliation",
+  "model_id": "llama-3.3-70b",
+  "run_index": 0,
+  "criterion_scores": [
+    {
+      "name": "correct-reconciled-total",
+      "score": 1,
+      "judge_rationale": "The candidate does not arrive at a reconciled total (states 'we cannot calculate the exact reconciled total') and does not reconcile the two offsetting problems (duplicate +8,400 and Everest −13,500). This matches the score-1 anchor: reports a wrong total (or no total) with no reconciliation of the difference."
+    },
+    {
+      "name": "finds-duplicate",
+      "score": 4,
+      "judge_rationale": "The candidate explicitly identifies the duplicated Bluecrest row (Deal 1012) in the finance ledger and states it must be removed to prevent double-counting. However, they do not quantify its +8,400 effect on the finance total, which the score-5 anchor requires. This falls between the score-3 anchor (hints but doesn't clearly identify) and score-5 anchor (explicitly identifies with +8,400 effect), so a score of 4 is appropriate."
+    },
+    {
+      "name": "flags-ambiguity-not-guesses",
+      "score": 3,
+      "judge_rationale": "The candidate acknowledges the Everest amount disagreement and says to investigate, but does not explicitly flag it as a dropped-zero ambiguity needing confirmation with a stated trust assumption. They also classify the Halcyon date difference as 'cosmetic' rather than flagging it as a genuine timing discrepancy needing confirmation. This matches the score-3 anchor: handles Everest ambiguity with weak justification and resolves the Halcyon month without flagging it, stating few assumptions."
+    },
+    {
+      "name": "discrepancy-list-quality",
+      "score": 3,
+      "judge_rationale": "The candidate presents a structured list of three differences (Halcyon, Everest, Bluecrest duplicate) but misclassifies the Halcyon date mismatch as cosmetic when it is a genuine timing discrepancy. The score-3 anchor fits: a list exists but is incomplete or misses causes for some rows (here, the cause for Halcyon is wrong)."
+    }
+  ],
+  "weighted_total": 2.357,
+  "auto_fail_triggered": false,
+  "judge_model": "nemotron-judge",
+  "failure_modes": [],
+  "task_hash": "sha256:37df14c562e1",
+  "rubric_hash": "sha256:cc95aebc366c",
+  "timestamp": "2026-07-18T04:41:59.650722Z"
+}

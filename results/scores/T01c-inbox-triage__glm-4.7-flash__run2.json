@@ -1,0 +1,29 @@
+{
+  "task_id": "T01c-inbox-triage",
+  "model_id": "glm-4.7-flash",
+  "run_index": 2,
+  "criterion_scores": [
+    {
+      "name": "correct-prioritization",
+      "score": 1,
+      "judge_rationale": "The SOW is scheduled at 12:00–12:30, i.e., starting at the noon deadline, while the board deck occupies the only preceding free block (11:00–12:00). This treats the deck as the immediate priority and lets the hard external deadline slip, matching the score-1 anchor: 'The SOW is buried, scheduled after noon, or missing from the plan; or the deck is treated as today's crisis while the noon deadline slips.'"
+    },
+    {
+      "name": "surfaces-not-silently-resolves",
+      "score": 1,
+      "judge_rationale": "The candidate invents a 'Hard Deadline vs. CEO Availability' clash that is not a contradiction in the materials (it is merely a tight schedule) and does not explicitly state that no contradictions or clashes exist. The expense-reminder ambiguity is also not addressed with a stated assumption. This matches the score-1 anchor: 'Silently makes choices with no assumptions stated, or fabricates contradictions/clashes that do not exist in the materials.'"
+    },
+    {
+      "name": "reply-quality",
+      "score": 1,
+      "judge_rationale": "The reply to Ravi Menon is dishonest: it claims 'I have the countersigned SOW. Dana is signing it now' at 08:15, when the plan shows Dana signing at noon, and it promises delivery 'by 12:00 PM' while the action list schedules sending at 12:00–12:30. This matches the score-1 anchor: 'A reply is missing, dishonest, or unusable.'"
+    }
+  ],
+  "weighted_total": 1.0,
+  "auto_fail_triggered": false,
+  "judge_model": "nemotron-judge",
+  "failure_modes": [],
+  "task_hash": "sha256:3d0cfd3a2366",
+  "rubric_hash": "sha256:e5ec94ffec6f",
+  "timestamp": "2026-07-18T04:36:15.783742Z"
+}

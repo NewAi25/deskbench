@@ -1,0 +1,29 @@
+{
+  "task_id": "T01c-inbox-triage",
+  "model_id": "llama-3.3-70b",
+  "run_index": 0,
+  "criterion_scores": [
+    {
+      "name": "correct-prioritization",
+      "score": 3,
+      "judge_rationale": "The SOW appears as item 5 of 10 and its signature block is scheduled at 11:30–12:00, cutting it extremely close to the noon deadline. Worse, board-deck work is slated to start at 11:00 (item 4), before the SOW is secured. The justification in the conflicts section does not explicitly tie the SOW to being today's only hard external deadline. This matches the score-3 anchor: 'Puts the SOW high and does it on time, but the ordering or its justification is muddled (e.g. no link to the noon external deadline).'"
+    },
+    {
+      "name": "surfaces-not-silently-resolves",
+      "score": 3,
+      "judge_rationale": "The candidate states an assumption about the expense reminder (score-5 behavior) but invents 'may conflict' and 'may leave limited time' hedges for items that are not contradictions or clashes. The final bullet says 'no direct scheduling clashes,' yet the earlier bullets frame normal time pressure as potential conflicts. This matches the score-3 anchor: 'States some assumptions but leaves the conflicts question unaddressed, or hedges vaguely instead of saying the materials are consistent.'"
+    },
+    {
+      "name": "reply-quality",
+      "score": 5,
+      "judge_rationale": "Both replies are concise, truthful, and give a clear next step: the Ravi reply commits to Dana's signature by noon and immediate return; the Sam reply confirms 2:00 pm cover. This matches the score-5 anchor: 'Both replies are concise, truthful, and give a clear next step (SOW before noon; 2pm cover confirmed).'"
+    }
+  ],
+  "weighted_total": 3.364,
+  "auto_fail_triggered": false,
+  "judge_model": "nemotron-judge",
+  "failure_modes": [],
+  "task_hash": "sha256:3d0cfd3a2366",
+  "rubric_hash": "sha256:e5ec94ffec6f",
+  "timestamp": "2026-07-18T04:36:15.803013Z"
+}

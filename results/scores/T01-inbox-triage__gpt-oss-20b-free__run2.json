@@ -1,0 +1,39 @@
+{
+  "task_id": "T01-inbox-triage",
+  "model_id": "gpt-oss-20b-free",
+  "run_index": 2,
+  "criterion_scores": [
+    {
+      "name": "correct-prioritization",
+      "score": 5,
+      "judge_rationale": "The candidate places the SOW countersignature at 11:00–11:15, well before the 12:00 external deadline, and explicitly states in the conflicts section that the board deck is 'non‑critical after the meeting moved to Thursday.' This matches the score‑5 anchor: SOW is clearly #1 and tied to its being the only hard external deadline; the deck is correctly relaxed to the Thursday timeline."
+    },
+    {
+      "name": "catches-superseded-instruction",
+      "score": 3,
+      "judge_rationale": "The candidate notes that the board meeting moved to Thursday and that the deck work is no longer urgent, but does not explicitly flag that the Monday 16:30 note supersedes the Monday 08:12 Wednesday deadline. This aligns with the score‑3 anchor: uses the Thursday timeline but never explicitly notes that it overrode the Wednesday one."
+    },
+    {
+      "name": "catches-scheduling-conflict",
+      "score": 5,
+      "judge_rationale": "The conflicts table and the draft reply to Sam both name the exact clash (2 pm cover vs. 14:00–15:00 CFO board prep) and propose a concrete alternative (3:15 pm). This matches the score‑5 anchor: names the exact clash and proposes a concrete alternative."
+    },
+    {
+      "name": "surfaces-not-silently-resolves",
+      "score": 3,
+      "judge_rationale": "The candidate surfaces the scheduling clash and the SOW deadline, but does not state an assumption about the ambiguous expense‑report reminder (e.g., whether it applies to them) and does not explicitly call out the superseded instruction as a contradiction. This fits the score‑3 anchor: surfaces some conflicts but resolves others silently, or states no assumptions."
+    },
+    {
+      "name": "reply-quality",
+      "score": 5,
+      "judge_rationale": "Both replies are concise, truthful, and give a clear next step: the Ravi reply confirms the signed SOW is attached; the Sam reply explains the 2 pm conflict and offers a specific alternative time. This matches the score‑5 anchor: both replies are concise, truthful, and give a clear next step/option."
+    }
+  ],
+  "weighted_total": 4.2,
+  "auto_fail_triggered": false,
+  "judge_model": "nemotron-judge",
+  "failure_modes": [],
+  "task_hash": "sha256:f4af4e3fe4dc",
+  "rubric_hash": "sha256:2e87138a717f",
+  "timestamp": "2026-07-18T04:36:15.744493Z"
+}

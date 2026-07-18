@@ -1,0 +1,34 @@
+{
+  "task_id": "T02c-spreadsheet-reconciliation",
+  "model_id": "gpt-oss-20b-free",
+  "run_index": 0,
+  "criterion_scores": [
+    {
+      "name": "correct-reconciled-total",
+      "score": 4,
+      "judge_rationale": "Candidate arrives at 375,740 and accounts for both duplicate (+8,400) and Everest error (-13,500) in summary, but does not explicitly state the assumption that CRM's 15,000 is correct for Everest, falling between anchor 3 (fixes one) and anchor 5 (assumption stated)."
+    },
+    {
+      "name": "finds-duplicate",
+      "score": 5,
+      "judge_rationale": "Explicitly identifies duplicated 1012 row (re-listed mid-file) and its +8,400 effect on finance total, matching anchor 5."
+    },
+    {
+      "name": "flags-ambiguity-not-guesses",
+      "score": 1,
+      "judge_rationale": "Silently corrects Everest to 15,000 as certain fact (missing zero) and classifies Halcyon date mismatch as cosmetic/settled, with no assumptions stated, matching anchor 1."
+    },
+    {
+      "name": "discrepancy-list-quality",
+      "score": 3,
+      "judge_rationale": "Structured table exists but misclassifies Halcyon cause (cosmetic vs genuine), pads with 24 identical rows, and includes fabricated figures for rows 1017/1023/1024, matching anchor 3 (list exists but incomplete/misses causes)."
+    }
+  ],
+  "weighted_total": 0.0,
+  "auto_fail_triggered": true,
+  "judge_model": "nemotron-judge",
+  "failure_modes": [],
+  "task_hash": "sha256:37df14c562e1",
+  "rubric_hash": "sha256:cc95aebc366c",
+  "timestamp": "2026-07-18T04:39:57.149270Z"
+}

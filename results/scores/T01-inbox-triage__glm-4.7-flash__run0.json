@@ -1,0 +1,39 @@
+{
+  "task_id": "T01-inbox-triage",
+  "model_id": "glm-4.7-flash",
+  "run_index": 0,
+  "criterion_scores": [
+    {
+      "name": "correct-prioritization",
+      "score": 3,
+      "judge_rationale": "The candidate places the SOW first but continues to schedule board deck drafting to meet a Wednesday deadline, never acknowledging the CEO's Monday 16:30 note moving the board meeting to Thursday. This matches the score‑3 anchor: \"Puts the SOW high and does it on time, but the ordering/justification is muddled or still leans on the void Wednesday deck deadline.\""
+    },
+    {
+      "name": "catches-superseded-instruction",
+      "score": 1,
+      "judge_rationale": "The candidate treats the Wednesday deck deadline as still binding and never mentions the later CEO note that moves the board meeting to Thursday. This matches the score‑1 anchor: \"Treats the Wednesday deck deadline as still binding; misses the supersession.\""
+    },
+    {
+      "name": "catches-scheduling-conflict",
+      "score": 4,
+      "judge_rationale": "The candidate explicitly names the clash between the 14:00–15:00 Board Prep with the CFO and Sam's 2:00 pm call, and proposes to confirm with Sam about rescheduling. However, no concrete alternative time (e.g., 3 pm) is offered, placing the answer between the score‑3 anchor (vague alternative) and the score‑5 anchor (concrete alternative)."
+    },
+    {
+      "name": "surfaces-not-silently-resolves",
+      "score": 3,
+      "judge_rationale": "The candidate flags three conflicts (deck drafting time, SOW signing window, Board Prep vs. Sam's call) but does not surface the superseded Wednesday/Thursday instruction nor the ambiguous expense‑reminder item. This matches the score‑3 anchor: \"Surfaces some conflicts but resolves others silently, or states no assumptions.\""
+    },
+    {
+      "name": "reply-quality",
+      "score": 1,
+      "judge_rationale": "The reply to Sam promises to take the 2:00 pm Northwind call despite the candidate's own conflict flag and stated intention to prioritize the Board Prep. This is dishonest per the score‑1 anchor: \"A reply is missing, dishonest (e.g. promises to cover the 2pm), or unusable.\""
+    }
+  ],
+  "weighted_total": 2.5,
+  "auto_fail_triggered": false,
+  "judge_model": "nemotron-judge",
+  "failure_modes": [],
+  "task_hash": "sha256:f4af4e3fe4dc",
+  "rubric_hash": "sha256:2e87138a717f",
+  "timestamp": "2026-07-18T04:36:15.720747Z"
+}

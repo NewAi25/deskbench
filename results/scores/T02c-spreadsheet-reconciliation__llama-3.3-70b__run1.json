@@ -1,0 +1,34 @@
+{
+  "task_id": "T02c-spreadsheet-reconciliation",
+  "model_id": "llama-3.3-70b",
+  "run_index": 1,
+  "criterion_scores": [
+    {
+      "name": "correct-reconciled-total",
+      "score": 1,
+      "judge_rationale": "The candidate describes the adjustments (+13,500 for Everest, -8,400 for duplicate) but explicitly states 'The exact reconciled total cannot be provided without calculating the sums' and never arrives at 375,740. This matches the score-1 anchor: 'Reports a wrong total, or just sums one file (375,740 or 370,640) with no reconciliation of the difference.' Here no total is reported at all."
+    },
+    {
+      "name": "finds-duplicate",
+      "score": 5,
+      "judge_rationale": "The candidate explicitly identifies the duplicated Bluecrest row (correcting to Deal ID 1012 in the corrective action) and states its +8,400 effect on the finance total ('Removing the duplicate of Deal ID 1012 reduces the total by 8400.00'). This matches the score-5 anchor: 'Explicitly identifies the duplicated 1012 row (re-listed mid-file) and its +8,400 effect on the finance total.'"
+    },
+    {
+      "name": "flags-ambiguity-not-guesses",
+      "score": 1,
+      "judge_rationale": "The candidate silently 'corrects' Everest to the CRM value (15,000) and Halcyon's date to the CRM value (2024-03-05) without flagging either as an ambiguity needing confirmation. The stated assumption only says CRM is 'source of truth' generally. This matches the score-1 anchor: 'Silently \"corrects\" Everest to one value as if certain, or invents a figure; treats the Halcyon month as settled; no assumptions stated.'"
+    },
+    {
+      "name": "discrepancy-list-quality",
+      "score": 3,
+      "judge_rationale": "A structured list exists and covers the three genuine differences (duplicate, Everest, Halcyon), but it contains errors: the Bluecrest duplicate is initially misidentified as Deal ID 1021 (later corrected to 1012), and the Halcyon date discrepancy appears twice (items 1 and 4). This matches the score-3 anchor: 'A list exists but is incomplete or misses causes for some rows (e.g. omits the Halcyon date row)' — here the list is not incomplete but has inaccuracies in identification."
+    }
+  ],
+  "weighted_total": 2.0,
+  "auto_fail_triggered": false,
+  "judge_model": "nemotron-judge",
+  "failure_modes": [],
+  "task_hash": "sha256:37df14c562e1",
+  "rubric_hash": "sha256:cc95aebc366c",
+  "timestamp": "2026-07-18T04:42:27.871662Z"
+}

@@ -1,0 +1,29 @@
+{
+  "task_id": "T01c-inbox-triage",
+  "model_id": "gpt-oss-20b-free",
+  "run_index": 2,
+  "criterion_scores": [
+    {
+      "name": "correct-prioritization",
+      "score": 3,
+      "judge_rationale": "The candidate puts the SOW signing in the 10:00 1:1 (good) but also schedules a separate 'countersign' slot at 12:00–12:15 and a later send at 14:30, while the draft reply claims the SOW is already signed and emailed 'now.' This muddles the ordering and justification; the deck does get protected time. Matches the score‑3 anchor: SOW is high and done on time but ordering/justification is muddled."
+    },
+    {
+      "name": "surfaces-not-silently-resolves",
+      "score": 3,
+      "judge_rationale": "The conflicts section lists items and says 'no conflict' for each, but never explicitly states that the materials contain no contradictions or clashes. The expense reminder is handled by promising to send a reminder to all staff without stating the assumption that it only applies to June travelers. Matches the score‑3 anchor: states some assumptions but leaves the conflicts question unaddressed/hedges."
+    },
+    {
+      "name": "reply-quality",
+      "score": 1,
+      "judge_rationale": "The reply to Ravi claims 'I’ve added Dana’s signature and am emailing the countersigned copy back to you now,' which is dishonest at 08:15 because the signature has not yet been obtained (the 1:1 is at 10:00). The Sam reply is fine, but one dishonest reply triggers the score‑1 anchor: a reply is dishonest."
+    }
+  ],
+  "weighted_total": 2.636,
+  "auto_fail_triggered": false,
+  "judge_model": "nemotron-judge",
+  "failure_modes": [],
+  "task_hash": "sha256:3d0cfd3a2366",
+  "rubric_hash": "sha256:e5ec94ffec6f",
+  "timestamp": "2026-07-18T04:36:15.797869Z"
+}

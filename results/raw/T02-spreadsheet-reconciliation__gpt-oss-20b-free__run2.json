@@ -1,0 +1,22 @@
+{
+  "task_id": "T02-spreadsheet-reconciliation",
+  "model_id": "gpt-oss-20b-free",
+  "run_index": 2,
+  "variant": "messy",
+  "output": "**1. Reconciled total**\n\n| Source | Turn‑over (USD) |\n|--------|-----------------|\n| **CRM export (CRM‑file)** | **$375,740** |\n| **Finance ledger after correction** | **$375,740** |\n\n**Reasoning**\n\n* The CRM file lists 27 distinct deals (IDs 1001‑1027).  \n* Converting every amount to plain numbers and adding them gives **$375,740**.  \n* The finance ledger contains the same 27 distinct transactions – the only quantitative mismatch is a typo on deal 1019 (listed as $1,500 instead of $15,000).  \n  * Fixing this single entry brings the finance total to $375,740, matching the CRM total.  \n* Therefore the *correct* reconciled total for the quarter‑1 deals is **$375,740**.\n\n---\n\n**2. Line‑by‑line reconciliation**\n\n| Deal/Txn | CRM amount | Finance amount | Difference | Comment | Classification |\n|----------|------------|----------------|------------|---------|----------------|\n| 1001 | $12,000 | 12,000 | 0 | Names differ slightly (Acme Corp vs ACME Corporation) | Cosmetic |\n| 1002 | $22,500.00 | 22,500.00 | 0 | Date format, company suffix “Inc.” | Cosmetic |\n| 1003 | $4,750.00 | 4,750.00 | 0 | Company “Sterling Freight” vs “Sterling Freight Co.” | Cosmetic |\n| 1004 | $5,250.00 | 5,250.00 | 0 | Lower‑case company name, date format | Cosmetic |\n| 1005 | $3,000.00 | 3,000.00 | 0 | Same | Cosmetic |\n| 1006 | 31,200 | 31,200.00 | 0 | Decimal formatting | Cosmetic |\n| 1007 | $6,800.00 | 6,800.00 | 0 | Company suffix “Ltd.” | Cosmetic |\n| 1008 | $11,200.00 | 11,200.00 | 0 | Same | Cosmetic |\n| 1009 | $9,900.00 | 9,900.00 | 0 | Same | Cosmetic |\n| 1010 | $18,400.00 | 18,400.00 | 0 | Same | Cosmetic |\n| 1011 | 2,600 | 2,600.00 | 0 | Decimal formatting | Cosmetic |\n| 1012 | $8,400.00 | 8,400.00 | 0 | Same | Cosmetic |\n| 1013 | $7,350.00 | 7,350 | 0 | Same | Cosmetic |\n| 1014 | $13,750.00 | 13,750.00 | 0 | Same | Cosmetic |\n| 1015 | $5,940.00 | 5 عرضه? Wait 5940 | 0 | Same | Cosmetic |\n| 1016 | $27,000 | 27,000.00 | 0 | Same | Cosmetic |\n| 1017 | $44,800.00 | 44,800 | 0 | Same | Cosmetic |\n| 1018 | $3,850.00 | 3,850 Serving? Wait 3,850 | 0 | Same | Cosmetic |\n| 1019 | **$15,000** | **1,500.00** | **–13,500** | **Genuine data error – the ledger entry is 10× too low** | **Genuine** |\n| 1020 | $6,150.00 | 6,150.00 | 0 | Same | Cosmetic |\n| 1021 | 19aged? | 19,750 | 0 | Same | Cosmetic |\n| 1022 | $8,100.00 | 8,100.00 | 0 | Same liगर | Cosmetic |\n| 1023 | $15,600.00 | 15,600.00 | 0 | Same | Cosmetic |\n| 1024 | $24,300.00 | 24,300.00 | 0 | Same | Cosmetic |\n| 1025 | $4,200.00 | \t 4,200 | 0 | Same | Cosmetic |\n| 1026 | 33,500 | 33,500.00 | 0 | Same | Cosmetic |\n| 1027 | $10,450.00 | 10,450.00 | 0 | Same | Cosmetic |\n\n**Additional notes**\n\n| Record | Issue | Classification |\n|--------|-------|----------------|\n| Duplicate row **INV‑1012** (appears twice) | Two identical ledger entries for the same deal | Cosmetic (data duplication in export, no effect on totals as amounts match) |\n\n---\n\n**3. Call on the real data error**\n\n- **Real data error**: Deal 1019 in the finance ledger is listed as **$1,500** instead of the correct **$15,000**.  \n  *This single typo accounts for the entireornal discrepancy (difference of **$13,500**).*\n\n- **All other listed differences** are cosmetic/formatting artifacts mynta:\n  * Name variations, suffixes, punctuation, date‑format swaps.\n  * Decimal/commas formatting differences.\n  * Duplicate line for INV‑1012 (identical values, so it does not affect the numeric sum).\n\nCorrecting the 1019ísticos entry will bring the finance total in line with the CRM total, leaving the reconciled quarter‑1 turn‑over at **$375,740**.",
+  "tool_trace": [],
+  "tokens_in": 1456,
+  "tokens_out": 3412,
+  "latency_s": 92.12929479999002,
+  "cost_usd": 0.0,
+  "timestamp": "2026-07-17T10:34:16.668605Z",
+  "error": null,
+  "sampling": {
+    "temperature": null,
+    "top_p": null,
+    "max_tokens": null,
+    "seed": null,
+    "source": "vendor-default"
+  },
+  "task_hash": "sha256:917839b0e004"
+}

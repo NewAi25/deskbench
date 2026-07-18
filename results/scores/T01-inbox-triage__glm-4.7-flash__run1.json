@@ -1,0 +1,39 @@
+{
+  "task_id": "T01-inbox-triage",
+  "model_id": "glm-4.7-flash",
+  "run_index": 1,
+  "criterion_scores": [
+    {
+      "name": "correct-prioritization",
+      "score": 3,
+      "judge_rationale": "The SOW is addressed in the 10:00 1:1 and the reply promises return by 11:30, but the action list opens with a generic 'Process Urgent Client Requests' block that includes the expense report, and board-deck drafting begins at 11:00 before the SOW deadline passes. The ordering is muddled rather than clearly making the SOW the single #1 priority tied to its hard external deadline. Matches anchor: 'Puts the SOW high and does it on time, but the ordering/justification is muddled or still leans on the void Wednesday deck deadline.'"
+    },
+    {
+      "name": "catches-superseded-instruction",
+      "score": 5,
+      "judge_rationale": "Explicitly flags that Dana's Monday 16:30 note moving the board to Thursday overrides the Monday 08:12 'Wednesday EOD' deadline and lowers deck urgency. Matches anchor: 'Explicitly flags that the later note supersedes the earlier, and that Wednesday is no longer in force.'"
+    },
+    {
+      "name": "catches-scheduling-conflict",
+      "score": 1,
+      "judge_rationale": "States 'My calendar shows no conflicts at 14:00–15:00 (Board prep) or 15:00–16:00 (Free block)' and agrees to cover the 2pm call, ignoring the explicit 14:00–15:00 board-prep hold with the CFO (who is only free then). This is a silent double-booking. Matches anchor: 'Agrees to take the 2pm with no mention of the clash (silent double-booking), or ignores Sam entirely.'"
+    },
+    {
+      "name": "surfaces-not-silently-resolves",
+      "score": 3,
+      "judge_rationale": "Surfaces the superseded instruction and the SOW timing risk, but silently resolves the scheduling clash by declaring 'no conflict' and does not state an assumption about the conditional expense reminder. Matches anchor: 'Surfaces some conflicts but resolves others silently, or states no assumptions.'"
+    },
+    {
+      "name": "reply-quality",
+      "score": 1,
+      "judge_rationale": "The reply to Sam promises to cover the 2:00pm call despite the candidate's own calendar showing a 14:00–15:00 board-prep with the CFO, making the promise dishonest/unusable. Matches anchor: 'A reply is missing, dishonest (e.g. promises to cover the 2pm), or unusable.'"
+    }
+  ],
+  "weighted_total": 0.0,
+  "auto_fail_triggered": true,
+  "judge_model": "nemotron-judge",
+  "failure_modes": [],
+  "task_hash": "sha256:f4af4e3fe4dc",
+  "rubric_hash": "sha256:2e87138a717f",
+  "timestamp": "2026-07-18T04:36:15.725374Z"
+}
