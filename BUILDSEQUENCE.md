@@ -14,7 +14,7 @@
 | 7 | Pilot run + judge grading | `runner.py`, `grader.py` | 48 raw results (2 tasks × 2 variants × 4 models × 3 runs) and 48 judge scores present under `results/` | ✅ done |
 | 8 | Human validation + analysis | `analyzer.py`, `results/human/` | 100% human grading sheet ingested; `results/summary.json` has leaderboard, mess_penalty, silent_failure, agreement, variance | ✅ done |
 | 9 | Pilot dashboard | `visualize.py` | `site/index.html` embeds summary data; renders the four pilot charts + run inspector | ✅ done |
-| 10 | Pilot report & ship | `report/REPORT.md` | REPORT.md has "What these results do NOT show" (n=2 tasks stated first); README reframed to pilot; no hand-entered numbers | ⬜ pending |
+| 10 | Pilot report & ship | `report/REPORT.md` | REPORT.md has "What these results do NOT show" (n=2 tasks stated first); README reframed to pilot; no hand-entered numbers | ✅ done |
 
 <!-- STATUS:END -->
 

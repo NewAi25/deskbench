@@ -64,27 +64,40 @@ flowchart LR
 **Key invariant:** every box is re-runnable in isolation. Delete
 `results/scores/` and re-grade without re-querying any model.
 
-## Quickstart
+## Results
 
-> ⚠️ **Under construction.** The pipeline is being built step by step; see
-> [BUILDSEQUENCE.md](BUILDSEQUENCE.md) for the live status table (auto-updated by
-> CI). The commands below are the intended interface once the runner lands.
+The pilot has run: 48 completions, judge-graded and 100% human-validated.
+
+- **[Interactive dashboard](https://newai25.github.io/deskbench/site/)** —
+  leaderboard (judge vs human), mess penalty, silent-failure rate, judge–human
+  agreement, and a run inspector showing every raw output next to its
+  reference, judge rationale, and human grade.
+- **[The report](report/REPORT.md)** — method, all computed numbers, findings,
+  and "What these results do NOT show" (starting with n = 2 tasks).
+- Every number is computed from the committed evidence under
+  [`results/`](results/) by `deskbench analyze` — nothing is hand-entered.
+
+## Quickstart
 
 ```bash
 git clone https://github.com/NewAi25/deskbench.git
 cd deskbench
 python -m venv .venv && source .venv/bin/activate   # Windows: .venv\Scripts\activate
 pip install -e ".[dev]"
-cp .env.example .env          # then add the provider keys you have
-pytest                        # schemas + tooling are tested from day one
+pytest                        # full suite, incl. hand-computed fixtures for the analyzer math
+deskbench analyze             # results/ -> summary.json + tables (no keys needed)
+deskbench render              # -> site/index.html (open it in a browser)
 ```
+
+To re-run models yourself: `cp .env.example .env`, add provider keys, then
+`deskbench ping`, `deskbench run`, `deskbench grade`.
 
 ## Project status
 
 Built in numbered steps, each with a machine-checked Definition of Done. The
 status table in [BUILDSEQUENCE.md](BUILDSEQUENCE.md) is rewritten automatically
 by a GitHub Action on every push — a step flips to ✅ only when its artifacts
-actually exist and its tests actually pass.
+actually exist and its tests actually pass. All pilot steps are complete.
 
 ## Documentation
 

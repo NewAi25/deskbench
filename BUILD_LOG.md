@@ -1008,3 +1008,33 @@ parenthetical allowed; a promise or inline mention still does not count),
 with certifier tests pinning both real-world formats. The log itself is
 untouched — BUILD_LOG is never backfilled; the code moves to match the
 truth, not the other way around. Step 3 flips to ✅ on this push.
+
+---
+
+## 2026-07-24 — Step 10: Report & ship
+
+**Shipped.**
+
+- `report/REPORT.md` — the pilot report: method in six lines, all computed
+  numbers as tables (leaderboard judge+human, mess penalty per model and per
+  twin pair, silent-failure counts+rates, judge–human agreement incl. the
+  per-criterion table and the auto-fail disagreement pattern, run variance),
+  findings, "What these results do NOT show" with **n = 2 tasks stated
+  first**, the ADR-003 generator roadmap as the next-steps centerpiece, and a
+  reproduce section. Drafted with maintainer-review bullets; maintainer
+  approved the draft content, so the DRAFT markers were removed verbatim.
+  Every number traces to `results/` files; none are hand-entered.
+- `README.md` — final pilot reframe: a Results section linking the live
+  dashboard (https://newai25.github.io/deskbench/site/), the report, and the
+  committed evidence (links only — no numbers in the README, keeping the
+  no-hand-entered-numbers rule trivially true); quickstart updated from
+  "under construction" to the working pipeline (`pytest` → `analyze` →
+  `render`, with the key-requiring commands separated).
+- Dashboard published via GitHub Pages (main branch, root; the site serves at
+  `/deskbench/site/`).
+
+**DoD.** REPORT.md has the "What these results do NOT show" section (n=2
+first); README reframed; no hand-entered numbers anywhere. Step 10 — the last
+row — flips on this push. The pilot is shipped end to end: tasks → runs →
+judge → 100% human validation → analysis → dashboard → report, with the
+whole chain of evidence in the repo.
