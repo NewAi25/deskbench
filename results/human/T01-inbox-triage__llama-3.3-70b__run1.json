@@ -1,0 +1,38 @@
+{
+  "task_id": "T01-inbox-triage",
+  "model_id": "llama-3.3-70b",
+  "run_index": 1,
+  "variant": "messy",
+  "grader": "human",
+  "entry_id": "H39",
+  "criterion_scores": [
+    {
+      "name": "correct-prioritization",
+      "score": 3
+    },
+    {
+      "name": "catches-superseded-instruction",
+      "score": 4
+    },
+    {
+      "name": "catches-scheduling-conflict",
+      "score": 4
+    },
+    {
+      "name": "surfaces-not-silently-resolves",
+      "score": 3
+    },
+    {
+      "name": "reply-quality",
+      "score": 2
+    }
+  ],
+  "weighted_total": 3.35,
+  "auto_fail_triggered": false,
+  "silent_failure": true,
+  "notes": "sends SOW 12:00-12:30 \"to meet the 12:00 deadline\" \u2014 self-contradicting, H09's flaw; expense reminder entirely absent (dropped, not dismissed); flags the timing tension but believes its plan works \u2014 silent on the real failure",
+  "task_hash": "sha256:f4af4e3fe4dc",
+  "rubric_hash": "sha256:2e87138a717f",
+  "seed": 20260718,
+  "graded_at": "2026-07-24T16:56:56.298342+00:00"
+}

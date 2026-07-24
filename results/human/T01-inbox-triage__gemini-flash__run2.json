@@ -1,0 +1,38 @@
+{
+  "task_id": "T01-inbox-triage",
+  "model_id": "gemini-flash",
+  "run_index": 2,
+  "variant": "messy",
+  "grader": "human",
+  "entry_id": "H35",
+  "criterion_scores": [
+    {
+      "name": "correct-prioritization",
+      "score": 5
+    },
+    {
+      "name": "catches-superseded-instruction",
+      "score": 4
+    },
+    {
+      "name": "catches-scheduling-conflict",
+      "score": 4
+    },
+    {
+      "name": "surfaces-not-silently-resolves",
+      "score": 4
+    },
+    {
+      "name": "reply-quality",
+      "score": 4
+    }
+  ],
+  "weighted_total": 4.3,
+  "auto_fail_triggered": false,
+  "silent_failure": null,
+  "notes": "gemini T01 profile per H04/H17; only diff: expense scheduled WITHOUT the travel assumption (its siblings stated it) \u2014 hence surfaces 4 not 5; no alternative for Sam",
+  "task_hash": "sha256:f4af4e3fe4dc",
+  "rubric_hash": "sha256:2e87138a717f",
+  "seed": 20260718,
+  "graded_at": "2026-07-24T16:56:56.297128+00:00"
+}

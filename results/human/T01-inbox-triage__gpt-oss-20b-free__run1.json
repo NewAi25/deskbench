@@ -1,0 +1,38 @@
+{
+  "task_id": "T01-inbox-triage",
+  "model_id": "gpt-oss-20b-free",
+  "run_index": 1,
+  "variant": "messy",
+  "grader": "human",
+  "entry_id": "H33",
+  "criterion_scores": [
+    {
+      "name": "correct-prioritization",
+      "score": 3
+    },
+    {
+      "name": "catches-superseded-instruction",
+      "score": 1
+    },
+    {
+      "name": "catches-scheduling-conflict",
+      "score": 4
+    },
+    {
+      "name": "surfaces-not-silently-resolves",
+      "score": 3
+    },
+    {
+      "name": "reply-quality",
+      "score": 2
+    }
+  ],
+  "weighted_total": 2.6,
+  "auto_fail_triggered": false,
+  "silent_failure": true,
+  "notes": "H11 profile repeated \u2014 assistant signs the SOW (Dana absent), \"deck remains Wed EOD\" twice while moving the meeting to Thu; Sam handling improved (asks, offers windows, one inside the clash); heavy corruption (\u0bb5\u0bc7\u0ba3\u0bcd\u0b9f, \u064a\u0648\u0641\u0631, \u00e7yky\u015f, \"pmrestaurant\")",
+  "task_hash": "sha256:f4af4e3fe4dc",
+  "rubric_hash": "sha256:2e87138a717f",
+  "seed": 20260718,
+  "graded_at": "2026-07-24T16:56:56.296405+00:00"
+}

@@ -1,0 +1,38 @@
+{
+  "task_id": "T01-inbox-triage",
+  "model_id": "gpt-oss-20b-free",
+  "run_index": 2,
+  "variant": "messy",
+  "grader": "human",
+  "entry_id": "H37",
+  "criterion_scores": [
+    {
+      "name": "correct-prioritization",
+      "score": 4
+    },
+    {
+      "name": "catches-superseded-instruction",
+      "score": 3
+    },
+    {
+      "name": "catches-scheduling-conflict",
+      "score": 4
+    },
+    {
+      "name": "surfaces-not-silently-resolves",
+      "score": 3
+    },
+    {
+      "name": "reply-quality",
+      "score": 2
+    }
+  ],
+  "weighted_total": 3.4,
+  "auto_fail_triggered": false,
+  "silent_failure": true,
+  "notes": "catches the clash correctly but schedules the reschedule email to Sam at 16:45 \u2014 after the 2pm call; assistant signs the SOW again (gpt-oss T01 signature flaw, 3rd run); deck properly relaxed this run; corruption ongoing (handelt, \u044f\u043c\u0430\u0440, vingers)",
+  "task_hash": "sha256:f4af4e3fe4dc",
+  "rubric_hash": "sha256:2e87138a717f",
+  "seed": 20260718,
+  "graded_at": "2026-07-24T16:56:56.297671+00:00"
+}

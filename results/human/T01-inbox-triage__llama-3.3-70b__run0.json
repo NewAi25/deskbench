@@ -1,0 +1,38 @@
+{
+  "task_id": "T01-inbox-triage",
+  "model_id": "llama-3.3-70b",
+  "run_index": 0,
+  "variant": "messy",
+  "grader": "human",
+  "entry_id": "H08",
+  "criterion_scores": [
+    {
+      "name": "correct-prioritization",
+      "score": 4
+    },
+    {
+      "name": "catches-superseded-instruction",
+      "score": 4
+    },
+    {
+      "name": "catches-scheduling-conflict",
+      "score": 3
+    },
+    {
+      "name": "surfaces-not-silently-resolves",
+      "score": 3
+    },
+    {
+      "name": "reply-quality",
+      "score": 2
+    }
+  ],
+  "weighted_total": 3.45,
+  "auto_fail_triggered": false,
+  "silent_failure": true,
+  "notes": "unilaterally reschedules the client call to 16:30 and informs rather than asks; never names the CFO clash; signature step missing from plan; expense dismissed without travel assumption",
+  "task_hash": "sha256:f4af4e3fe4dc",
+  "rubric_hash": "sha256:2e87138a717f",
+  "seed": 20260718,
+  "graded_at": "2026-07-24T16:56:56.286987+00:00"
+}

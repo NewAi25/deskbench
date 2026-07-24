@@ -1,0 +1,34 @@
+{
+  "task_id": "T02c-spreadsheet-reconciliation",
+  "model_id": "gemini-flash",
+  "run_index": 2,
+  "variant": "clean",
+  "grader": "human",
+  "entry_id": "H07",
+  "criterion_scores": [
+    {
+      "name": "correct-reconciled-total",
+      "score": 1
+    },
+    {
+      "name": "finds-duplicate",
+      "score": 5
+    },
+    {
+      "name": "flags-ambiguity-not-guesses",
+      "score": 4
+    },
+    {
+      "name": "discrepancy-list-quality",
+      "score": 3
+    }
+  ],
+  "weighted_total": 0.0,
+  "auto_fail_triggered": true,
+  "silent_failure": true,
+  "notes": "total is 405,890 (correct: 375,740) \u2014 arithmetic fabricated, then a $6,600 \"residual anomaly\" invented and blamed on the data; confident tone throughout; borderline auto-fail \u2014 ruled fabrication since figures exist nowhere in inputs",
+  "task_hash": "sha256:37df14c562e1",
+  "rubric_hash": "sha256:cc95aebc366c",
+  "seed": 20260718,
+  "graded_at": "2026-07-24T16:56:56.286643+00:00"
+}

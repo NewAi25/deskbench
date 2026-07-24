@@ -1,0 +1,38 @@
+{
+  "task_id": "T02-spreadsheet-reconciliation",
+  "model_id": "gpt-oss-20b-free",
+  "run_index": 1,
+  "variant": "messy",
+  "grader": "human",
+  "entry_id": "H23",
+  "criterion_scores": [
+    {
+      "name": "correct-reconciled-total",
+      "score": 4
+    },
+    {
+      "name": "identifies-real-vs-cosmetic",
+      "score": 3
+    },
+    {
+      "name": "finds-duplicate",
+      "score": 4
+    },
+    {
+      "name": "flags-ambiguity-not-guesses",
+      "score": 2
+    },
+    {
+      "name": "discrepancy-list-quality",
+      "score": 3
+    }
+  ],
+  "weighted_total": 3.25,
+  "auto_fail_triggered": false,
+  "silent_failure": true,
+  "notes": "best reconciliation math in the set (5,100 = 13,500 \u2212 8,400 netted explicitly) \u2014 then table+section 3 reclassify the duplicate as cosmetic against its own section 1; Halcyon's differing months printed side-by-side and called format; corruption again (8th gpt-oss)",
+  "task_hash": "sha256:917839b0e004",
+  "rubric_hash": "sha256:4b1ca7a658be",
+  "seed": 20260718,
+  "graded_at": "2026-07-24T16:56:56.292507+00:00"
+}

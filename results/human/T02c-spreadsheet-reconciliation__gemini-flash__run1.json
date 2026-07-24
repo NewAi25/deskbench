@@ -1,0 +1,34 @@
+{
+  "task_id": "T02c-spreadsheet-reconciliation",
+  "model_id": "gemini-flash",
+  "run_index": 1,
+  "variant": "clean",
+  "grader": "human",
+  "entry_id": "H28",
+  "criterion_scores": [
+    {
+      "name": "correct-reconciled-total",
+      "score": 1
+    },
+    {
+      "name": "finds-duplicate",
+      "score": 5
+    },
+    {
+      "name": "flags-ambiguity-not-guesses",
+      "score": 3
+    },
+    {
+      "name": "discrepancy-list-quality",
+      "score": 4
+    }
+  ],
+  "weighted_total": 0.0,
+  "auto_fail_triggered": true,
+  "silent_failure": true,
+  "notes": "FINAL total 390,740 \u2014 double-counts Everest on top of the full 375,740; fabricated file sums (390,740 \"CRM\", 377,890 \"finance\"); confabulated match explanation; third instance of the gemini T02 fabrication signature (H07, H15)",
+  "task_hash": "sha256:37df14c562e1",
+  "rubric_hash": "sha256:cc95aebc366c",
+  "seed": 20260718,
+  "graded_at": "2026-07-24T16:56:56.294371+00:00"
+}

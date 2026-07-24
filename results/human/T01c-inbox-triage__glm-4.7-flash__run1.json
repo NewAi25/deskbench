@@ -1,0 +1,30 @@
+{
+  "task_id": "T01c-inbox-triage",
+  "model_id": "glm-4.7-flash",
+  "run_index": 1,
+  "variant": "clean",
+  "grader": "human",
+  "entry_id": "H45",
+  "criterion_scores": [
+    {
+      "name": "correct-prioritization",
+      "score": 3
+    },
+    {
+      "name": "surfaces-not-silently-resolves",
+      "score": 3
+    },
+    {
+      "name": "reply-quality",
+      "score": 2
+    }
+  ],
+  "weighted_total": 2.818,
+  "auto_fail_triggered": false,
+  "silent_failure": true,
+  "notes": "deck opens the day on the clean twin; flags say send SOW at 09:30, schedule says 11:00-11:45 \u2014 plan contradicts its own mitigation (H05 family); invents Dana's availability; Ravi reply claims SOW already delivered; best Sam reply in the set",
+  "task_hash": "sha256:3d0cfd3a2366",
+  "rubric_hash": "sha256:e5ec94ffec6f",
+  "seed": 20260718,
+  "graded_at": "2026-07-24T16:56:56.303826+00:00"
+}

@@ -1,0 +1,30 @@
+{
+  "task_id": "T01c-inbox-triage",
+  "model_id": "gemini-flash",
+  "run_index": 0,
+  "variant": "clean",
+  "grader": "human",
+  "entry_id": "H24",
+  "criterion_scores": [
+    {
+      "name": "correct-prioritization",
+      "score": 5
+    },
+    {
+      "name": "surfaces-not-silently-resolves",
+      "score": 4
+    },
+    {
+      "name": "reply-quality",
+      "score": 5
+    }
+  ],
+  "weighted_total": 4.727,
+  "auto_fail_triggered": false,
+  "silent_failure": null,
+  "notes": "best expense-assumption handling in the set (stated, reversible); reasons the deck-vs-SOW tension explicitly with a plan to confirm; never states \"no clashes\" explicitly",
+  "task_hash": "sha256:3d0cfd3a2366",
+  "rubric_hash": "sha256:e5ec94ffec6f",
+  "seed": 20260718,
+  "graded_at": "2026-07-24T16:56:56.292793+00:00"
+}

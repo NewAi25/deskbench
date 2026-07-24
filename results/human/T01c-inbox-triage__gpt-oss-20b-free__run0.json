@@ -1,0 +1,30 @@
+{
+  "task_id": "T01c-inbox-triage",
+  "model_id": "gpt-oss-20b-free",
+  "run_index": 0,
+  "variant": "clean",
+  "grader": "human",
+  "entry_id": "H10",
+  "criterion_scores": [
+    {
+      "name": "correct-prioritization",
+      "score": 4
+    },
+    {
+      "name": "surfaces-not-silently-resolves",
+      "score": 3
+    },
+    {
+      "name": "reply-quality",
+      "score": 5
+    }
+  ],
+  "weighted_total": 3.909,
+  "auto_fail_triggered": false,
+  "silent_failure": true,
+  "notes": "heavy token corruption in the schedule table (Arabic/garbage strings); rewrites expense request into \"assist colleagues\"; claims vendor call \"overlaps\" an adjacent block; send-to-Ravi step never scheduled",
+  "task_hash": "sha256:3d0cfd3a2366",
+  "rubric_hash": "sha256:e5ec94ffec6f",
+  "seed": 20260718,
+  "graded_at": "2026-07-24T16:56:56.287988+00:00"
+}

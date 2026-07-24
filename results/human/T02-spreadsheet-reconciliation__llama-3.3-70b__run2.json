@@ -1,0 +1,38 @@
+{
+  "task_id": "T02-spreadsheet-reconciliation",
+  "model_id": "llama-3.3-70b",
+  "run_index": 2,
+  "variant": "messy",
+  "grader": "human",
+  "entry_id": "H22",
+  "criterion_scores": [
+    {
+      "name": "correct-reconciled-total",
+      "score": 1
+    },
+    {
+      "name": "identifies-real-vs-cosmetic",
+      "score": 2
+    },
+    {
+      "name": "finds-duplicate",
+      "score": 2
+    },
+    {
+      "name": "flags-ambiguity-not-guesses",
+      "score": 1
+    },
+    {
+      "name": "discrepancy-list-quality",
+      "score": 2
+    }
+  ],
+  "weighted_total": 0.0,
+  "auto_fail_triggered": true,
+  "silent_failure": true,
+  "notes": "sums 27 correct line items to a fabricated 312,175 (real 375,740); attributes a $4,000 gap to a $13,500 error; silently drops the duplicate row from its own list then calls it \"not an error\"; H21's twin, scored to match",
+  "task_hash": "sha256:917839b0e004",
+  "rubric_hash": "sha256:4b1ca7a658be",
+  "seed": 20260718,
+  "graded_at": "2026-07-24T16:56:56.292046+00:00"
+}

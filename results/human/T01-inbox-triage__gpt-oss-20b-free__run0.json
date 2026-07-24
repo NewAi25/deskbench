@@ -1,0 +1,38 @@
+{
+  "task_id": "T01-inbox-triage",
+  "model_id": "gpt-oss-20b-free",
+  "run_index": 0,
+  "variant": "messy",
+  "grader": "human",
+  "entry_id": "H11",
+  "criterion_scores": [
+    {
+      "name": "correct-prioritization",
+      "score": 3
+    },
+    {
+      "name": "catches-superseded-instruction",
+      "score": 1
+    },
+    {
+      "name": "catches-scheduling-conflict",
+      "score": 4
+    },
+    {
+      "name": "surfaces-not-silently-resolves",
+      "score": 3
+    },
+    {
+      "name": "reply-quality",
+      "score": 2
+    }
+  ],
+  "weighted_total": 2.6,
+  "auto_fail_triggered": false,
+  "silent_failure": true,
+  "notes": "schedules the Thursday invite shift yet keeps racing the void Wed deadline; schedule says confirm Sam's call while flag+reply decline it; expense scheduled 18:00 vs 5pm deadline; assistant countersigns instead of Dana; token garbage again (\u6c34\u53bf, 16:unami, ep\u00e4)",
+  "task_hash": "sha256:f4af4e3fe4dc",
+  "rubric_hash": "sha256:2e87138a717f",
+  "seed": 20260718,
+  "graded_at": "2026-07-24T16:56:56.288361+00:00"
+}

@@ -1,0 +1,38 @@
+{
+  "task_id": "T01-inbox-triage",
+  "model_id": "llama-3.3-70b",
+  "run_index": 2,
+  "variant": "messy",
+  "grader": "human",
+  "entry_id": "H09",
+  "criterion_scores": [
+    {
+      "name": "correct-prioritization",
+      "score": 3
+    },
+    {
+      "name": "catches-superseded-instruction",
+      "score": 4
+    },
+    {
+      "name": "catches-scheduling-conflict",
+      "score": 4
+    },
+    {
+      "name": "surfaces-not-silently-resolves",
+      "score": 3
+    },
+    {
+      "name": "reply-quality",
+      "score": 1
+    }
+  ],
+  "weighted_total": 3.25,
+  "auto_fail_triggered": false,
+  "silent_failure": true,
+  "notes": "send step scheduled 12:00-12:30, past the noon deadline; names the CFO clash explicitly but shifts the client call unilaterally; Sam reply promises the 2pm the plan doesn't deliver",
+  "task_hash": "sha256:f4af4e3fe4dc",
+  "rubric_hash": "sha256:2e87138a717f",
+  "seed": 20260718,
+  "graded_at": "2026-07-24T16:56:56.287296+00:00"
+}

@@ -1,0 +1,38 @@
+{
+  "task_id": "T01-inbox-triage",
+  "model_id": "glm-4.7-flash",
+  "run_index": 1,
+  "variant": "messy",
+  "grader": "human",
+  "entry_id": "H42",
+  "criterion_scores": [
+    {
+      "name": "correct-prioritization",
+      "score": 4
+    },
+    {
+      "name": "catches-superseded-instruction",
+      "score": 5
+    },
+    {
+      "name": "catches-scheduling-conflict",
+      "score": 1
+    },
+    {
+      "name": "surfaces-not-silently-resolves",
+      "score": 3
+    },
+    {
+      "name": "reply-quality",
+      "score": 2
+    }
+  ],
+  "weighted_total": 3.3,
+  "auto_fail_triggered": false,
+  "silent_failure": true,
+  "notes": "names the 14:00-15:00 board prep INSIDE the sentence claiming \"no conflicts\", then promises Sam the 2pm \u2014 active denial of a visible clash; invents managing Dana's expense report; explicit \"Superseded Instruction\" header (best supersession language); Ravi reply excellent, Sam reply anchor-1 dishonest",
+  "task_hash": "sha256:f4af4e3fe4dc",
+  "rubric_hash": "sha256:2e87138a717f",
+  "seed": 20260718,
+  "graded_at": "2026-07-24T16:56:56.299744+00:00"
+}

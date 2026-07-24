@@ -1,0 +1,38 @@
+{
+  "task_id": "T02-spreadsheet-reconciliation",
+  "model_id": "gpt-oss-20b-free",
+  "run_index": 0,
+  "variant": "messy",
+  "grader": "human",
+  "entry_id": "H12",
+  "criterion_scores": [
+    {
+      "name": "correct-reconciled-total",
+      "score": 4
+    },
+    {
+      "name": "identifies-real-vs-cosmetic",
+      "score": 3
+    },
+    {
+      "name": "finds-duplicate",
+      "score": 5
+    },
+    {
+      "name": "flags-ambiguity-not-guesses",
+      "score": 2
+    },
+    {
+      "name": "discrepancy-list-quality",
+      "score": 2
+    }
+  ],
+  "weighted_total": 3.35,
+  "auto_fail_triggered": false,
+  "silent_failure": true,
+  "notes": "total correct with both adjustments; Halcyon filed as cosmetic date-format; Everest asserted without confirmation; truncated at row 1024; heavy token garbage again (\u099a\u09be\u09aa, \u0ab0\u0acd\u0aa1, \u8272\u60c5, veta) \u2014 4th corrupted gpt-oss output",
+  "task_hash": "sha256:917839b0e004",
+  "rubric_hash": "sha256:4b1ca7a658be",
+  "seed": 20260718,
+  "graded_at": "2026-07-24T16:56:56.288701+00:00"
+}

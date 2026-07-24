@@ -1,0 +1,30 @@
+{
+  "task_id": "T01c-inbox-triage",
+  "model_id": "llama-3.3-70b",
+  "run_index": 1,
+  "variant": "clean",
+  "grader": "human",
+  "entry_id": "H41",
+  "criterion_scores": [
+    {
+      "name": "correct-prioritization",
+      "score": 3
+    },
+    {
+      "name": "surfaces-not-silently-resolves",
+      "score": 3
+    },
+    {
+      "name": "reply-quality",
+      "score": 4
+    }
+  ],
+  "weighted_total": 3.182,
+  "auto_fail_triggered": false,
+  "silent_failure": true,
+  "notes": "signature step absent \u2014 1:1 agenda never includes the SOW; send at 12:00 sharp (knife-edge, H20 parity); manufactures a \"focus conflict\" for Sam's call; expense dismissed as not-applicable without the travel question",
+  "task_hash": "sha256:3d0cfd3a2366",
+  "rubric_hash": "sha256:e5ec94ffec6f",
+  "seed": 20260718,
+  "graded_at": "2026-07-24T16:56:56.298902+00:00"
+}

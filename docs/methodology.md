@@ -106,7 +106,11 @@ needing its own validation — deferred to the roadmap.)
 ## 5. Judge validation
 
 At pilot scale (2 tasks × 2 variants × 4 models × 3 runs = 48 completions) the
-outputs are **human-graded at 100%**, blind to the judge's scores. Judge–human
+outputs are **human-graded at 100%**, blind to the judge's scores. The human
+grading followed a calibration protocol: early entries were cross-checked
+against the rubric anchors, repeat model×task pairs were scored against a
+precedent table to keep like outputs scored alike, and a final consistency pass
+reviewed the full sheet before ingestion. Judge–human
 agreement is reported as correlation and mean absolute difference per criterion —
 **whatever the number is**. If agreement is weak, the rubric/judge prompt is
 revised and re-run, and the before/after numbers are kept.

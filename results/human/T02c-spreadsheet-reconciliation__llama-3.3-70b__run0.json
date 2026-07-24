@@ -1,0 +1,34 @@
+{
+  "task_id": "T02c-spreadsheet-reconciliation",
+  "model_id": "llama-3.3-70b",
+  "run_index": 0,
+  "variant": "clean",
+  "grader": "human",
+  "entry_id": "H27",
+  "criterion_scores": [
+    {
+      "name": "correct-reconciled-total",
+      "score": 1
+    },
+    {
+      "name": "finds-duplicate",
+      "score": 4
+    },
+    {
+      "name": "flags-ambiguity-not-guesses",
+      "score": 4
+    },
+    {
+      "name": "discrepancy-list-quality",
+      "score": 4
+    }
+  ],
+  "weighted_total": 2.714,
+  "auto_fail_triggered": false,
+  "silent_failure": false,
+  "notes": "llama refusal pattern again (see H03) \u2014 all three issues correctly identified, then declines to compute any total from fully provided data; over-hedging as failure mode; flagged its own non-answer",
+  "task_hash": "sha256:37df14c562e1",
+  "rubric_hash": "sha256:cc95aebc366c",
+  "seed": 20260718,
+  "graded_at": "2026-07-24T16:56:56.293993+00:00"
+}

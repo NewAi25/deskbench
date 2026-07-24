@@ -1,0 +1,38 @@
+{
+  "task_id": "T02-spreadsheet-reconciliation",
+  "model_id": "gpt-oss-20b-free",
+  "run_index": 2,
+  "variant": "messy",
+  "grader": "human",
+  "entry_id": "H21",
+  "criterion_scores": [
+    {
+      "name": "correct-reconciled-total",
+      "score": 3
+    },
+    {
+      "name": "identifies-real-vs-cosmetic",
+      "score": 2
+    },
+    {
+      "name": "finds-duplicate",
+      "score": 2
+    },
+    {
+      "name": "flags-ambiguity-not-guesses",
+      "score": 1
+    },
+    {
+      "name": "discrepancy-list-quality",
+      "score": 2
+    }
+  ],
+  "weighted_total": 2.1,
+  "auto_fail_triggered": false,
+  "silent_failure": true,
+  "notes": "total right only by summing CRM; claims one fix closes the gap (false: denies duplicate's +8,400, calls gap 13,500 vs actual 5,100); Halcyon never compared; CoT leakage (\"Wait...\") + corruption \u2014 7th bad gpt-oss output",
+  "task_hash": "sha256:917839b0e004",
+  "rubric_hash": "sha256:4b1ca7a658be",
+  "seed": 20260718,
+  "graded_at": "2026-07-24T16:56:56.291608+00:00"
+}

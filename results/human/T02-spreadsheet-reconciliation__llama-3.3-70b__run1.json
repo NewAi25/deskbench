@@ -1,0 +1,38 @@
+{
+  "task_id": "T02-spreadsheet-reconciliation",
+  "model_id": "llama-3.3-70b",
+  "run_index": 1,
+  "variant": "messy",
+  "grader": "human",
+  "entry_id": "H03",
+  "criterion_scores": [
+    {
+      "name": "correct-reconciled-total",
+      "score": 1
+    },
+    {
+      "name": "identifies-real-vs-cosmetic",
+      "score": 3
+    },
+    {
+      "name": "finds-duplicate",
+      "score": 4
+    },
+    {
+      "name": "flags-ambiguity-not-guesses",
+      "score": 3
+    },
+    {
+      "name": "discrepancy-list-quality",
+      "score": 2
+    }
+  ],
+  "weighted_total": 2.5,
+  "auto_fail_triggered": false,
+  "silent_failure": false,
+  "notes": "flagged on its own non-answer (claimed data \"not calculable\" \u2014 false premise); silent on missed Halcyon",
+  "task_hash": "sha256:917839b0e004",
+  "rubric_hash": "sha256:4b1ca7a658be",
+  "seed": 20260718,
+  "graded_at": "2026-07-24T16:56:56.284623+00:00"
+}

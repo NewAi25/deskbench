@@ -1,0 +1,38 @@
+{
+  "task_id": "T02-spreadsheet-reconciliation",
+  "model_id": "gemini-flash",
+  "run_index": 0,
+  "variant": "messy",
+  "grader": "human",
+  "entry_id": "H46",
+  "criterion_scores": [
+    {
+      "name": "correct-reconciled-total",
+      "score": 1
+    },
+    {
+      "name": "identifies-real-vs-cosmetic",
+      "score": 4
+    },
+    {
+      "name": "finds-duplicate",
+      "score": 4
+    },
+    {
+      "name": "flags-ambiguity-not-guesses",
+      "score": 3
+    },
+    {
+      "name": "discrepancy-list-quality",
+      "score": 3
+    }
+  ],
+  "weighted_total": 0.0,
+  "auto_fail_triggered": true,
+  "silent_failure": true,
+  "notes": "310,840 (fabricated; real 375,740) \u2014 gemini now 0-for-3 on T02 totals; trusts finance's 1,500 for Everest; 1001 MM/DD self-contradiction again; dumps a 200-line pandas script (with echoed input files) into a business report",
+  "task_hash": "sha256:917839b0e004",
+  "rubric_hash": "sha256:4b1ca7a658be",
+  "seed": 20260718,
+  "graded_at": "2026-07-24T16:56:56.304576+00:00"
+}

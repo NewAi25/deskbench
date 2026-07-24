@@ -1,0 +1,30 @@
+{
+  "task_id": "T01c-inbox-triage",
+  "model_id": "gpt-oss-20b-free",
+  "run_index": 1,
+  "variant": "clean",
+  "grader": "human",
+  "entry_id": "H16",
+  "criterion_scores": [
+    {
+      "name": "correct-prioritization",
+      "score": 4
+    },
+    {
+      "name": "surfaces-not-silently-resolves",
+      "score": 3
+    },
+    {
+      "name": "reply-quality",
+      "score": 4
+    }
+  ],
+  "weighted_total": 3.727,
+  "auto_fail_triggered": false,
+  "silent_failure": true,
+  "notes": "compresses the 1:1 to 15 min and shifts lunch; invents \"Monday's board meeting\"; expense request dropped to a buffer parenthetical; corruption again (\"franconit\", \"photons\", Persian token) \u2014 6th corrupted gpt-oss output",
+  "task_hash": "sha256:3d0cfd3a2366",
+  "rubric_hash": "sha256:e5ec94ffec6f",
+  "seed": 20260718,
+  "graded_at": "2026-07-24T16:56:56.290096+00:00"
+}

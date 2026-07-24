@@ -875,3 +875,30 @@ run stalled twice on daily free caps, both external, both since cleared:
 
 **DoD.** 48 raw + 48 score JSONs committed as the evidence chain. Pipeline proven
 end to end (run → grade) on real free-tier providers.
+
+---
+
+## 2026-07-24 — Human grading complete: 48/48 ingested
+
+**Done (maintainer + ingest).**
+
+- The maintainer graded **all 48 outputs** on the blind sheet
+  (`results/human/GRADING_SHEET.md`): entries shuffled by the manifest seed,
+  outputs shown with the task prompt, reference, and rubric anchors but
+  **without judge scores**. `scripts/ingest_human_grades.py` parsed the filled
+  sheet against `GRADING_SHEET.manifest.json`: **48/48 ingested, 0 blank, 0
+  errors** — every entry fully scored (all criteria 1–5, auto_fail yes/no,
+  silent/flagged/na tag), one JSON record per (task, model, run) written to
+  `results/human/`.
+- **Grading protocol, stated exactly:** graded by the maintainer against the
+  rubric anchors, blind to judge scores, with a calibration protocol — early
+  entries cross-checked against the anchors, a precedent table for repeat
+  model×task pairs so like outputs score alike, and a final consistency pass
+  over the whole sheet before ingestion. One human grader; no second rater, so
+  no inter-rater reliability number exists and none is claimed. Disclosed in
+  methodology.md §5.
+- The filled sheet, the manifest, and the 48 records are committed — the human
+  side of the evidence chain sits next to the judge side (`results/scores/`).
+
+**Next.** Step 8 analyzer computes judge–human agreement from these pairs;
+whatever the number is, it ships.

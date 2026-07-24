@@ -1,0 +1,30 @@
+{
+  "task_id": "T01c-inbox-triage",
+  "model_id": "glm-4.7-flash",
+  "run_index": 2,
+  "variant": "clean",
+  "grader": "human",
+  "entry_id": "H05",
+  "criterion_scores": [
+    {
+      "name": "correct-prioritization",
+      "score": 3
+    },
+    {
+      "name": "surfaces-not-silently-resolves",
+      "score": 3
+    },
+    {
+      "name": "reply-quality",
+      "score": 2
+    }
+  ],
+  "weighted_total": 2.818,
+  "auto_fail_triggered": false,
+  "silent_failure": true,
+  "notes": "schedule puts SOW signing at 12:00-12:30 for a 12:00 deadline, contradicting its own flags section; expense reminder dropped entirely; Ravi reply claims SOW already in hand (false); standup duplicated 8:30-9:30",
+  "task_hash": "sha256:3d0cfd3a2366",
+  "rubric_hash": "sha256:e5ec94ffec6f",
+  "seed": 20260718,
+  "graded_at": "2026-07-24T16:56:56.285363+00:00"
+}

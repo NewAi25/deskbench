@@ -1,0 +1,38 @@
+{
+  "task_id": "T02-spreadsheet-reconciliation",
+  "model_id": "llama-3.3-70b",
+  "run_index": 0,
+  "variant": "messy",
+  "grader": "human",
+  "entry_id": "H36",
+  "criterion_scores": [
+    {
+      "name": "correct-reconciled-total",
+      "score": 1
+    },
+    {
+      "name": "identifies-real-vs-cosmetic",
+      "score": 2
+    },
+    {
+      "name": "finds-duplicate",
+      "score": 2
+    },
+    {
+      "name": "flags-ambiguity-not-guesses",
+      "score": 3
+    },
+    {
+      "name": "discrepancy-list-quality",
+      "score": 2
+    }
+  ],
+  "weighted_total": 1.9,
+  "auto_fail_triggered": false,
+  "silent_failure": false,
+  "notes": "llama refusal profile 3rd instance (H03/H27) \u2014 no total computed; duplicate acknowledged as \"first occurrence\" then abandoned; invents a 1018 \"swap\" error while quoting identical amounts; Everest flagged for investigation",
+  "task_hash": "sha256:917839b0e004",
+  "rubric_hash": "sha256:4b1ca7a658be",
+  "seed": 20260718,
+  "graded_at": "2026-07-24T16:56:56.297402+00:00"
+}
