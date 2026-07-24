@@ -89,11 +89,30 @@ def test_saturation_predicate_requires_recorded_result(tmp_path):
     assert bs.saturation_recorded(tmp_path) is False
 
 
-def test_step3_regresses_until_probe_recorded():
-    # Until the maintainer records `SATURATION RESULT:` in BUILD_LOG, Step 3
-    # must NOT be done (it reads "in progress", since its dir checks pass).
-    if not bs.saturation_recorded(REPO_ROOT):
-        statuses = bs.compute_statuses(REPO_ROOT, run_tests=False)
+def test_saturation_predicate_accepts_recorded_formats(tmp_path):
+    # The two formats actually used in BUILD_LOG: bolded, and bolded with a
+    # parenthetical before the colon. Both are genuine recorded results and
+    # must count — rejecting them over Markdown would invert F3's fix.
+    log = tmp_path / "BUILD_LOG.md"
+    log.write_text(
+        "**SATURATION RESULT: T01 gemini-flash 2.50/5, llama-3.3-70b 2.50/5.**\n",
+        encoding="utf-8",
+    )
+    assert bs.saturation_recorded(tmp_path) is True
+    log.write_text(
+        "**SATURATION RESULT (hardened T02): T02 2.40/5 — ceiling broken.**\n",
+        encoding="utf-8",
+    )
+    assert bs.saturation_recorded(tmp_path) is True
+
+
+def test_step3_tracks_saturation_recording():
+    # Step 3 is done only when a saturation result is recorded; with the real
+    # repo's recorded probes this must now read done.
+    statuses = bs.compute_statuses(REPO_ROOT, run_tests=False)
+    if bs.saturation_recorded(REPO_ROOT):
+        assert statuses[3] == bs.DONE
+    else:
         assert statuses[3] == bs.IN_PROGRESS
 
 

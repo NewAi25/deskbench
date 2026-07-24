@@ -989,3 +989,22 @@ files; tables written; predicate `summary_mvp_complete` satisfied. ✅
 
 **DoD.** `site/index.html` exists, embeds summary data, renders the four pilot
 charts + run inspector; predicate `dashboard_embeds_data` satisfied. ✅
+
+---
+
+## 2026-07-24 — Step 3 status fix: predicate now accepts the recorded probes
+
+Step 3 sat at 🟨 even though the saturation probe ran twice and both results
+are recorded in this log (2026-07-16: the original probe that exposed T02's
+5.00 ceiling, and the post-hardening re-probe that broke it, T01 2.50 / T02
+2.40). Cause: the `saturation_recorded` predicate demanded a line starting
+exactly `SATURATION RESULT:`, but the recorded entries are bolded
+(`**SATURATION RESULT…`) and the re-probe adds a parenthetical before the
+colon. The predicate was stricter than the recorded truth — the inverse of
+the honesty problem it was added to fix (audit F3).
+
+Fix: loosen the regex to `^\*{0,2}SATURATION RESULT\b` (Markdown bold and a
+parenthetical allowed; a promise or inline mention still does not count),
+with certifier tests pinning both real-world formats. The log itself is
+untouched — BUILD_LOG is never backfilled; the code moves to match the
+truth, not the other way around. Step 3 flips to ✅ on this push.

@@ -172,14 +172,18 @@ def saturation_recorded(root: Path) -> bool:
 
     The convention (documented in BUILDSEQUENCE.md): after running
     scripts/saturation_check.py, the maintainer records a BUILD_LOG line
-    starting ``SATURATION RESULT:``. Added 2026-07-16 per the audit's F3 — the
+    starting ``SATURATION RESULT``. Added 2026-07-16 per the audit's F3 — the
     predicate was weaker than the DoD text, which let Step 3 flip done without
-    the check ever running.
+    the check ever running. Loosened 2026-07-24: the marker may be bolded
+    (``**SATURATION RESULT…``) and may carry a parenthetical before the colon
+    (``SATURATION RESULT (hardened T02):``) — the recorded probe entries used
+    both, and rejecting real recorded results over Markdown formatting would
+    be the inverse of the honesty F3 was fixing.
     """
     log = root / "BUILD_LOG.md"
     if not log.exists():
         return False
-    return bool(re.search(r"^SATURATION RESULT:", log.read_text(encoding="utf-8"), re.M))
+    return bool(re.search(r"^\*{0,2}SATURATION RESULT\b", log.read_text(encoding="utf-8"), re.M))
 
 
 def twin_suite_validates(root: Path) -> bool:

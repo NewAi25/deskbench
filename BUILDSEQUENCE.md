@@ -7,7 +7,7 @@
 | 0 | Repo & scaffolding | — | CI workflow green; `pyproject.toml`, `README.md`, `.env.example` exist | ✅ done |
 | 1 | Schemas | `schemas.py` | `tests/test_schemas.py` passes; all 4 contracts defined | ✅ done |
 | 2 | Model registry | `registry.py` | `tests/test_registry.py` passes; `config/models.yaml` has ≥4 models | ✅ done |
-| 3 | Pilot tasks + rubrics | tasks T01–T02 | 2 task dirs schema-validate (task.yaml, rubric.yaml, reference.md, artifacts/); a recorded saturation result in BUILD_LOG (a line starting `SATURATION RESULT:`) | 🟨 in progress |
+| 3 | Pilot tasks + rubrics | tasks T01–T02 | 2 task dirs schema-validate (task.yaml, rubric.yaml, reference.md, artifacts/); a recorded saturation result in BUILD_LOG (a line starting `SATURATION RESULT`, bold/parenthetical allowed) | ✅ done |
 | 4 | Runner | `runner.py` | `tests/test_runner.py` passes; ≥1 raw result JSON committed as fixture | ✅ done |
 | 5 | Grader | `grader.py` | `tests/test_grader.py` passes; ≥1 score JSON fixture validates | ✅ done |
 | 6 | Clean twins (MVP) | tasks T01c–T02c | 4 task dirs schema-validate (2 twin pairs); twin invariants pass (`tests/test_tasks.py`: byte-identical prompts, shared core criteria at identical weights) | ✅ done |
