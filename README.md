@@ -77,6 +77,29 @@ The pilot has run: 48 completions, judge-graded and 100% human-validated.
 - Every number is computed from the committed evidence under
   [`results/`](results/) by `deskbench analyze` — nothing is hand-entered.
 
+The four pilot charts (exported from the dashboard — the
+[interactive version](https://newai25.github.io/deskbench/site/) adds
+per-run whiskers detail, filters, and a click-through run inspector):
+
+**Leaderboard — judge vs human, messy vs clean** (solid = judge, hatched =
+human; whiskers = min–max across runs):
+
+![Leaderboard: weight-normalized mean score per model, judge and human, split messy/clean](docs/img/leaderboard.webp)
+
+**Mess penalty** (core criteria only, clean − messy; positive = the mess
+degraded the model):
+
+![Mess penalty per model, judge-scored and human-scored](docs/img/mess-penalty.webp)
+
+**Silent-failure rate** (of human-marked wrong/incomplete answers, the share
+that never flagged the specific problem; denominators printed per bar):
+
+![Silent-failure rate per model from human tags](docs/img/silent-failure.webp)
+
+**Judge vs human, every graded output** (dashed line = perfect agreement):
+
+![Judge weighted total vs human weighted total for all 48 outputs](docs/img/judge-vs-human.webp)
+
 ## Quickstart
 
 ```bash
