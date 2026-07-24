@@ -1,0 +1,5 @@
+model,judge,human
+gemini-flash,-0.106,0.131
+glm-4.7-flash,0.111,0.139
+gpt-oss-20b-free,0.307,0.306
+llama-3.3-70b,0.716,0.427

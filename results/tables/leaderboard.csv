@@ -1,0 +1,5 @@
+model,judge_overall,judge_messy,judge_clean,human_overall,human_messy,human_clean,judge_auto_fails,human_auto_fails,n_runs
+glm-4.7-flash,2.795,2.525,3.065,3.254,2.85,3.658,1,1,12
+gpt-oss-20b-free,2.722,3.008,2.436,2.839,2.883,2.794,2,1,12
+gemini-flash,2.519,3.083,1.955,2.303,2.242,2.364,4,6,12
+llama-3.3-70b,1.956,1.458,2.454,2.415,2.408,2.421,3,2,12

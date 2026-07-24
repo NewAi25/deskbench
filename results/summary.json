@@ -1,0 +1,1185 @@
+{
+  "generated_at": "2026-07-24T17:30:09.682078+00:00",
+  "matrix": {
+    "tasks": [
+      "T01-inbox-triage",
+      "T01c-inbox-triage",
+      "T02-spreadsheet-reconciliation",
+      "T02c-spreadsheet-reconciliation"
+    ],
+    "twin_pairs": [
+      {
+        "messy": "T01-inbox-triage",
+        "clean": "T01c-inbox-triage"
+      },
+      {
+        "messy": "T02-spreadsheet-reconciliation",
+        "clean": "T02c-spreadsheet-reconciliation"
+      }
+    ],
+    "models": [
+      "gemini-flash",
+      "glm-4.7-flash",
+      "gpt-oss-20b-free",
+      "llama-3.3-70b"
+    ],
+    "judge_models": [
+      "nemotron-judge"
+    ],
+    "n_raw": 48,
+    "n_judge_scores": 48,
+    "n_human_grades": 48
+  },
+  "leaderboard": [
+    {
+      "model": "glm-4.7-flash",
+      "judge": {
+        "mean_overall": 2.795,
+        "mean_messy": 2.525,
+        "mean_clean": 3.065,
+        "n_runs": 12,
+        "auto_fails": 1,
+        "per_run": [
+          {
+            "task_id": "T01-inbox-triage",
+            "variant": "messy",
+            "run_index": 0,
+            "weighted_total": 2.5,
+            "auto_fail": false
+          },
+          {
+            "task_id": "T01-inbox-triage",
+            "variant": "messy",
+            "run_index": 1,
+            "weighted_total": 0.0,
+            "auto_fail": true
+          },
+          {
+            "task_id": "T01-inbox-triage",
+            "variant": "messy",
+            "run_index": 2,
+            "weighted_total": 4.1,
+            "auto_fail": false
+          },
+          {
+            "task_id": "T01c-inbox-triage",
+            "variant": "clean",
+            "run_index": 0,
+            "weighted_total": 3.909,
+            "auto_fail": false
+          },
+          {
+            "task_id": "T01c-inbox-triage",
+            "variant": "clean",
+            "run_index": 1,
+            "weighted_total": 1.909,
+            "auto_fail": false
+          },
+          {
+            "task_id": "T01c-inbox-triage",
+            "variant": "clean",
+            "run_index": 2,
+            "weighted_total": 1.0,
+            "auto_fail": false
+          },
+          {
+            "task_id": "T02-spreadsheet-reconciliation",
+            "variant": "messy",
+            "run_index": 0,
+            "weighted_total": 2.75,
+            "auto_fail": false
+          },
+          {
+            "task_id": "T02-spreadsheet-reconciliation",
+            "variant": "messy",
+            "run_index": 1,
+            "weighted_total": 2.9,
+            "auto_fail": false
+          },
+          {
+            "task_id": "T02-spreadsheet-reconciliation",
+            "variant": "messy",
+            "run_index": 2,
+            "weighted_total": 2.9,
+            "auto_fail": false
+          },
+          {
+            "task_id": "T02c-spreadsheet-reconciliation",
+            "variant": "clean",
+            "run_index": 0,
+            "weighted_total": 3.714,
+            "auto_fail": false
+          },
+          {
+            "task_id": "T02c-spreadsheet-reconciliation",
+            "variant": "clean",
+            "run_index": 1,
+            "weighted_total": 4.0,
+            "auto_fail": false
+          },
+          {
+            "task_id": "T02c-spreadsheet-reconciliation",
+            "variant": "clean",
+            "run_index": 2,
+            "weighted_total": 3.857,
+            "auto_fail": false
+          }
+        ]
+      },
+      "human": {
+        "mean_overall": 3.254,
+        "mean_messy": 2.85,
+        "mean_clean": 3.658,
+        "n_runs": 12,
+        "auto_fails": 1,
+        "per_run": [
+          {
+            "task_id": "T01-inbox-triage",
+            "variant": "messy",
+            "run_index": 0,
+            "weighted_total": 2.1,
+            "auto_fail": false
+          },
+          {
+            "task_id": "T01-inbox-triage",
+            "variant": "messy",
+            "run_index": 1,
+            "weighted_total": 3.3,
+            "auto_fail": false
+          },
+          {
+            "task_id": "T01-inbox-triage",
+            "variant": "messy",
+            "run_index": 2,
+            "weighted_total": 4.3,
+            "auto_fail": false
+          },
+          {
+            "task_id": "T01c-inbox-triage",
+            "variant": "clean",
+            "run_index": 0,
+            "weighted_total": 3.455,
+            "auto_fail": false
+          },
+          {
+            "task_id": "T01c-inbox-triage",
+            "variant": "clean",
+            "run_index": 1,
+            "weighted_total": 2.818,
+            "auto_fail": false
+          },
+          {
+            "task_id": "T01c-inbox-triage",
+            "variant": "clean",
+            "run_index": 2,
+            "weighted_total": 2.818,
+            "auto_fail": false
+          },
+          {
+            "task_id": "T02-spreadsheet-reconciliation",
+            "variant": "messy",
+            "run_index": 0,
+            "weighted_total": 3.5,
+            "auto_fail": false
+          },
+          {
+            "task_id": "T02-spreadsheet-reconciliation",
+            "variant": "messy",
+            "run_index": 1,
+            "weighted_total": 0.0,
+            "auto_fail": true
+          },
+          {
+            "task_id": "T02-spreadsheet-reconciliation",
+            "variant": "messy",
+            "run_index": 2,
+            "weighted_total": 3.9,
+            "auto_fail": false
+          },
+          {
+            "task_id": "T02c-spreadsheet-reconciliation",
+            "variant": "clean",
+            "run_index": 0,
+            "weighted_total": 4.429,
+            "auto_fail": false
+          },
+          {
+            "task_id": "T02c-spreadsheet-reconciliation",
+            "variant": "clean",
+            "run_index": 1,
+            "weighted_total": 4.071,
+            "auto_fail": false
+          },
+          {
+            "task_id": "T02c-spreadsheet-reconciliation",
+            "variant": "clean",
+            "run_index": 2,
+            "weighted_total": 4.357,
+            "auto_fail": false
+          }
+        ]
+      }
+    },
+    {
+      "model": "gpt-oss-20b-free",
+      "judge": {
+        "mean_overall": 2.722,
+        "mean_messy": 3.008,
+        "mean_clean": 2.436,
+        "n_runs": 12,
+        "auto_fails": 2,
+        "per_run": [
+          {
+            "task_id": "T01-inbox-triage",
+            "variant": "messy",
+            "run_index": 0,
+            "weighted_total": 3.1,
+            "auto_fail": false
+          },
+          {
+            "task_id": "T01-inbox-triage",
+            "variant": "messy",
+            "run_index": 1,
+            "weighted_total": 3.1,
+            "auto_fail": false
+          },
+          {
+            "task_id": "T01-inbox-triage",
+            "variant": "messy",
+            "run_index": 2,
+            "weighted_total": 4.2,
+            "auto_fail": false
+          },
+          {
+            "task_id": "T01c-inbox-triage",
+            "variant": "clean",
+            "run_index": 0,
+            "weighted_total": 3.909,
+            "auto_fail": false
+          },
+          {
+            "task_id": "T01c-inbox-triage",
+            "variant": "clean",
+            "run_index": 1,
+            "weighted_total": 0.0,
+            "auto_fail": true
+          },
+          {
+            "task_id": "T01c-inbox-triage",
+            "variant": "clean",
+            "run_index": 2,
+            "weighted_total": 2.636,
+            "auto_fail": false
+          },
+          {
+            "task_id": "T02-spreadsheet-reconciliation",
+            "variant": "messy",
+            "run_index": 0,
+            "weighted_total": 3.2,
+            "auto_fail": false
+          },
+          {
+            "task_id": "T02-spreadsheet-reconciliation",
+            "variant": "messy",
+            "run_index": 1,
+            "weighted_total": 2.45,
+            "auto_fail": false
+          },
+          {
+            "task_id": "T02-spreadsheet-reconciliation",
+            "variant": "messy",
+            "run_index": 2,
+            "weighted_total": 2.0,
+            "auto_fail": false
+          },
+          {
+            "task_id": "T02c-spreadsheet-reconciliation",
+            "variant": "clean",
+            "run_index": 0,
+            "weighted_total": 0.0,
+            "auto_fail": true
+          },
+          {
+            "task_id": "T02c-spreadsheet-reconciliation",
+            "variant": "clean",
+            "run_index": 1,
+            "weighted_total": 3.643,
+            "auto_fail": false
+          },
+          {
+            "task_id": "T02c-spreadsheet-reconciliation",
+            "variant": "clean",
+            "run_index": 2,
+            "weighted_total": 4.429,
+            "auto_fail": false
+          }
+        ]
+      },
+      "human": {
+        "mean_overall": 2.839,
+        "mean_messy": 2.883,
+        "mean_clean": 2.794,
+        "n_runs": 12,
+        "auto_fails": 1,
+        "per_run": [
+          {
+            "task_id": "T01-inbox-triage",
+            "variant": "messy",
+            "run_index": 0,
+            "weighted_total": 2.6,
+            "auto_fail": false
+          },
+          {
+            "task_id": "T01-inbox-triage",
+            "variant": "messy",
+            "run_index": 1,
+            "weighted_total": 2.6,
+            "auto_fail": false
+          },
+          {
+            "task_id": "T01-inbox-triage",
+            "variant": "messy",
+            "run_index": 2,
+            "weighted_total": 3.4,
+            "auto_fail": false
+          },
+          {
+            "task_id": "T01c-inbox-triage",
+            "variant": "clean",
+            "run_index": 0,
+            "weighted_total": 3.909,
+            "auto_fail": false
+          },
+          {
+            "task_id": "T01c-inbox-triage",
+            "variant": "clean",
+            "run_index": 1,
+            "weighted_total": 3.727,
+            "auto_fail": false
+          },
+          {
+            "task_id": "T01c-inbox-triage",
+            "variant": "clean",
+            "run_index": 2,
+            "weighted_total": 2.273,
+            "auto_fail": false
+          },
+          {
+            "task_id": "T02-spreadsheet-reconciliation",
+            "variant": "messy",
+            "run_index": 0,
+            "weighted_total": 3.35,
+            "auto_fail": false
+          },
+          {
+            "task_id": "T02-spreadsheet-reconciliation",
+            "variant": "messy",
+            "run_index": 1,
+            "weighted_total": 3.25,
+            "auto_fail": false
+          },
+          {
+            "task_id": "T02-spreadsheet-reconciliation",
+            "variant": "messy",
+            "run_index": 2,
+            "weighted_total": 2.1,
+            "auto_fail": false
+          },
+          {
+            "task_id": "T02c-spreadsheet-reconciliation",
+            "variant": "clean",
+            "run_index": 0,
+            "weighted_total": 0.0,
+            "auto_fail": true
+          },
+          {
+            "task_id": "T02c-spreadsheet-reconciliation",
+            "variant": "clean",
+            "run_index": 1,
+            "weighted_total": 3.429,
+            "auto_fail": false
+          },
+          {
+            "task_id": "T02c-spreadsheet-reconciliation",
+            "variant": "clean",
+            "run_index": 2,
+            "weighted_total": 3.429,
+            "auto_fail": false
+          }
+        ]
+      }
+    },
+    {
+      "model": "gemini-flash",
+      "judge": {
+        "mean_overall": 2.519,
+        "mean_messy": 3.083,
+        "mean_clean": 1.955,
+        "n_runs": 12,
+        "auto_fails": 4,
+        "per_run": [
+          {
+            "task_id": "T01-inbox-triage",
+            "variant": "messy",
+            "run_index": 0,
+            "weighted_total": 4.6,
+            "auto_fail": false
+          },
+          {
+            "task_id": "T01-inbox-triage",
+            "variant": "messy",
+            "run_index": 1,
+            "weighted_total": 4.6,
+            "auto_fail": false
+          },
+          {
+            "task_id": "T01-inbox-triage",
+            "variant": "messy",
+            "run_index": 2,
+            "weighted_total": 4.3,
+            "auto_fail": false
+          },
+          {
+            "task_id": "T01c-inbox-triage",
+            "variant": "clean",
+            "run_index": 0,
+            "weighted_total": 3.909,
+            "auto_fail": false
+          },
+          {
+            "task_id": "T01c-inbox-triage",
+            "variant": "clean",
+            "run_index": 1,
+            "weighted_total": 3.909,
+            "auto_fail": false
+          },
+          {
+            "task_id": "T01c-inbox-triage",
+            "variant": "clean",
+            "run_index": 2,
+            "weighted_total": 3.909,
+            "auto_fail": false
+          },
+          {
+            "task_id": "T02-spreadsheet-reconciliation",
+            "variant": "messy",
+            "run_index": 0,
+            "weighted_total": 2.3,
+            "auto_fail": false
+          },
+          {
+            "task_id": "T02-spreadsheet-reconciliation",
+            "variant": "messy",
+            "run_index": 1,
+            "weighted_total": 0.0,
+            "auto_fail": true
+          },
+          {
+            "task_id": "T02-spreadsheet-reconciliation",
+            "variant": "messy",
+            "run_index": 2,
+            "weighted_total": 2.7,
+            "auto_fail": false
+          },
+          {
+            "task_id": "T02c-spreadsheet-reconciliation",
+            "variant": "clean",
+            "run_index": 0,
+            "weighted_total": 0.0,
+            "auto_fail": true
+          },
+          {
+            "task_id": "T02c-spreadsheet-reconciliation",
+            "variant": "clean",
+            "run_index": 1,
+            "weighted_total": 0.0,
+            "auto_fail": true
+          },
+          {
+            "task_id": "T02c-spreadsheet-reconciliation",
+            "variant": "clean",
+            "run_index": 2,
+            "weighted_total": 0.0,
+            "auto_fail": true
+          }
+        ]
+      },
+      "human": {
+        "mean_overall": 2.303,
+        "mean_messy": 2.242,
+        "mean_clean": 2.364,
+        "n_runs": 12,
+        "auto_fails": 6,
+        "per_run": [
+          {
+            "task_id": "T01-inbox-triage",
+            "variant": "messy",
+            "run_index": 0,
+            "weighted_total": 4.45,
+            "auto_fail": false
+          },
+          {
+            "task_id": "T01-inbox-triage",
+            "variant": "messy",
+            "run_index": 1,
+            "weighted_total": 4.7,
+            "auto_fail": false
+          },
+          {
+            "task_id": "T01-inbox-triage",
+            "variant": "messy",
+            "run_index": 2,
+            "weighted_total": 4.3,
+            "auto_fail": false
+          },
+          {
+            "task_id": "T01c-inbox-triage",
+            "variant": "clean",
+            "run_index": 0,
+            "weighted_total": 4.727,
+            "auto_fail": false
+          },
+          {
+            "task_id": "T01c-inbox-triage",
+            "variant": "clean",
+            "run_index": 1,
+            "weighted_total": 4.727,
+            "auto_fail": false
+          },
+          {
+            "task_id": "T01c-inbox-triage",
+            "variant": "clean",
+            "run_index": 2,
+            "weighted_total": 4.727,
+            "auto_fail": false
+          },
+          {
+            "task_id": "T02-spreadsheet-reconciliation",
+            "variant": "messy",
+            "run_index": 0,
+            "weighted_total": 0.0,
+            "auto_fail": true
+          },
+          {
+            "task_id": "T02-spreadsheet-reconciliation",
+            "variant": "messy",
+            "run_index": 1,
+            "weighted_total": 0.0,
+            "auto_fail": true
+          },
+          {
+            "task_id": "T02-spreadsheet-reconciliation",
+            "variant": "messy",
+            "run_index": 2,
+            "weighted_total": 0.0,
+            "auto_fail": true
+          },
+          {
+            "task_id": "T02c-spreadsheet-reconciliation",
+            "variant": "clean",
+            "run_index": 0,
+            "weighted_total": 0.0,
+            "auto_fail": true
+          },
+          {
+            "task_id": "T02c-spreadsheet-reconciliation",
+            "variant": "clean",
+            "run_index": 1,
+            "weighted_total": 0.0,
+            "auto_fail": true
+          },
+          {
+            "task_id": "T02c-spreadsheet-reconciliation",
+            "variant": "clean",
+            "run_index": 2,
+            "weighted_total": 0.0,
+            "auto_fail": true
+          }
+        ]
+      }
+    },
+    {
+      "model": "llama-3.3-70b",
+      "judge": {
+        "mean_overall": 1.956,
+        "mean_messy": 1.458,
+        "mean_clean": 2.454,
+        "n_runs": 12,
+        "auto_fails": 3,
+        "per_run": [
+          {
+            "task_id": "T01-inbox-triage",
+            "variant": "messy",
+            "run_index": 0,
+            "weighted_total": 3.0,
+            "auto_fail": false
+          },
+          {
+            "task_id": "T01-inbox-triage",
+            "variant": "messy",
+            "run_index": 1,
+            "weighted_total": 0.0,
+            "auto_fail": true
+          },
+          {
+            "task_id": "T01-inbox-triage",
+            "variant": "messy",
+            "run_index": 2,
+            "weighted_total": 3.2,
+            "auto_fail": false
+          },
+          {
+            "task_id": "T01c-inbox-triage",
+            "variant": "clean",
+            "run_index": 0,
+            "weighted_total": 3.364,
+            "auto_fail": false
+          },
+          {
+            "task_id": "T01c-inbox-triage",
+            "variant": "clean",
+            "run_index": 1,
+            "weighted_total": 4.182,
+            "auto_fail": false
+          },
+          {
+            "task_id": "T01c-inbox-triage",
+            "variant": "clean",
+            "run_index": 2,
+            "weighted_total": 2.818,
+            "auto_fail": false
+          },
+          {
+            "task_id": "T02-spreadsheet-reconciliation",
+            "variant": "messy",
+            "run_index": 0,
+            "weighted_total": 1.1,
+            "auto_fail": false
+          },
+          {
+            "task_id": "T02-spreadsheet-reconciliation",
+            "variant": "messy",
+            "run_index": 1,
+            "weighted_total": 1.45,
+            "auto_fail": false
+          },
+          {
+            "task_id": "T02-spreadsheet-reconciliation",
+            "variant": "messy",
+            "run_index": 2,
+            "weighted_total": 0.0,
+            "auto_fail": true
+          },
+          {
+            "task_id": "T02c-spreadsheet-reconciliation",
+            "variant": "clean",
+            "run_index": 0,
+            "weighted_total": 2.357,
+            "auto_fail": false
+          },
+          {
+            "task_id": "T02c-spreadsheet-reconciliation",
+            "variant": "clean",
+            "run_index": 1,
+            "weighted_total": 2.0,
+            "auto_fail": false
+          },
+          {
+            "task_id": "T02c-spreadsheet-reconciliation",
+            "variant": "clean",
+            "run_index": 2,
+            "weighted_total": 0.0,
+            "auto_fail": true
+          }
+        ]
+      },
+      "human": {
+        "mean_overall": 2.415,
+        "mean_messy": 2.408,
+        "mean_clean": 2.421,
+        "n_runs": 12,
+        "auto_fails": 2,
+        "per_run": [
+          {
+            "task_id": "T01-inbox-triage",
+            "variant": "messy",
+            "run_index": 0,
+            "weighted_total": 3.45,
+            "auto_fail": false
+          },
+          {
+            "task_id": "T01-inbox-triage",
+            "variant": "messy",
+            "run_index": 1,
+            "weighted_total": 3.35,
+            "auto_fail": false
+          },
+          {
+            "task_id": "T01-inbox-triage",
+            "variant": "messy",
+            "run_index": 2,
+            "weighted_total": 3.25,
+            "auto_fail": false
+          },
+          {
+            "task_id": "T01c-inbox-triage",
+            "variant": "clean",
+            "run_index": 0,
+            "weighted_total": 3.091,
+            "auto_fail": false
+          },
+          {
+            "task_id": "T01c-inbox-triage",
+            "variant": "clean",
+            "run_index": 1,
+            "weighted_total": 3.182,
+            "auto_fail": false
+          },
+          {
+            "task_id": "T01c-inbox-triage",
+            "variant": "clean",
+            "run_index": 2,
+            "weighted_total": 3.182,
+            "auto_fail": false
+          },
+          {
+            "task_id": "T02-spreadsheet-reconciliation",
+            "variant": "messy",
+            "run_index": 0,
+            "weighted_total": 1.9,
+            "auto_fail": false
+          },
+          {
+            "task_id": "T02-spreadsheet-reconciliation",
+            "variant": "messy",
+            "run_index": 1,
+            "weighted_total": 2.5,
+            "auto_fail": false
+          },
+          {
+            "task_id": "T02-spreadsheet-reconciliation",
+            "variant": "messy",
+            "run_index": 2,
+            "weighted_total": 0.0,
+            "auto_fail": true
+          },
+          {
+            "task_id": "T02c-spreadsheet-reconciliation",
+            "variant": "clean",
+            "run_index": 0,
+            "weighted_total": 2.714,
+            "auto_fail": false
+          },
+          {
+            "task_id": "T02c-spreadsheet-reconciliation",
+            "variant": "clean",
+            "run_index": 1,
+            "weighted_total": 2.357,
+            "auto_fail": false
+          },
+          {
+            "task_id": "T02c-spreadsheet-reconciliation",
+            "variant": "clean",
+            "run_index": 2,
+            "weighted_total": 0.0,
+            "auto_fail": true
+          }
+        ]
+      }
+    }
+  ],
+  "mess_penalty": {
+    "per_pair": [
+      {
+        "model": "gemini-flash",
+        "pair": "T01-inbox-triage",
+        "clean_task": "T01c-inbox-triage",
+        "judge": -0.545,
+        "human": -0.0
+      },
+      {
+        "model": "gemini-flash",
+        "pair": "T02-spreadsheet-reconciliation",
+        "clean_task": "T02c-spreadsheet-reconciliation",
+        "judge": 0.333,
+        "human": 0.262
+      },
+      {
+        "model": "glm-4.7-flash",
+        "pair": "T01-inbox-triage",
+        "clean_task": "T01c-inbox-triage",
+        "judge": -0.848,
+        "human": -0.485
+      },
+      {
+        "model": "glm-4.7-flash",
+        "pair": "T02-spreadsheet-reconciliation",
+        "clean_task": "T02c-spreadsheet-reconciliation",
+        "judge": 1.071,
+        "human": 0.762
+      },
+      {
+        "model": "gpt-oss-20b-free",
+        "pair": "T01-inbox-triage",
+        "clean_task": "T01c-inbox-triage",
+        "judge": -0.242,
+        "human": 0.303
+      },
+      {
+        "model": "gpt-oss-20b-free",
+        "pair": "T02-spreadsheet-reconciliation",
+        "clean_task": "T02c-spreadsheet-reconciliation",
+        "judge": 0.857,
+        "human": 0.31
+      },
+      {
+        "model": "llama-3.3-70b",
+        "pair": "T01-inbox-triage",
+        "clean_task": "T01c-inbox-triage",
+        "judge": 0.576,
+        "human": 0.212
+      },
+      {
+        "model": "llama-3.3-70b",
+        "pair": "T02-spreadsheet-reconciliation",
+        "clean_task": "T02c-spreadsheet-reconciliation",
+        "judge": 0.857,
+        "human": 0.643
+      }
+    ],
+    "per_model": [
+      {
+        "model": "gemini-flash",
+        "judge": -0.106,
+        "human": 0.131
+      },
+      {
+        "model": "glm-4.7-flash",
+        "judge": 0.111,
+        "human": 0.139
+      },
+      {
+        "model": "gpt-oss-20b-free",
+        "judge": 0.307,
+        "human": 0.306
+      },
+      {
+        "model": "llama-3.3-70b",
+        "judge": 0.716,
+        "human": 0.427
+      }
+    ]
+  },
+  "silent_failure": [
+    {
+      "model": "gemini-flash",
+      "silent": 6,
+      "flagged": 0,
+      "na_excluded": 6,
+      "rate": 1.0
+    },
+    {
+      "model": "glm-4.7-flash",
+      "silent": 11,
+      "flagged": 0,
+      "na_excluded": 1,
+      "rate": 1.0
+    },
+    {
+      "model": "gpt-oss-20b-free",
+      "silent": 12,
+      "flagged": 0,
+      "na_excluded": 0,
+      "rate": 1.0
+    },
+    {
+      "model": "llama-3.3-70b",
+      "silent": 8,
+      "flagged": 4,
+      "na_excluded": 0,
+      "rate": 0.667
+    }
+  ],
+  "agreement": {
+    "n_paired": 48,
+    "n_unpaired": 0,
+    "unpaired_records": [],
+    "per_criterion": [
+      {
+        "criterion": "catches-scheduling-conflict",
+        "n": 12,
+        "pearson_r": 0.686,
+        "mae": 0.667
+      },
+      {
+        "criterion": "catches-superseded-instruction",
+        "n": 12,
+        "pearson_r": 0.897,
+        "mae": 0.5
+      },
+      {
+        "criterion": "correct-prioritization",
+        "n": 24,
+        "pearson_r": 0.737,
+        "mae": 0.5
+      },
+      {
+        "criterion": "correct-reconciled-total",
+        "n": 24,
+        "pearson_r": 0.916,
+        "mae": 0.292
+      },
+      {
+        "criterion": "discrepancy-list-quality",
+        "n": 24,
+        "pearson_r": 0.511,
+        "mae": 0.708
+      },
+      {
+        "criterion": "finds-duplicate",
+        "n": 24,
+        "pearson_r": 0.89,
+        "mae": 0.292
+      },
+      {
+        "criterion": "flags-ambiguity-not-guesses",
+        "n": 24,
+        "pearson_r": 0.289,
+        "mae": 1.125
+      },
+      {
+        "criterion": "identifies-real-vs-cosmetic",
+        "n": 12,
+        "pearson_r": 0.651,
+        "mae": 0.917
+      },
+      {
+        "criterion": "reply-quality",
+        "n": 24,
+        "pearson_r": 0.576,
+        "mae": 1.083
+      },
+      {
+        "criterion": "surfaces-not-silently-resolves",
+        "n": 24,
+        "pearson_r": 0.473,
+        "mae": 1.0
+      }
+    ],
+    "weighted_total_pearson_r": 0.694,
+    "weighted_total_mae": 0.769,
+    "auto_fail_exact_match_rate": 0.875,
+    "top_disagreements": [
+      {
+        "record": "T01c-inbox-triage__gpt-oss-20b-free__run1",
+        "judge_total": 0.0,
+        "human_total": 3.727,
+        "abs_diff": 3.727,
+        "judge_auto_fail": true,
+        "human_auto_fail": false
+      },
+      {
+        "record": "T01-inbox-triage__llama-3.3-70b__run1",
+        "judge_total": 0.0,
+        "human_total": 3.35,
+        "abs_diff": 3.35,
+        "judge_auto_fail": true,
+        "human_auto_fail": false
+      },
+      {
+        "record": "T01-inbox-triage__glm-4.7-flash__run1",
+        "judge_total": 0.0,
+        "human_total": 3.3,
+        "abs_diff": 3.3,
+        "judge_auto_fail": true,
+        "human_auto_fail": false
+      },
+      {
+        "record": "T02-spreadsheet-reconciliation__glm-4.7-flash__run1",
+        "judge_total": 2.9,
+        "human_total": 0.0,
+        "abs_diff": 2.9,
+        "judge_auto_fail": false,
+        "human_auto_fail": true
+      },
+      {
+        "record": "T02-spreadsheet-reconciliation__gemini-flash__run2",
+        "judge_total": 2.7,
+        "human_total": 0.0,
+        "abs_diff": 2.7,
+        "judge_auto_fail": false,
+        "human_auto_fail": true
+      },
+      {
+        "record": "T02-spreadsheet-reconciliation__gemini-flash__run0",
+        "judge_total": 2.3,
+        "human_total": 0.0,
+        "abs_diff": 2.3,
+        "judge_auto_fail": false,
+        "human_auto_fail": true
+      },
+      {
+        "record": "T01c-inbox-triage__glm-4.7-flash__run2",
+        "judge_total": 1.0,
+        "human_total": 2.818,
+        "abs_diff": 1.818,
+        "judge_auto_fail": false,
+        "human_auto_fail": false
+      },
+      {
+        "record": "T02-spreadsheet-reconciliation__llama-3.3-70b__run1",
+        "judge_total": 1.45,
+        "human_total": 2.5,
+        "abs_diff": 1.05,
+        "judge_auto_fail": false,
+        "human_auto_fail": false
+      },
+      {
+        "record": "T01c-inbox-triage__llama-3.3-70b__run1",
+        "judge_total": 4.182,
+        "human_total": 3.182,
+        "abs_diff": 1.0,
+        "judge_auto_fail": false,
+        "human_auto_fail": false
+      },
+      {
+        "record": "T02-spreadsheet-reconciliation__glm-4.7-flash__run2",
+        "judge_total": 2.9,
+        "human_total": 3.9,
+        "abs_diff": 1.0,
+        "judge_auto_fail": false,
+        "human_auto_fail": false
+      }
+    ]
+  },
+  "variance": [
+    {
+      "model": "gemini-flash",
+      "task_id": "T01-inbox-triage",
+      "variant": "messy",
+      "n_runs": 3,
+      "judge_std": 0.173,
+      "human_std": 0.202
+    },
+    {
+      "model": "gemini-flash",
+      "task_id": "T01c-inbox-triage",
+      "variant": "clean",
+      "n_runs": 3,
+      "judge_std": 0.0,
+      "human_std": 0.0
+    },
+    {
+      "model": "gemini-flash",
+      "task_id": "T02-spreadsheet-reconciliation",
+      "variant": "messy",
+      "n_runs": 3,
+      "judge_std": 1.457,
+      "human_std": 0.0
+    },
+    {
+      "model": "gemini-flash",
+      "task_id": "T02c-spreadsheet-reconciliation",
+      "variant": "clean",
+      "n_runs": 3,
+      "judge_std": 0.0,
+      "human_std": 0.0
+    },
+    {
+      "model": "glm-4.7-flash",
+      "task_id": "T01-inbox-triage",
+      "variant": "messy",
+      "n_runs": 3,
+      "judge_std": 2.066,
+      "human_std": 1.102
+    },
+    {
+      "model": "glm-4.7-flash",
+      "task_id": "T01c-inbox-triage",
+      "variant": "clean",
+      "n_runs": 3,
+      "judge_std": 1.488,
+      "human_std": 0.368
+    },
+    {
+      "model": "glm-4.7-flash",
+      "task_id": "T02-spreadsheet-reconciliation",
+      "variant": "messy",
+      "n_runs": 3,
+      "judge_std": 0.087,
+      "human_std": 2.146
+    },
+    {
+      "model": "glm-4.7-flash",
+      "task_id": "T02c-spreadsheet-reconciliation",
+      "variant": "clean",
+      "n_runs": 3,
+      "judge_std": 0.143,
+      "human_std": 0.189
+    },
+    {
+      "model": "gpt-oss-20b-free",
+      "task_id": "T01-inbox-triage",
+      "variant": "messy",
+      "n_runs": 3,
+      "judge_std": 0.635,
+      "human_std": 0.462
+    },
+    {
+      "model": "gpt-oss-20b-free",
+      "task_id": "T01c-inbox-triage",
+      "variant": "clean",
+      "n_runs": 3,
+      "judge_std": 1.994,
+      "human_std": 0.897
+    },
+    {
+      "model": "gpt-oss-20b-free",
+      "task_id": "T02-spreadsheet-reconciliation",
+      "variant": "messy",
+      "n_runs": 3,
+      "judge_std": 0.606,
+      "human_std": 0.695
+    },
+    {
+      "model": "gpt-oss-20b-free",
+      "task_id": "T02c-spreadsheet-reconciliation",
+      "variant": "clean",
+      "n_runs": 3,
+      "judge_std": 2.363,
+      "human_std": 1.98
+    },
+    {
+      "model": "llama-3.3-70b",
+      "task_id": "T01-inbox-triage",
+      "variant": "messy",
+      "n_runs": 3,
+      "judge_std": 1.793,
+      "human_std": 0.1
+    },
+    {
+      "model": "llama-3.3-70b",
+      "task_id": "T01c-inbox-triage",
+      "variant": "clean",
+      "n_runs": 3,
+      "judge_std": 0.687,
+      "human_std": 0.053
+    },
+    {
+      "model": "llama-3.3-70b",
+      "task_id": "T02-spreadsheet-reconciliation",
+      "variant": "messy",
+      "n_runs": 3,
+      "judge_std": 0.757,
+      "human_std": 1.305
+    },
+    {
+      "model": "llama-3.3-70b",
+      "task_id": "T02c-spreadsheet-reconciliation",
+      "variant": "clean",
+      "n_runs": 3,
+      "judge_std": 1.27,
+      "human_std": 1.475
+    }
+  ]
+}

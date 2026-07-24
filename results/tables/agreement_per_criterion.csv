@@ -1,0 +1,11 @@
+criterion,n,pearson_r,mae
+catches-scheduling-conflict,12,0.686,0.667
+catches-superseded-instruction,12,0.897,0.5
+correct-prioritization,24,0.737,0.5
+correct-reconciled-total,24,0.916,0.292
+discrepancy-list-quality,24,0.511,0.708
+finds-duplicate,24,0.89,0.292
+flags-ambiguity-not-guesses,24,0.289,1.125
+identifies-real-vs-cosmetic,12,0.651,0.917
+reply-quality,24,0.576,1.083
+surfaces-not-silently-resolves,24,0.473,1.0

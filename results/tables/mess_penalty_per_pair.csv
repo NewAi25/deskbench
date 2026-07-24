@@ -1,0 +1,9 @@
+model,pair,clean_task,judge,human
+gemini-flash,T01-inbox-triage,T01c-inbox-triage,-0.545,-0.0
+gemini-flash,T02-spreadsheet-reconciliation,T02c-spreadsheet-reconciliation,0.333,0.262
+glm-4.7-flash,T01-inbox-triage,T01c-inbox-triage,-0.848,-0.485
+glm-4.7-flash,T02-spreadsheet-reconciliation,T02c-spreadsheet-reconciliation,1.071,0.762
+gpt-oss-20b-free,T01-inbox-triage,T01c-inbox-triage,-0.242,0.303
+gpt-oss-20b-free,T02-spreadsheet-reconciliation,T02c-spreadsheet-reconciliation,0.857,0.31
+llama-3.3-70b,T01-inbox-triage,T01c-inbox-triage,0.576,0.212
+llama-3.3-70b,T02-spreadsheet-reconciliation,T02c-spreadsheet-reconciliation,0.857,0.643

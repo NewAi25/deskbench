@@ -1,0 +1,17 @@
+model,task_id,variant,n_runs,judge_std,human_std
+gemini-flash,T01-inbox-triage,messy,3,0.173,0.202
+gemini-flash,T01c-inbox-triage,clean,3,0.0,0.0
+gemini-flash,T02-spreadsheet-reconciliation,messy,3,1.457,0.0
+gemini-flash,T02c-spreadsheet-reconciliation,clean,3,0.0,0.0
+glm-4.7-flash,T01-inbox-triage,messy,3,2.066,1.102
+glm-4.7-flash,T01c-inbox-triage,clean,3,1.488,0.368
+glm-4.7-flash,T02-spreadsheet-reconciliation,messy,3,0.087,2.146
+glm-4.7-flash,T02c-spreadsheet-reconciliation,clean,3,0.143,0.189
+gpt-oss-20b-free,T01-inbox-triage,messy,3,0.635,0.462
+gpt-oss-20b-free,T01c-inbox-triage,clean,3,1.994,0.897
+gpt-oss-20b-free,T02-spreadsheet-reconciliation,messy,3,0.606,0.695
+gpt-oss-20b-free,T02c-spreadsheet-reconciliation,clean,3,2.363,1.98
+llama-3.3-70b,T01-inbox-triage,messy,3,1.793,0.1
+llama-3.3-70b,T01c-inbox-triage,clean,3,0.687,0.053
+llama-3.3-70b,T02-spreadsheet-reconciliation,messy,3,0.757,1.305
+llama-3.3-70b,T02c-spreadsheet-reconciliation,clean,3,1.27,1.475

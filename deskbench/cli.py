@@ -1,8 +1,9 @@
 """DeskBench command-line interface (Typer).
 
 Grows one command per box. Step 2 ships ``ping``/``models``; Step 4 adds
-``run`` (tasks → raw results); Step 5 adds ``grade`` (raw results → scores).
-Analyze/render land in later steps.
+``run`` (tasks → raw results); Step 5 adds ``grade`` (raw results → scores);
+Step 8 adds ``analyze`` (scores + human grades → summary + tables). ``render``
+lands in Step 9.
 """
 
 from __future__ import annotations
@@ -11,6 +12,17 @@ from pathlib import Path
 
 import typer
 
+from .analyzer import (
+    DEFAULT_HUMAN_DIR,
+    DEFAULT_SUMMARY,
+    DEFAULT_TABLES_DIR,
+    AnalyzerError,
+    analyze,
+    write_outputs,
+)
+from .analyzer import (
+    DEFAULT_RAW_DIR as ANALYZER_RAW_DIR,
+)
 from .grader import DEFAULT_SCORES_DIR, GraderError, grade_raw_result
 from .registry import DEFAULT_CONFIG, ConfigError, load_registry
 from .runner import DEFAULT_RAW_DIR, RunnerError, resolve_task_dirs, run_task
@@ -173,6 +185,46 @@ def grade(
     typer.echo(f"\nGraded {graded}, skipped {skipped} (errored), failed {failed} → {out}/")
     if failed:
         raise typer.Exit(1)
+
+
+@app.command("analyze")
+def analyze_cmd(
+    tasks_dir: Path = typer.Option(Path("tasks"), help="Directory of task folders."),
+    raw_dir: Path = typer.Option(ANALYZER_RAW_DIR, help="Raw result JSONs."),
+    scores_dir: Path = typer.Option(DEFAULT_SCORES_DIR, help="Judge score JSONs."),
+    human_dir: Path = typer.Option(DEFAULT_HUMAN_DIR, help="Human grade JSONs."),
+    summary: Path = typer.Option(DEFAULT_SUMMARY, help="Where to write summary.json."),
+    tables: Path = typer.Option(DEFAULT_TABLES_DIR, help="Where to write CSV tables."),
+):
+    """Aggregate scores + human grades into summary.json and CSV tables.
+
+    Needs no keys and no network: it only reads the evidence already on disk.
+    """
+    try:
+        result = analyze(tasks_dir, raw_dir, scores_dir, human_dir)
+    except AnalyzerError as exc:
+        typer.secho(str(exc), fg=typer.colors.RED, err=True)
+        raise typer.Exit(1) from exc
+    written = write_outputs(result, summary, tables)
+
+    m = result["matrix"]
+    typer.echo(
+        f"evidence: {m['n_raw']} raw / {m['n_judge_scores']} judge / {m['n_human_grades']} human"
+    )
+    typer.echo("leaderboard (judge overall | human overall):")
+    for row in result["leaderboard"]:
+        typer.echo(
+            f"  {row['model']:22s} {row['judge']['mean_overall']:5.2f} | "
+            f"{row['human']['mean_overall']:5.2f}"
+        )
+    a = result["agreement"]
+    typer.echo(
+        f"agreement: weighted-total r={a['weighted_total_pearson_r']} "
+        f"MAE={a['weighted_total_mae']} auto-fail match={a['auto_fail_exact_match_rate']} "
+        f"(n={a['n_paired']})"
+    )
+    for p in written:
+        typer.echo(f"wrote {p}")
 
 
 if __name__ == "__main__":

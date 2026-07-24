@@ -1,0 +1,11 @@
+record,judge_total,human_total,abs_diff,judge_auto_fail,human_auto_fail
+T01c-inbox-triage__gpt-oss-20b-free__run1,0.0,3.727,3.727,True,False
+T01-inbox-triage__llama-3.3-70b__run1,0.0,3.35,3.35,True,False
+T01-inbox-triage__glm-4.7-flash__run1,0.0,3.3,3.3,True,False
+T02-spreadsheet-reconciliation__glm-4.7-flash__run1,2.9,0.0,2.9,False,True
+T02-spreadsheet-reconciliation__gemini-flash__run2,2.7,0.0,2.7,False,True
+T02-spreadsheet-reconciliation__gemini-flash__run0,2.3,0.0,2.3,False,True
+T01c-inbox-triage__glm-4.7-flash__run2,1.0,2.818,1.818,False,False
+T02-spreadsheet-reconciliation__llama-3.3-70b__run1,1.45,2.5,1.05,False,False
+T01c-inbox-triage__llama-3.3-70b__run1,4.182,3.182,1.0,False,False
+T02-spreadsheet-reconciliation__glm-4.7-flash__run2,2.9,3.9,1.0,False,False

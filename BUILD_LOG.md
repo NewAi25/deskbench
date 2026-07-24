@@ -902,3 +902,47 @@ end to end (run → grade) on real free-tier providers.
 
 **Next.** Step 8 analyzer computes judge–human agreement from these pairs;
 whatever the number is, it ships.
+
+---
+
+## 2026-07-24 — Step 8: Analyzer
+
+**Built.**
+
+- `deskbench/analyzer.py` (Box 6) + `deskbench analyze` (no keys, no network —
+  it only reads the evidence on disk) → `results/summary.json` +
+  `results/tables/*.csv` (leaderboard, runs, mess_penalty per pair + per
+  model, silent_failure, agreement_per_criterion, disagreements, variance).
+- The five outputs, exactly as specced: (a) leaderboard means per model, judge
+  AND human, split messy/clean, with every per-run value listed; (b) mess
+  penalty per model per twin pair, CORE criteria only, relative-core-weight
+  formula per methodology §3 (sign = clean − messy), computed independently
+  from judge and from human scores — per-criterion means, never weighted
+  totals, so auto-fail zeros don't enter; (c) silent-failure rate from the
+  HUMAN tags only, na excluded, counts reported; (d) judge–human agreement:
+  per-criterion Pearson r + MAE, auto-fail exact-match rate, weighted-total
+  r + MAE, top-10 disagreements with record ids; (e) per model×task
+  across-run sample std dev (ddof=1), judge and human.
+- Honest-edge handling baked in: Pearson is `None` (never 0 or 1) when a side
+  has zero variance; silent-failure rate is `None` when a model had no wrong
+  answers; std dev is `None` for n<2; the analyzer *raises* rather than
+  imputes when core criteria lack scores or criteria sets mismatch.
+- `tests/test_analyzer.py` (11 tests): every formula pinned on hand-computed
+  fixtures (Pearson r=0.8 case, MAE, the §3 penalty formula incl. relative
+  weights and the sign convention, na exclusion), plus integration tests
+  against the committed pilot evidence checking internal consistency —
+  48/48/48 counts, every leaderboard mean re-derivable from its own per-run
+  list, per-model penalty = mean of per-pair penalties. 115 tests green.
+
+**Headline numbers (computed, first look — the report interprets, this just
+records):** judge–human weighted-total r = 0.694, MAE = 0.769, auto-fail
+match = 87.5% (n=48). Mess penalty (judge | human): llama-3.3-70b +0.716 |
++0.427, gpt-oss-20b-free +0.307 | +0.306, glm-4.7-flash +0.111 | +0.139,
+gemini-flash −0.106 | +0.131 (judge and human disagree on gemini's sign —
+worth a report note). Silent-failure rate: 1.00 for three models (every wrong
+answer unflagged); llama 0.667. Moderate agreement is a FINDING, reported
+as-is.
+
+**DoD.** `results/summary.json` complete with leaderboard, mess_penalty,
+silent_failure, agreement, variance — every number computed from `results/`
+files; tables written; predicate `summary_mvp_complete` satisfied. ✅
