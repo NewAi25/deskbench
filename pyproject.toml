@@ -53,6 +53,8 @@ select = ["E", "F", "I", "W", "UP", "B"]
 [tool.ruff.lint.per-file-ignores]
 # Typer's declarative API intentionally calls Option()/Argument() in defaults.
 "deskbench/cli.py" = ["B008"]
+# The dashboard HTML/JS template embeds long markup lines by nature.
+"deskbench/visualize.py" = ["E501"]
 
 [tool.pytest.ini_options]
 testpaths = ["tests"]

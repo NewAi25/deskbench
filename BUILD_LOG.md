@@ -946,3 +946,46 @@ as-is.
 **DoD.** `results/summary.json` complete with leaderboard, mess_penalty,
 silent_failure, agreement, variance — every number computed from `results/`
 files; tables written; predicate `summary_mvp_complete` satisfied. ✅
+
+---
+
+## 2026-07-24 — Step 9: Pilot dashboard
+
+**Built.**
+
+- `deskbench/visualize.py` + `deskbench render` → `site/index.html`: ONE
+  self-contained file (442 KB), no build step, opens from disk. All data
+  inlined as JSON from `results/`; the only external reference is the pinned
+  Plotly CDN script (explicitly allowed by DASHBOARD_SPEC). No hand-entered
+  numbers — the agreement badge, chart values, and inspector content all come
+  from summary.json + the evidence files, asserted by test.
+- The spec'd sections: header with run matrix + judge–human agreement badge;
+  leaderboard (judge vs human side by side, messy/clean split, min–max
+  whiskers, Okabe–Ito per-model colors, human bars hatched); mess penalty
+  with the sign convention printed on the chart and per-pair breakdown on
+  hover; silent-failure rate with denominators printed per bar (small-n
+  noisiness called out in the caption); judge-vs-human scatter (y=x dashed,
+  r/MAE/auto-fail-match printed, one point per graded run); and the run
+  inspector — prompt · model output · reference · per-criterion judge scores
+  WITH rationales · human scores, notes, and silent/flagged tag — with
+  dropdowns, scatter click-through, and URL-hash deep links.
+- Global model filter (checkboxes) re-renders every chart, per spec.
+- `tests/test_visualize.py` (5 tests): all 48 records embedded with the full
+  inspector chain; every section id present; badge numbers match summary.json
+  verbatim; JSON payload safely escaped (`</` cannot terminate the script
+  tag); single external script = pinned Plotly only. 120 tests green.
+- Verified interactively in a browser: charts render, filters work, scatter
+  click opens the inspector at the clicked record (checked on a judge-0 vs
+  human-3.3 auto-fail disagreement), zero console errors.
+
+**Decided.**
+
+- The leaderboard y-axis runs 0–5, not the spec's 1–5: auto-failed runs are
+  real 0.0 totals and truncating the axis would hide exactly the failures the
+  benchmark exists to surface. Honesty beats spec-literalism; noted here.
+- Deviation from the spec's "≤5 MB with inline JSON": easily met (442 KB), so
+  raw outputs and judge rationales are embedded in full, uncompressed —
+  the inspector shows verbatim evidence, not excerpts.
+
+**DoD.** `site/index.html` exists, embeds summary data, renders the four pilot
+charts + run inspector; predicate `dashboard_embeds_data` satisfied. ✅

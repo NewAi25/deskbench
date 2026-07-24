@@ -27,6 +27,7 @@ from .grader import DEFAULT_SCORES_DIR, GraderError, grade_raw_result
 from .registry import DEFAULT_CONFIG, ConfigError, load_registry
 from .runner import DEFAULT_RAW_DIR, RunnerError, resolve_task_dirs, run_task
 from .schemas import RawResult
+from .visualize import DEFAULT_SITE
 
 app = typer.Typer(
     help="DeskBench — a benchmark for messy real-world office work.",
@@ -225,6 +226,32 @@ def analyze_cmd(
     )
     for p in written:
         typer.echo(f"wrote {p}")
+
+
+@app.command("render")
+def render_cmd(
+    tasks_dir: Path = typer.Option(Path("tasks"), help="Directory of task folders."),
+    raw_dir: Path = typer.Option(ANALYZER_RAW_DIR, help="Raw result JSONs."),
+    scores_dir: Path = typer.Option(DEFAULT_SCORES_DIR, help="Judge score JSONs."),
+    human_dir: Path = typer.Option(DEFAULT_HUMAN_DIR, help="Human grade JSONs."),
+    summary: Path = typer.Option(DEFAULT_SUMMARY, help="summary.json from `analyze`."),
+    out: Path = typer.Option(DEFAULT_SITE, help="Output HTML path."),
+):
+    """Render the self-contained pilot dashboard (site/index.html).
+
+    Needs no keys and no network: it inlines summary.json + the per-record
+    evidence into one HTML file.
+    """
+    from .visualize import VisualizeError
+    from .visualize import render as render_site
+
+    try:
+        path = render_site(tasks_dir, raw_dir, scores_dir, human_dir, summary, out)
+    except VisualizeError as exc:
+        typer.secho(str(exc), fg=typer.colors.RED, err=True)
+        raise typer.Exit(1) from exc
+    size_kb = path.stat().st_size / 1024
+    typer.echo(f"wrote {path} ({size_kb:.0f} KB, self-contained)")
 
 
 if __name__ == "__main__":
